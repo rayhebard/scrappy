@@ -18,8 +18,6 @@ const kSlapRockGray = Color(0xFFB2B4B2);
 const kLegacyBlack = Color(0xFF2d2926);
 
 
-
-
 const kLargeButtonTextStyle = TextStyle(
   fontSize: 25.0,
   fontWeight:  FontWeight.bold
