@@ -24,8 +24,8 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
   var eventService = EventService();
   void getSingleEvent(id) async{
-    event = await eventService.getEventById(id);
-    print(event.id);
+   event = await eventService.getEventById(id);
+   print(event.id);
   }
 
   void getEvents()async{
@@ -44,18 +44,23 @@ class _EventsBankPageState extends State<EventsBankPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(child:
-             Row(
-               children: [
-                 Text("CSSE Events", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: kCardColor)),
-                 SizedBox(width: 100.0),
-                 Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 36,),
-               ],
-             )
+            Row(
+              children: [
+                Text("CSSE Events", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: kCardColor)),
+                SizedBox(width: 100.0),
+                Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 36,),
+                Padding(
+                  padding: EdgeInsets.only(left:30.0,),),
+              ],
+            )
             ),
             Row(
-             children: [
-               Text('Whats New Today', style:TextStyle(color: kCardColor))
-             ],
+              children: [
+                Text('Whats New Today', style:TextStyle(color: kCardColor)),
+                Padding(
+                  padding: EdgeInsets.only(left:30.0,),),
+
+              ],
             ),
             Expanded(
                 child: ReusableCard(
@@ -109,13 +114,13 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     children: <Widget> [
                       Expanded(
                           child: ReusableCard(
-                            onPress: (){
-                              setState(() {
+                              onPress: (){
+                                setState(() {
 
-                              });
-                            },
+                                });
+                              },
                               cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'CSE Industry Talks',),
-                            colour: kSlapRockGray)
+                              colour: kSlapRockGray)
                       ),
                       Expanded(
                           child: ReusableCard(
@@ -134,58 +139,73 @@ class _EventsBankPageState extends State<EventsBankPage> {
             Expanded(child:
             Row(
               children: <Widget>[
-                  ButtonBar(
-                    children: [
-                      RaisedButton(
-                          color: kCardColor,
-                          child: Text('Calendar',
-                            style: TextStyle(fontSize: 12.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return CalendarPage();
-                                })
-                            );
-                          }),
-                      RaisedButton(
-                          color: kCardColor,
-                          child: Text('Notifications',
-                            style: TextStyle(fontSize: 12.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return NotificationPage();
-                                }
-                                )
-                            );
-                          }),
+                ButtonBar(
+                  children: [
+                    RaisedButton(
+                        color: kCardColor,
+                        child: Text('Calendar',
+                          style: TextStyle(fontSize: 12.0),)
+                        ,
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context){
+                                return CalendarPage();
+                              })
+                          );
+                        }),
+                    RaisedButton(
+                        color: kCardColor,
+                        child: Text('Notifications',
+                          style: TextStyle(fontSize: 12.0),)
+                        ,
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context){
+                                return NotificationPage();
+                              }
+                              )
+                          );
+                        }),
 
-                      RaisedButton(
-                          color: kCardColor,
-                          child: Text('Maps',
-                            style: TextStyle(fontSize: 12.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return MapPage();
-                                  // return ResultsPage( bmiResult: calc.calculateBMI(), resultText: calc.getResult(), interpret: calc.getInterpretation(),);
-                                }
-                                )
-                            );
-                          }),
-                    ],
-                  )
-                ],
-              ),
+                    RaisedButton(
+                        color: kCardColor,
+                        child: Text('Maps',
+                          style: TextStyle(fontSize: 12.0),)
+                        ,
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context){
+                                return MapPage();
+
+                              }
+                              )
+                          );
+                        }),
+                  ],
+                )
+              ],
+            ),
             )
           ],
-        )
+        ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.home), title: Text("Home")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.star), title: Text("Favorites")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.calendar), title: Text("Calendar")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.bell), title: Text("Notifications")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.compass), title: Text("Campus Maps")),
+      ],
+    ),
     );
   }
 }
