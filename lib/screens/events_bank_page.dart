@@ -10,11 +10,9 @@ import 'calendar_page.dart';
 import 'notification_page.dart';
 import 'map_page.dart';
 import 'package:scrappy/services/event_service.dart';
+import 'package:scrappy/models/event.dart';
+import 'package:scrappy/models/events_bank.dart';
 
-enum Gender{
-  male,
-  female,
-}
 
 class EventsBankPage extends StatefulWidget {
   @override
@@ -30,9 +28,16 @@ class _EventsBankPageState extends State<EventsBankPage> {
     print(event.id);
   }
 
+  void getEvents()async{
+    EventBank eventBank = await eventService.getEvents();
+    print(eventBank.vault[0].title);
+  }
+
   @override
   Widget build(BuildContext context) {
     getSingleEvent(34493879638912);
+    getEvents();
+
     return Scaffold(
 
         body:Column(
