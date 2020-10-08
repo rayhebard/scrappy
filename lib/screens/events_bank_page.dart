@@ -9,7 +9,7 @@ import 'event_tags_page.dart';
 import 'calendar_page.dart';
 import 'notification_page.dart';
 import 'map_page.dart';
-import 'package:scrappy/utils/eventservice.dart';
+import 'package:scrappy/services/event_service.dart';
 
 enum Gender{
   male,
