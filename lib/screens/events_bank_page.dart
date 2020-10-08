@@ -9,7 +9,7 @@ import 'event_tags_page.dart';
 import 'calendar_page.dart';
 import 'notification_page.dart';
 import 'map_page.dart';
-
+import 'package:scrappy/utils/eventservice.dart';
 
 enum Gender{
   male,
@@ -27,9 +27,10 @@ class _EventsBankPageState extends State<EventsBankPage> {
   int weight = 0;
   int age = 0;
 
-
   @override
   Widget build(BuildContext context) {
+    EventService().getEventById(1);
+
     return Scaffold(
 
         body:Column(
