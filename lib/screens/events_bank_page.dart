@@ -22,15 +22,17 @@ class EventsBankPage extends StatefulWidget {
 }
 
 class _EventsBankPageState extends State<EventsBankPage> {
-  Gender selectedGender;
-  int height = 0;
-  int weight = 0;
-  int age = 0;
+  var event;
+
+  var eventService = EventService();
+  void getSingleEvent() async{
+    event = await eventService.getEventById(1);
+    print(event.id);
+  }
 
   @override
   Widget build(BuildContext context) {
-    EventService().getEventById(1);
-
+    getSingleEvent();
     return Scaffold(
 
         body:Column(
@@ -104,7 +106,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                           child: ReusableCard(
                             onPress: (){
                               setState(() {
-                                selectedGender = Gender.male;
+
                               });
                             },
                               cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'CSE Industry Talks',),
@@ -114,7 +116,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                           child: ReusableCard(
                             onPress: (){
                               setState(() {
-                                selectedGender = Gender.female;
+
                               });
                             },
                             cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'Dean Speaks',),

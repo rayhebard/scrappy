@@ -17,8 +17,6 @@ class EventService {
       var data = json.decode(response.body);
       var page = data["page"];
       var dateRange = data["date"];
-      List list = data["events"].toList();
-      print(list);
     }catch(e){
       print(e);
     } finally{
@@ -27,19 +25,22 @@ class EventService {
 
   }
 
-  getEventById(eventId) async{
+  Future getEventById(eventId) async{
     int id = eventId;
+    Event event;
 
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/34493879638912');
       var data = json.decode(response.body);
-      var event = Event.fromJSON(data["event"]);
+      event = Event.fromJSON(data["event"]);
       print(event.description);
     }catch(e){
       print(e);
     } finally{
       client.close();
+      // ignore: control_flow_in_finally
+      return event ;
     }
   }
 
