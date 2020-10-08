@@ -26,12 +26,11 @@ class EventService {
   }
 
   Future getEventById(eventId) async{
-    int id = eventId;
     Event event;
 
     var client = Client();
     try{
-      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/34493879638912');
+      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/$eventId');
       var data = json.decode(response.body);
       event = Event.fromJSON(data["event"]);
       print(event.description);
