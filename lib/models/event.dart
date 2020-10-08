@@ -103,7 +103,7 @@ class Event {
       });
 
     factory Event.fromJSON(Map<String, dynamic> data){
-      return Event( id: data["id"],
+      return new Event( id: data["id"],
         title: data['title'],
         url: data['url'],
         updated_at: data['updated_at'],
@@ -155,6 +155,10 @@ class Event {
     }
 
 
-
+    // Override toString to have a beautiful log of student object
+    @override
+    String toString() {
+      return 'Event: {id = $id, title = $title}';
+    }
 
 }
