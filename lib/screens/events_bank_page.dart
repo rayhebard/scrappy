@@ -10,6 +10,7 @@ import 'calendar_page.dart';
 import 'notification_page.dart';
 import 'map_page.dart';
 import 'package:scrappy/utils/eventservice.dart';
+import'package:scrappy/models/event.dart';
 
 enum Gender{
   male,
@@ -17,6 +18,7 @@ enum Gender{
 }
 
 class EventsBankPage extends StatefulWidget {
+EventsBankPage() : super();
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
 }
@@ -27,9 +29,24 @@ class _EventsBankPageState extends State<EventsBankPage> {
   int weight = 0;
   int age = 0;
 
+  List<Event> _event;
+  bool _loading;
+
+  @override
+  void initState() {
+    super.initState();
+    _loading = true;
+    EventService().getEvent().then((event) {
+      setState(() {
+        _event = event;
+        _loading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    EventService().getEventById(1);
+    //EventService().getEventById(1);
 
     return Scaffold(
 
@@ -57,7 +74,16 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(FontAwesomeIcons.star),
-                      Text("Black Rock Lecture Series", style: kLabelTextStyle),
+                  ListView.builder(
+                    itemCount: null == _event ? 0 : _event.length,
+                    itemBuilder: (context, index) {
+                      Event event = _event[index];
+                      return ListTile(
+                        title: Text(event.title),
+                        subtitle: Text(event.url),
+                      );
+                    },
+                      /*Text("Black Rock Lecture Series", style: kLabelTextStyle),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -74,7 +100,8 @@ class _EventsBankPageState extends State<EventsBankPage> {
                           Text(
                             'Join us',
                           )
-                        ],)
+                        ],)*/
+                  )
                     ],
                   ),
                 )),

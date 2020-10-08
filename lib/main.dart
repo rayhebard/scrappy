@@ -7,7 +7,7 @@ import 'screens/event_tags_page.dart';
 import 'screens/favorites_page.dart';
 import 'screens/map_page.dart';
 import 'screens/notification_page.dart';
-
+import 'models/event.dart';
 
 
 

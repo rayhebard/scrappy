@@ -1,3 +1,4 @@
+
 class Event {
 
     //TODO - Create Properties of Event Object
@@ -156,5 +157,3 @@ class Event {
 
 
 
-
-}
