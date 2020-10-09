@@ -14,7 +14,6 @@ class EventService {
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events?pp=20&page=1&days=90');
-      print(response.statusCode);
       var data = json.decode(response.body);
       var list = data["events"] as List;
 
@@ -33,7 +32,6 @@ class EventService {
 
   Future getEventById(eventId) async{
     Event event;
-
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/$eventId');

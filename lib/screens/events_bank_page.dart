@@ -29,8 +29,8 @@ class _EventsBankPageState extends State<EventsBankPage> {
   }
 
   void getEvents()async{
-   // EventBank eventBank = await eventService.getEvents();
-   // print(eventBank.vault[0].title);
+   EventBank eventBank = await eventService.getEvents();
+   print(eventBank.vault[0].title);
   }
 
   @override
