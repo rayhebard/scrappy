@@ -9,44 +9,34 @@ import 'event_tags_page.dart';
 import 'calendar_page.dart';
 import 'notification_page.dart';
 import 'map_page.dart';
-import 'package:scrappy/utils/eventservice.dart';
-import'package:scrappy/models/event.dart';
+import 'package:scrappy/services/event_service.dart';
+import 'package:scrappy/models/event.dart';
+import 'package:scrappy/models/events_bank.dart';
 
-enum Gender{
-  male,
-  female,
-}
 
 class EventsBankPage extends StatefulWidget {
-EventsBankPage() : super();
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
 }
 
 class _EventsBankPageState extends State<EventsBankPage> {
-  Gender selectedGender;
-  int height = 0;
-  int weight = 0;
-  int age = 0;
+  var event;
 
-  List<Event> _event;
-  bool _loading;
+  var eventService = EventService();
+  void getSingleEvent(id) async{
+   event = await eventService.getEventById(id);
+   print(event.id);
+  }
 
-  @override
-  void initState() {
-    super.initState();
-    _loading = true;
-    EventService().getEvent().then((event) {
-      setState(() {
-        _event = event;
-        _loading = false;
-      });
-    });
+  void getEvents()async{
+   // EventBank eventBank = await eventService.getEvents();
+   // print(eventBank.vault[0].title);
   }
 
   @override
   Widget build(BuildContext context) {
-    //EventService().getEventById(1);
+    getSingleEvent(34493879638912);
+    getEvents();
 
     return Scaffold(
 
@@ -54,60 +44,19 @@ class _EventsBankPageState extends State<EventsBankPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(child:
-             Row(
-               children: [
-                 Text("CSSE Events", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: kCardColor)),
-                 SizedBox(width: 100.0),
-                 Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 36,),
-               ],
-             )
-            ),
             Row(
-             children: [
-               Text('Whats New Today', style:TextStyle(color: kCardColor))
-             ],
+              children: [
+
+                Padding(
+                  padding: EdgeInsets.only(left:30.0,),),
+                Text("CSSE Events", style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, color: kCardColor, )),
+                SizedBox(width: 40.0),
+                Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
+              ],
+            )
             ),
-            Expanded(
-                child: ReusableCard(
-                  colour: kHootyHooGold,
-                  cardChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(FontAwesomeIcons.star),
-                  ListView.builder(
-                    itemCount: null == _event ? 0 : _event.length,
-                    itemBuilder: (context, index) {
-                      Event event = _event[index];
-                      return ListTile(
-                        title: Text(event.title),
-                        subtitle: Text(event.url),
-                      );
-                    },
-                      /*Text("Black Rock Lecture Series", style: kLabelTextStyle),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            'September 2nd 6-7pm Microsoft Teams',
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Join us',
-                          )
-                        ],)*/
-                  )
-                    ],
-                  ),
-                )),
             Expanded(child: Row(
               children: <Widget>[
-                Icon( FontAwesomeIcons.slidersH,size: 40.0, color: Colors.blueGrey,),
                 RaisedButton(
                     color: kCardColor,
                     child: Text('Select Filters',
@@ -124,24 +73,61 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     })
               ],
             )),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left:30.0,),),
+                Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
+
+              ],
+            ),
+            Expanded(
+                child: ReusableCard(
+                  colour: kHootyHooGold,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(FontAwesomeIcons.star),
+                      Text("Black Rock Lecture Series", style: kLabelTextStyle),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            'September 2nd 6-7pm Microsoft Teams',
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Join us',
+                          )
+                        ],)
+                    ],
+                  ),
+                )),
+
             Expanded(
                 child: Row(
                     children: <Widget> [
                       Expanded(
                           child: ReusableCard(
-                            onPress: (){
-                              setState(() {
-                                selectedGender = Gender.male;
-                              });
-                            },
+                              onPress: (){
+                                setState(() {
+
+                                });
+                              },
                               cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'CSE Industry Talks',),
-                            colour: kSlapRockGray)
+                              colour: kSlapRockGray)
                       ),
                       Expanded(
                           child: ReusableCard(
                             onPress: (){
                               setState(() {
-                                selectedGender = Gender.female;
+
                               });
                             },
                             cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'Dean Speaks',),
@@ -151,61 +137,23 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     ]
                 )
             ),
-            Expanded(child:
-            Row(
-              children: <Widget>[
-                  ButtonBar(
-                    children: [
-                      RaisedButton(
-                          color: kCardColor,
-                          child: Text('Calendar',
-                            style: TextStyle(fontSize: 12.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return CalendarPage();
-                                })
-                            );
-                          }),
-                      RaisedButton(
-                          color: kCardColor,
-                          child: Text('Notifications',
-                            style: TextStyle(fontSize: 12.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return NotificationPage();
-                                }
-                                )
-                            );
-                          }),
-
-                      RaisedButton(
-                          color: kCardColor,
-                          child: Text('Maps',
-                            style: TextStyle(fontSize: 12.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return MapPage();
-                                  // return ResultsPage( bmiResult: calc.calculateBMI(), resultText: calc.getResult(), interpret: calc.getInterpretation(),);
-                                }
-                                )
-                            );
-                          }),
-                    ],
-                  )
-                ],
-              ),
-            )
           ],
-        )
+        ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.home), title: Text("Home")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.star), title: Text("Favorites")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.calendar), title: Text("Calendar")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.bell), title: Text("Notifications")),
+        BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.compass), title: Text("Campus Maps")),
+      ],
+    ),
     );
   }
 }
