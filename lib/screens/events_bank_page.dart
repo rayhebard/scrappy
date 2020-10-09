@@ -29,8 +29,8 @@ class _EventsBankPageState extends State<EventsBankPage> {
   }
 
   void getEvents()async{
-    EventBank eventBank = await eventService.getEvents();
-    print(eventBank.vault[0].title);
+   // EventBank eventBank = await eventService.getEvents();
+   // print(eventBank.vault[0].title);
   }
 
   @override
@@ -46,19 +46,38 @@ class _EventsBankPageState extends State<EventsBankPage> {
             Expanded(child:
             Row(
               children: [
-                Text("CSSE Events", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: kCardColor)),
-                SizedBox(width: 100.0),
-                Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 36,),
+
                 Padding(
                   padding: EdgeInsets.only(left:30.0,),),
+                Text("CSSE Events", style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold, color: kCardColor, )),
+                SizedBox(width: 40.0),
+                Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
               ],
             )
             ),
+            Expanded(child: Row(
+              children: <Widget>[
+                RaisedButton(
+                    color: kCardColor,
+                    child: Text('Select Filters',
+                      style: TextStyle(fontSize: 20.0),)
+                    ,
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context){
+                            return EventTagsPage();
+                          }
+                          )
+                      );
+                    })
+              ],
+            )),
             Row(
               children: [
-                Text('Whats New Today', style:TextStyle(color: kCardColor)),
                 Padding(
                   padding: EdgeInsets.only(left:30.0,),),
+                Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
               ],
             ),
@@ -90,25 +109,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     ],
                   ),
                 )),
-            Expanded(child: Row(
-              children: <Widget>[
-                Icon( FontAwesomeIcons.slidersH,size: 40.0, color: Colors.blueGrey,),
-                RaisedButton(
-                    color: kCardColor,
-                    child: Text('Select Filters',
-                      style: TextStyle(fontSize: 20.0),)
-                    ,
-                    onPressed: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context){
-                            return EventTagsPage();
-                          }
-                          )
-                      );
-                    })
-              ],
-            )),
+
             Expanded(
                 child: Row(
                     children: <Widget> [
