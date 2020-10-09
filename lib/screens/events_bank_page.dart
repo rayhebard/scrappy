@@ -49,7 +49,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
                 Padding(
                   padding: EdgeInsets.only(left:30.0,),),
-                Text("CSSE Events", style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold, color: kCardColor, )),
+                Text("CSSE Events", style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, color: kCardColor, )),
                 SizedBox(width: 40.0),
                 Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
               ],
@@ -137,59 +137,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     ]
                 )
             ),
-            Expanded(child:
-            Row(
-              children: <Widget>[
-                ButtonBar(
-                  children: [
-                    RaisedButton(
-                        color: kCardColor,
-                        child: Text('Calendar',
-                          style: TextStyle(fontSize: 12.0),)
-                        ,
-                        onPressed: (){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context){
-                                return CalendarPage();
-                              })
-                          );
-                        }),
-                    RaisedButton(
-                        color: kCardColor,
-                        child: Text('Notifications',
-                          style: TextStyle(fontSize: 12.0),)
-                        ,
-                        onPressed: (){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context){
-                                return NotificationPage();
-                              }
-                              )
-                          );
-                        }),
-
-                    RaisedButton(
-                        color: kCardColor,
-                        child: Text('Maps',
-                          style: TextStyle(fontSize: 12.0),)
-                        ,
-                        onPressed: (){
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context){
-                                return MapPage();
-
-                              }
-                              )
-                          );
-                        }),
-                  ],
-                )
-              ],
-            ),
-            )
           ],
         ),
       bottomNavigationBar: BottomNavigationBar(
