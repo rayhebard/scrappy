@@ -12,9 +12,11 @@ import 'map_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
+import 'package:scrappy/Nav_Bar.dart';
 
 
 class EventsBankPage extends StatefulWidget {
+  static const String id = '/event_bank';
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
 }
@@ -24,13 +26,13 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
   var eventService = EventService();
   void getSingleEvent(id) async{
-    event = await eventService.getEventById(id);
+    //event = await eventService.getEventById(id);
     print(event.id);
   }
 
   void getEvents()async{
-    // EventBank eventBank = await eventService.getEvents();
-    // print(eventBank.vault[0].title);
+     //EventBank eventBank = await eventService.getEvents();
+    //print(eventBank.vault[0].title);
   }
 
   @override
@@ -39,8 +41,10 @@ class _EventsBankPageState extends State<EventsBankPage> {
     getEvents();
 
     return Scaffold(
+      bottomNavigationBar: Navbar(),
 
       body:Column(
+
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(child:
@@ -48,9 +52,9 @@ class _EventsBankPageState extends State<EventsBankPage> {
             children: [
 
               Padding(
-                padding: EdgeInsets.only(left:30.0,),),
+                padding: EdgeInsets.only(left:5.0,right: 5.0),),
+              //SizedBox(width: 20.0),
               Text("CSSE Events", style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, color: kCardColor, )),
-              SizedBox(width: 40.0),
               Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
             ],
           )
