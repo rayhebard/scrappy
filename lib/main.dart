@@ -29,8 +29,8 @@ class Scrappy extends StatelessWidget {
       routes: {
         EventsBankPage.id:(context)=>EventsBankPage(),
         EventDetailsPage.id : (context)=>EventDetailsPage(),
-        EventsBankPage.id:(context)=>EventTagsPage(),
         FavoritesPage.id:(context)=>FavoritesPage(),
+        EventTagsPage.id:(context)=>EventTagsPage(),
         MapPage.id:(context)=>MapPage(),
         NotificationPage.id:(context)=>NotificationPage(),
       },
