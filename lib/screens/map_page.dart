@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
-
+import 'package:scrappy/Nav_Bar.dart';
 class MapPage extends StatelessWidget {
+  static const String id = '/maps';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Navbar(),
       appBar:AppBar(
           title: Text('Scrappy')
       ),

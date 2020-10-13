@@ -12,9 +12,11 @@ import 'map_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
+import 'package:scrappy/Nav_Bar.dart';
 
 
 class EventsBankPage extends StatefulWidget {
+  static const String id = '/event_bank';
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
 }
@@ -24,13 +26,13 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
   var eventService = EventService();
   void getSingleEvent(id) async{
-   event = await eventService.getEventById(id);
-   print(event.id);
+    //event = await eventService.getEventById(id);
+    print(event.id);
   }
 
   void getEvents()async{
-   EventBank eventBank = await eventService.getEvents();
-   print(eventBank.vault[0].title);
+     //EventBank eventBank = await eventService.getEvents();
+    //print(eventBank.vault[0].title);
   }
 
   @override
@@ -39,121 +41,109 @@ class _EventsBankPageState extends State<EventsBankPage> {
     getEvents();
 
     return Scaffold(
+      bottomNavigationBar: Navbar(),
 
-        body:Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(child:
-            Row(
-              children: [
+      body:Column(
 
-                Padding(
-                  padding: EdgeInsets.only(left:30.0,),),
-                Text("CSSE Events", style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, color: kCardColor, )),
-                SizedBox(width: 40.0),
-                Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
-              ],
-            )
-            ),
-            Expanded(child: Row(
-              children: <Widget>[
-                RaisedButton(
-                    color: kCardColor,
-                    child: Text('Select Filters',
-                      style: TextStyle(fontSize: 20.0),)
-                    ,
-                    onPressed: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context){
-                            return EventTagsPage();
-                          }
-                          )
-                      );
-                    })
-              ],
-            )),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left:30.0,),),
-                Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(child:
+          Row(
+            children: [
 
-              ],
-            ),
-            Expanded(
-                child: ReusableCard(
-                  colour: kHootyHooGold,
-                  cardChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(FontAwesomeIcons.star),
-                      Text("Black Rock Lecture Series", style: kLabelTextStyle),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(
-                            'September 2nd 6-7pm Microsoft Teams',
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Join us',
-                          )
-                        ],)
-                    ],
-                  ),
-                )),
+              Padding(
+                padding: EdgeInsets.only(left:5.0,right: 5.0),),
+              //SizedBox(width: 20.0),
+              Text("CSSE Events", style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, color: kCardColor, )),
+              Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
+            ],
+          )
+          ),
+          Expanded(child: Row(
+            children: <Widget>[
+              RaisedButton(
+                  color: kCardColor,
+                  child: Text('Select Filters',
+                    style: TextStyle(fontSize: 20.0),)
+                  ,
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context){
+                          return EventTagsPage();
+                        }
+                        )
+                    );
+                  })
+            ],
+          )),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left:30.0,),),
+              Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
-            Expanded(
-                child: Row(
-                    children: <Widget> [
-                      Expanded(
-                          child: ReusableCard(
-                              onPress: (){
-                                setState(() {
+            ],
+          ),
+          Expanded(
+              child: ReusableCard(
+                colour: kHootyHooGold,
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.star),
+                    Text("Black Rock Lecture Series", style: kLabelTextStyle),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          'September 2nd 6-7pm Microsoft Teams',
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Join us',
+                        )
+                      ],)
+                  ],
+                ),
+              )),
 
-                                });
-                              },
-                              cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'CSE Industry Talks',),
-                              colour: kSlapRockGray)
-                      ),
-                      Expanded(
-                          child: ReusableCard(
+          Expanded(
+              child: Row(
+                  children: <Widget> [
+                    Expanded(
+                        child: ReusableCard(
                             onPress: (){
                               setState(() {
 
                               });
                             },
-                            cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'Dean Speaks',),
-                            colour: kCardColor,
-                          )
-                      ),
-                    ]
-                )
-            ),
-          ],
-        ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: [
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.home), title: Text("Home")),
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.star), title: Text("Favorites")),
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.calendar), title: Text("Calendar")),
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.bell), title: Text("Notifications")),
-        BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.compass), title: Text("Campus Maps")),
-      ],
-    ),
+                            cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'CSE Industry Talks',),
+                            colour: kSlapRockGray)
+                    ),
+                    Expanded(
+                        child: ReusableCard(
+                          onPress: (){
+                            setState(() {
+
+                            });
+                          },
+                          cardChild: IconContent( icon: FontAwesomeIcons.star, label: 'Dean Speaks',),
+                          colour: kCardColor,
+                        )
+                    ),
+                  ]
+              )
+          ),
+        ],
+      ),
+      
     );
   }
 }
