@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:scrappy/Nav_Bar.dart';
 class EventTagsPage extends StatefulWidget {
+  static const String id = '/event_tags';
   @override
   _EventTagsPageState createState() => _EventTagsPageState();
 }
@@ -18,6 +19,7 @@ _isChecked=value;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: Navbar(),
       appBar:AppBar(
           title: Text('Event Tags')
       ),
@@ -25,7 +27,7 @@ _isChecked=value;
       new Container(
 
           child: Column(
-           
+
             children:<Widget>[
 
               Padding(
