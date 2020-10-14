@@ -11,26 +11,28 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amberAccent,
+      color: Colors.amber,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
 
-          FlatButton(
-              onPressed: () => Navigator.pushNamed(context, EventsBankPage.id),
-              child: Icon(FontAwesomeIcons.home, color: Colors.white)),
-          FlatButton(
-              onPressed: () => Navigator.pushNamed(context, FavoritesPage.id),
-              child: Icon(FontAwesomeIcons.star, color: Colors.white)),
-          FlatButton(
-              onPressed: () => Navigator.pushNamed(context, CalendarPage.id),
-              child: Icon(FontAwesomeIcons.calendar, color: Colors.white)),
-          FlatButton(
-              onPressed: () => Navigator.pushNamed(context, NotificationPage.id),
-              child: Icon(FontAwesomeIcons.bell, color: Colors.white)),
-          FlatButton(
+          Expanded(child:FlatButton(
+    onPressed: () => Navigator.pushNamed(context, EventsBankPage.id),
+    child: Icon(FontAwesomeIcons.home, color: Colors.white)),
+          ),
+          Expanded(child: FlatButton(
+    onPressed: () => Navigator.pushNamed(context, FavoritesPage.id),
+    child: Icon(FontAwesomeIcons.star, color: Colors.white)),
+          ),
+          Expanded(child:FlatButton(
+    onPressed: () => Navigator.pushNamed(context, NotificationPage.id),
+    child: Icon(FontAwesomeIcons.bell, color: Colors.white)), 
+          ),
+          Expanded(child: FlatButton(
               onPressed: () => Navigator.pushNamed(context, MapPage.id),
               child: Icon(FontAwesomeIcons.compass, color: Colors.white)),
+          ),
+
         ],
       ),
     );
