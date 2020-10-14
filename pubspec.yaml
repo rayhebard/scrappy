@@ -16,6 +16,8 @@ dependencies:
   html: ^0.13.3+3
   http: ^0.12.0
   json_annotation: ^0.2.3
+  table_calendar: ^2.1.0
+  flutter_svg: ^0.12.1
   flutter:
     sdk: flutter
 
@@ -23,6 +25,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.8.1
+
 
 dev_dependencies:
   json_serializable: ^0.5.4
