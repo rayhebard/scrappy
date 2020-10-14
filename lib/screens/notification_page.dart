@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
 import 'package:scrappy/Nav_Bar.dart';
+
 class NotificationPage extends StatefulWidget {
   static const String id = '/notification_page';
   @override
@@ -9,7 +10,7 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-
+  bool status  = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +18,46 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar:AppBar(
           title: Text('Scrappy')
       ),
-      body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Text('Notifications', style: kTItleTextStyle,)
-            ],
-          )
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            SwitchListTile(
+              title: const Text('Push Notifications:', style: kLabelTextStyle3,),
+              activeColor: Colors.amber,
+              value: status,
+              onChanged: (value) {
+                print("VALUE : $value");
+                setState(() {
+                  status = value;
+                });
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Email Notifications:', style: kLabelTextStyle3,),
+              activeColor: Colors.amber,
+              value: status,
+              onChanged: (value) {
+                print("VALUE : $value");
+                setState(() {
+                  status = value;
+                });
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Favorite Events Notifications:', style: kLabelTextStyle3,),
+              activeColor: Colors.amber,
+              value: status,
+              onChanged: (value) {
+                print("VALUE : $value");
+                setState(() {
+                  status = value;
+                });
+              },
+            ),
+
+          ],
+        ),
       ),
     );
   }

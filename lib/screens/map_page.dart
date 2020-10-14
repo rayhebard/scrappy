@@ -14,7 +14,7 @@ class MapPage extends StatelessWidget {
       body: SafeArea(
           child: Column(
             children: <Widget>[
-              Text('Event Tags', style: kTItleTextStyle,)
+              Text('Campus Maps', style: kTItleTextStyle,)
             ],
           )
       ),
