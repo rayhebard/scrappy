@@ -31,13 +31,13 @@ class _EventsBankPageState extends State<EventsBankPage> {
   }
 
   void getEvents()async{
-     //EventBank eventBank = await eventService.getEvents();
-    //print(eventBank.vault[0].title);
+     EventBank eventBank = await eventService.getEvents();
+     print(eventBank.vault[0].title);
   }
 
   @override
   Widget build(BuildContext context) {
-    getSingleEvent(34493879638912);
+    var event = getSingleEvent(34493879638912);
     getEvents();
 
     return Scaffold(
