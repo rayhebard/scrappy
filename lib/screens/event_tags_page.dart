@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:scrappy/components/nav_bar.dart';
+import 'package:scrappy/components/Nav_Bar.dart';
 class EventTagsPage extends StatefulWidget {
   static const String id = '/event_tags';
   @override
@@ -43,7 +43,6 @@ _isChecked=value;
                         title: new Text("Morning Events", style: kLabelTextStyle ),
                         secondary: const Icon(FontAwesomeIcons.checkCircle),
                         activeColor: Colors.amberAccent,
-
                         value: _isChecked,
                         onChanged: (bool value){onChanged(value);}),
                     new CheckboxListTile(
