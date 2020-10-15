@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
 import 'package:scrappy/Nav_Bar.dart';
-
 class MapPage extends StatelessWidget {
   static const String id = '/maps';
   @override
@@ -15,7 +14,7 @@ class MapPage extends StatelessWidget {
       body: SafeArea(
           child: Column(
             children: <Widget>[
-              Text('Event Tags', style: kTItleTextStyle,)
+              Text('Campus Maps', style: kTItleTextStyle,)
             ],
           )
       ),

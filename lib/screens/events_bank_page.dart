@@ -13,6 +13,7 @@ import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/Nav_Bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class EventsBankPage extends StatefulWidget {
@@ -47,40 +48,70 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(child:
-          Row(
-            children: [
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height:100.0,
+              color: Colors.amber,
 
-              Padding(
-                padding: EdgeInsets.only(left:5.0,right: 5.0),),
-              //SizedBox(width: 20.0),
-              Text("CSSE Events", style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, color: kCardColor, )),
-              Icon( FontAwesomeIcons.calendar, color: kCardColor, size: 70,),
-            ],
-          )
+              child: Row(
+                children: [
+                  Expanded(child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(15.0,),),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "CCSE Events",
+                            style: kTItleTextStyle ,
+                          )
+                      ),
+                      Padding(padding: EdgeInsets.only(left:70.0,)),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: FlatButton.icon(
+                          color:Colors.black,
+                            onPressed: (){
+                              Navigator.push(context,
+                              MaterialPageRoute(builder: (context){
+                              return CalendarPage();})
+                                );
+                            },
+                            icon: Icon(FontAwesomeIcons.calendarAlt,),
+                            label: Text('Calendar'))
+                      ),
+                    ],
+                  )
+                  ),
+                ],
+              )
           ),
-          Expanded(child: Row(
-            children: <Widget>[
-              RaisedButton(
-                  color: kCardColor,
-                  child: Text('Select Filters',
-                    style: TextStyle(fontSize: 20.0),)
-                  ,
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context){
-                          return EventTagsPage();
-                        }
-                        )
-                    );
-                  })
-            ],
-          )),
+
+          Container(
+              width: MediaQuery.of(context).size.width,
+              height:50.0,
+              color: Colors.grey,
+
+              child: RaisedButton(
+                      color: kCardColor,
+                      child: Text('Select Filters',
+                        style: TextStyle(fontSize: 20.0),)
+                      ,
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context){
+                              return EventTagsPage();
+                            }
+                            )
+                        );
+                      })
+
+          ),
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left:30.0,),),
+                padding: EdgeInsets.only(left:30.0,top:10.0),),
               Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
             ],
@@ -143,7 +174,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
           ),
         ],
       ),
-      
+
     );
   }
 }
