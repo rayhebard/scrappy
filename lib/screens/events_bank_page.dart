@@ -19,7 +19,7 @@ import 'map_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
-import 'package:scrappy/components/Nav_Bar.dart';
+import 'package:scrappy/components/nav_bar.dart';
 
 
 
@@ -67,7 +67,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
           Container(
               width: MediaQuery.of(context).size.width,
               height:100.0,
-              color: Colors.amber,
+              // color: Colors.grey.shade200,
 
               child: Row(
                 children: [

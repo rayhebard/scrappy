@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
-import 'package:scrappy/components/Nav_Bar.dart';
+import 'package:scrappy/components/nav_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 

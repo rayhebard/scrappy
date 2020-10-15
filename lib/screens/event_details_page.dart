@@ -1,7 +1,7 @@
 import 'package:scrappy/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scrappy/components/Nav_Bar.dart';
+import 'package:scrappy/components/nav_bar.dart';
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
   @override
