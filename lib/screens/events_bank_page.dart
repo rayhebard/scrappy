@@ -64,7 +64,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
       body:Scrollbar(
         child: Column(
-
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(

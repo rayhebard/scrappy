@@ -20,7 +20,6 @@ class EventService {
                                       dates: Dates.fromJson(data["date"]),
                                       page: Page.fromJson(data["page"])
                             );
-      print(eventBank.vault.length);
       return eventBank;
     }catch(e){
       print(e);
