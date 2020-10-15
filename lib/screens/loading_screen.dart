@@ -8,6 +8,7 @@ import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 
 class LoadingScreen extends StatefulWidget {
+  static const String id = '/loading_screen';
   @override
   State<StatefulWidget> createState() {
     return _LoadingScreenState();

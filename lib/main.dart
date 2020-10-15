@@ -34,6 +34,7 @@ class Scrappy extends StatelessWidget {
         EventTagsPage.id:(context)=>EventTagsPage(),
         MapPage.id:(context)=>MapPage(),
         NotificationPage.id:(context)=>NotificationPage(),
+        LoadingScreen.id:(context)=>LoadingScreen()
       },
     );
   }

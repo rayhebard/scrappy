@@ -4,6 +4,7 @@ import '../screens/event_tags_page.dart';
 import '../screens/calendar_page.dart';
 import '../screens/notification_page.dart';
 import '../screens/map_page.dart';
+import "package:scrappy/screens/loading_screen.dart";
 import '../screens/events_bank_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,7 +18,7 @@ class Navbar extends StatelessWidget {
         children: <Widget>[
 
           Expanded(child:FlatButton(
-    onPressed: () => Navigator.pushReplacementNamed(context, EventsBankPage.id),
+    onPressed: () => Navigator.pushReplacementNamed(context, LoadingScreen.id),
     child: Icon(FontAwesomeIcons.home, color: Colors.white)),
           ),
           Expanded(child: FlatButton(

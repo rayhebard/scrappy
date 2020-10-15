@@ -40,7 +40,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
   Event topEvent;
   List<Event> vault;
   int length;
-  
+
   @override
   void initState() {
     // TODO: implement initState
