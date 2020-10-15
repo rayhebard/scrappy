@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
+import'package:flutter_svg/flutter_svg.dart';
+
 
 
 //Internal files
@@ -21,7 +23,7 @@ import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/components/nav_bar.dart';
 
-
+const CCSE_hori_Logo='images/KSU_on light backgrounds/KSU_SVG LOGO/BE_Horiz_2Clr_Computing and Software.svg';
 
 
 class EventsBankPage extends StatefulWidget {
@@ -69,7 +71,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
             Container(
                 width: MediaQuery.of(context).size.width,
                 height:100.0,
-                // color: Colors.grey.shade200,
+                color: Colors.amber.shade200,
 
                 child: Row(
                   children: [
@@ -79,27 +81,27 @@ class _EventsBankPageState extends State<EventsBankPage> {
                           padding: EdgeInsets.all(8.0,),),
                         Align(
                             alignment: Alignment.center,
-                            child: Text(
-                              "CCSE Events",
-                              style: kTItleTextStyle ,
-                            )
+                            child: Image(
+                              image:AssetImage('images/KSU_on light backgrounds/KSU_PNG LOGO/BE_Horiz_3Clr_Computing and Software.png'),
+
+                              width: 250.0 ,
+                            ),
                         ),
                         Padding(padding: EdgeInsets.only(left:16.0,)),
                         Expanded(
                           // alignment: Alignment.centerRight,
-                          child: RaisedButton.icon(
-                            color:Colors.black,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)
-                              ),
-                              onPressed: (){
-                                Navigator.push(context,
-                                MaterialPageRoute(builder: (context){
-                                return CalendarPage();})
-                                  );
-                              },
-                              icon: Icon(FontAwesomeIcons.calendarAlt,),
-                              label: Text('Calendar'))
+                          child: RawMaterialButton(
+                            elevation: 2.0,
+                            fillColor: kCardColor,
+                            child: Icon(
+                              FontAwesomeIcons.calendarAlt,
+                              size: 35.0,
+                            ),
+                            padding: EdgeInsets.all(15.0),
+                            shape: CircleBorder(),
+                            onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
+
+                          )
                         ),
                       ],
                     )
