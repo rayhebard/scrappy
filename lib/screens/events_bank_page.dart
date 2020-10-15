@@ -26,7 +26,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
   var eventService = EventService();
   void getSingleEvent(id) async{
-    //event = await eventService.getEventById(id);
+    event = await eventService.getEventById(id);
     print(event.id);
   }
 

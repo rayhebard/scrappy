@@ -150,7 +150,7 @@ class Event {
         localist_ics_url: data["localist_ics_ur"],
         photourl: data["photourl"],
         venue_url: data["venue_url"],
-        // deparments: data["department"].toList(),
+        // departments: data["department"].toList(),
       );
     }
 
