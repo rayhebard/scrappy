@@ -47,7 +47,7 @@ class Event {
     List<String> event_types;
     String localist_url;
     String localist_ics_url;
-    String photourl;
+    String photo_url;
     String venue_url;
     List<String> deparments;
 
@@ -97,7 +97,7 @@ class Event {
       this.event_types,
       this.localist_url,
       this.localist_ics_url,
-      this.photourl,
+      this.photo_url,
       this.venue_url,
       this.deparments,
       });
@@ -148,7 +148,7 @@ class Event {
         // event_types: data["filters"]["event_types"],
         localist_url: data["localist_url"],
         localist_ics_url: data["localist_ics_ur"],
-        photourl: data["photourl"],
+        photo_url: data["photo_url"],
         venue_url: data["venue_url"],
         // departments: data["department"].toList(),
       );

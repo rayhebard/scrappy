@@ -1,7 +1,14 @@
+//Packages from Pubspec
 import 'package:scrappy/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
+
+
+//Internal files
 import '../components/icon_content.dart';
 import '../components/reusable_card.dart';
 import '../constants.dart';
@@ -13,7 +20,8 @@ import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/components/Nav_Bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+
 
 
 class EventsBankPage extends StatefulWidget {
@@ -33,14 +41,21 @@ class _EventsBankPageState extends State<EventsBankPage> {
   }
 
   void getEvents()async{
+    print("calling get events");
      eventBank = await eventService.getEvents();
-     print(eventBank.vault[0].title);
+     print(eventBank.vault[0].photo_url);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("hi");
+    getEvents();
   }
 
   @override
   Widget build(BuildContext context) {
-    var event = getSingleEvent(34493879638912);
-    getEvents();
 
     return Scaffold(
       bottomNavigationBar: Navbar(),
@@ -70,8 +85,11 @@ class _EventsBankPageState extends State<EventsBankPage> {
                       Padding(padding: EdgeInsets.only(left:16.0,)),
                       Expanded(
                         // alignment: Alignment.centerRight,
-                        child: FlatButton.icon(
+                        child: RaisedButton.icon(
                           color:Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)
+                            ),
                             onPressed: (){
                               Navigator.push(context,
                               MaterialPageRoute(builder: (context){
@@ -87,27 +105,27 @@ class _EventsBankPageState extends State<EventsBankPage> {
                 ],
               )
           ),
-
-          Container(
-              width: MediaQuery.of(context).size.width,
-              height:50.0,
-              color: Colors.grey,
-
-              child: RaisedButton(
-                      color: kCardColor,
-                      child: Text('Select Filters',
-                        style: TextStyle(fontSize: 20.0),)
-                      ,
-                      onPressed: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context){
-                              return EventTagsPage();
-                            }
-                            )
-                        );
-                      })
-
+          
+          Row(
+              children: [
+                Expanded(
+                    child: RaisedButton.icon(
+                        color: kCardColor,
+                        icon: Icon(FontAwesomeIcons.filter),
+                        label: Text('Select Filters',
+                          style: TextStyle(fontSize: 20.0),)
+                        ,
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context){
+                                return EventTagsPage();
+                              }
+                              )
+                          );
+                        })
+                )
+              ],
           ),
           Row(
             children: [
@@ -124,14 +142,19 @@ class _EventsBankPageState extends State<EventsBankPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(FontAwesomeIcons.star),
-                    Text("Black Rock Lecture Series", style: kLabelTextStyle),
+                    Text(eventBank.vault[0].title, style: kLabelTextStyle),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          'September 2nd 6-7pm Microsoft Teams',
+                          "From: " + Jiffy(eventBank.vault[0].first_date).yMMMd,
+                          style: TextStyle(color: Colors.black87),
+                        ),
+                        Text(
+                          " - To: " + Jiffy(eventBank.vault[0].last_date).yMMMd,
+                          style: TextStyle(color: Colors.black87),
                         ),
                       ],
                     ),
