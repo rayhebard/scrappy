@@ -33,12 +33,17 @@ class EventsBankPage extends StatefulWidget {
 class _EventsBankPageState extends State<EventsBankPage> {
   var eventService = EventService();
   EventBank eventBank;
+  Event leadEvent;
+  List<Event> vault;
   int length;
 
   void getEvents()async{
      eventBank = await eventService.getEvents();
-     length = eventBank.vault.length;
-     print(eventBank.vault[0].photo_url);
+     leadEvent =eventBank.vault[0];
+     vault = eventBank.vault;
+     vault.removeAt(0);
+     length = vault.length;
+     print(vault[0].title);
   }
 
   @override
@@ -137,18 +142,18 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(FontAwesomeIcons.star),
-                      Text(eventBank.vault[0].title, style: kLabelTextStyle),
+                      Text(leadEvent.title, style: kLabelTextStyle),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            "From: " + Jiffy(eventBank.vault[0].first_date).yMMMd,
+                            "From: " + Jiffy(leadEvent.first_date).yMMMd,
                             style: TextStyle(color: Colors.black87),
                           ),
                           Text(
-                            " - To: " + Jiffy(eventBank.vault[0].last_date).yMMMd,
+                            " - To: " + Jiffy(leadEvent.last_date).yMMMd,
                             style: TextStyle(color: Colors.black87),
                           ),
                         ],
@@ -178,7 +183,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
                         });
                       },
-                      cardChild: IconContent( icon: FontAwesomeIcons.star, label: eventBank.vault[index].title,),
+                      cardChild: IconContent( icon: FontAwesomeIcons.star, label: vault[index].title,),
                       colour: kCardColor);
                 },
               )
