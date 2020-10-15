@@ -26,6 +26,10 @@ import 'package:scrappy/components/nav_bar.dart';
 
 class EventsBankPage extends StatefulWidget {
   static const String id = '/event_bank';
+  final Event leadEvent;
+  final List<Event> eventBankVault;
+  EventsBankPage({this.leadEvent, this.eventBankVault});
+
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
 }
@@ -33,24 +37,23 @@ class EventsBankPage extends StatefulWidget {
 class _EventsBankPageState extends State<EventsBankPage> {
   var eventService = EventService();
   EventBank eventBank;
-  Event leadEvent;
+  Event topEvent;
   List<Event> vault;
   int length;
-
-  void getEvents()async{
-     eventBank = await eventService.getEvents();
-     leadEvent =eventBank.vault[0];
-     vault = eventBank.vault;
-     vault.removeAt(0);
-     length = vault.length;
-     print(vault[0].title);
-  }
-
+  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getEvents();
+    updateUI(widget.leadEvent, widget.eventBankVault);
+  }
+
+  void updateUI( Event leadEvent, List<Event> eventBankVault) {
+    setState(() {
+      topEvent = leadEvent;
+      vault = eventBankVault;
+      length = vault.length;
+    });
   }
 
   @override
@@ -142,18 +145,18 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(FontAwesomeIcons.star),
-                      Text(leadEvent.title, style: kLabelTextStyle),
+                      Text(topEvent.title, style: kLabelTextStyle),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            "From: " + Jiffy(leadEvent.first_date).yMMMd,
+                            "From: " + Jiffy(topEvent.first_date).yMMMd,
                             style: TextStyle(color: Colors.black87),
                           ),
                           Text(
-                            " - To: " + Jiffy(leadEvent.last_date).yMMMd,
+                            " - To: " + Jiffy(topEvent.last_date).yMMMd,
                             style: TextStyle(color: Colors.black87),
                           ),
                         ],

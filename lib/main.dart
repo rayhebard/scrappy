@@ -8,6 +8,7 @@ import 'screens/favorites_page.dart';
 import 'screens/map_page.dart';
 import 'screens/notification_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'screens/loading_screen.dart';
 
 
 
@@ -25,7 +26,7 @@ class Scrappy extends StatelessWidget {
         bottomAppBarColor: Colors.white,
         accentColor: Colors.amberAccent
       ),
-      home: EventsBankPage(),
+      home: LoadingScreen(),
       routes: {
         EventsBankPage.id:(context)=>EventsBankPage(),
         EventDetailsPage.id : (context)=>EventDetailsPage(),

@@ -18,6 +18,7 @@ dependencies:
   json_annotation: ^0.2.3
   table_calendar: ^2.1.0
   flutter_svg: ^0.19.0
+  flutter_spinkit: ^4.1.2
   intl: ^0.16.1
   jiffy: ^3.0.1
   flutter:
