@@ -24,6 +24,7 @@ class EventsBankPage extends StatefulWidget {
 
 class _EventsBankPageState extends State<EventsBankPage> {
   var event;
+  EventBank eventBank;
 
   var eventService = EventService();
   void getSingleEvent(id) async{
@@ -32,7 +33,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
   }
 
   void getEvents()async{
-     EventBank eventBank = await eventService.getEvents();
+     eventBank = await eventService.getEvents();
      print(eventBank.vault[0].title);
   }
 
@@ -58,7 +59,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                   Expanded(child: Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(15.0,),),
+                        padding: EdgeInsets.all(8.0,),),
                       Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -66,9 +67,9 @@ class _EventsBankPageState extends State<EventsBankPage> {
                             style: kTItleTextStyle ,
                           )
                       ),
-                      Padding(padding: EdgeInsets.only(left:70.0,)),
+                      Padding(padding: EdgeInsets.only(left:40.0,)),
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.centerRight,
                         child: FlatButton.icon(
                           color:Colors.black,
                             onPressed: (){

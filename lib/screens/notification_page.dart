@@ -23,7 +23,7 @@ class _NotificationPageState extends State<NotificationPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             SwitchListTile(
-              title: const Text('Push Notifications:', style: kLabelTextStyle3,),
+              title: const Text('Push Notifications:',),
               activeColor: Colors.amber,
               value: status,
               onChanged: (value) {
@@ -34,7 +34,7 @@ class _NotificationPageState extends State<NotificationPage> {
               },
             ),
             SwitchListTile(
-              title: const Text('Email Notifications:', style: kLabelTextStyle3,),
+              title: const Text('Email Notifications:',),
               activeColor: Colors.amber,
               value: status,
               onChanged: (value) {
@@ -45,7 +45,7 @@ class _NotificationPageState extends State<NotificationPage> {
               },
             ),
             SwitchListTile(
-              title: const Text('Favorite Events Notifications:', style: kLabelTextStyle3,),
+              title: const Text('Favorite Events Notifications:',),
               activeColor: Colors.amber,
               value: status,
               onChanged: (value) {
