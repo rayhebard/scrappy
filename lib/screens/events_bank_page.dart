@@ -12,7 +12,7 @@ import 'map_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
-import 'package:scrappy/Nav_Bar.dart';
+import 'package:scrappy/components/Nav_Bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
@@ -67,9 +67,9 @@ class _EventsBankPageState extends State<EventsBankPage> {
                             style: kTItleTextStyle ,
                           )
                       ),
-                      Padding(padding: EdgeInsets.only(left:40.0,)),
-                      Align(
-                        alignment: Alignment.centerRight,
+                      Padding(padding: EdgeInsets.only(left:16.0,)),
+                      Expanded(
+                        // alignment: Alignment.centerRight,
                         child: FlatButton.icon(
                           color:Colors.black,
                             onPressed: (){
