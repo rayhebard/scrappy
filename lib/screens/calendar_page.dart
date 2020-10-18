@@ -35,8 +35,11 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   void initState() {
     super.initState();
     final _selectedDay = DateTime.now();
+    var testDay  = DateTime.parse("2020-10-20");
 
     _events = {
+      testDay:[{"name": 'Black Rock', "id":999}]
+    ,
       _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
       _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
       _selectedDay.subtract(Duration(days: 20)): ['Event A2', 'Event B2', 'Event C2', 'Event D2'],
@@ -88,25 +91,36 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Navbar(),
-      appBar: AppBar(
-        title: Text('CCSE Event Calendar'),
-      ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          // Switch out 2 lines below to play with TableCalendar's settings
-          //-----------------------
-          _buildTableCalendar(),
-          // _buildTableCalendarWithBuilders(),
-          const SizedBox(height: 8.0),
-          _buildButtons(),
-          const SizedBox(height: 8.0),
-          Expanded(child: _buildEventList()),
-        ],
-      ),
+    return Theme(data: ThemeData.light().copyWith(
+        primaryColor: Color(0xFF0A0E21),
+        scaffoldBackgroundColor: Colors.white,
+        bottomAppBarColor: Colors.white,
+        accentColor: Colors.amberAccent
+    ),
+        child: Builder(
+          builder:(context){
+            return Scaffold(
+              bottomNavigationBar: Navbar(),
+              appBar: AppBar(
+                title: Text('CCSE Event Calendar'),
+              ),
+              body: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  // Switch out 2 lines below to play with TableCalendar's settings
+                  //-----------------------
+                  _buildTableCalendar(),
+                  // _buildTableCalendarWithBuilders(),
+                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
+                  Expanded(child: _buildEventList()),
+                ],
+              ),
+            );
+          }
+        ),
     );
+
   }
 
   // Simple TableCalendar configuration (using Styles)
@@ -115,10 +129,10 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
       calendarController: _calendarController,
       events: _events,
       holidays: _holidays,
-      startingDayOfWeek: StartingDayOfWeek.monday,
+      startingDayOfWeek: StartingDayOfWeek.sunday,
       calendarStyle: CalendarStyle(
         selectedColor: Colors.amber[400],
-        todayColor: Colors.amber[200],
+        todayColor: Colors.grey,
         markersColor: Colors.brown[700],
         outsideDaysVisible: false,
       ),
@@ -258,49 +272,7 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
     );
   }
 
-  Widget _buildButtons() {
-    final dateTime = _events.keys.elementAt(_events.length - 2);
 
-    return Column(
-      children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            RaisedButton(
-              color: Colors.grey,
-              child: Text('Month'),
-              onPressed: () {
-                setState(() {
-                  _calendarController.setCalendarFormat(CalendarFormat.month);
-                });
-              },
-            ),
-            RaisedButton(
-              color: Colors.grey,
-              child: Text('2 weeks'),
-              onPressed: () {
-                setState(() {
-                  _calendarController.setCalendarFormat(CalendarFormat.twoWeeks);
-                });
-              },
-            ),
-            RaisedButton(
-              color: Colors.grey,
-              child: Text('Week'),
-              onPressed: () {
-                setState(() {
-                  _calendarController.setCalendarFormat(CalendarFormat.week);
-                });
-              },
-            ),
-          ],
-        ),
-        const SizedBox(height: 8.0),
-
-      ],
-    );
-  }
 
   Widget _buildEventList() {
     return ListView(
