@@ -12,8 +12,10 @@ class EventService {
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events?pp=20&page=1&days=90');
-      print(response.statusCode);
+      print( "Status code: " + response.statusCode.toString());
+
       var data = json.decode(response.body);
+      //Get the list of events within the data object
       var list = data["events"] as List;
 
       EventBank eventBank = EventBank(vault:list.map((json) => Event.fromJSON(json['event'])).toList(),
@@ -45,6 +47,31 @@ class EventService {
       return event ;
     }
   }
+
+
+  Future getComputingEvents() async {
+    var client = Client();
+    try{
+      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/search?search=computing&days=90');
+      print(response.statusCode);
+
+      var data = json.decode(response.body);
+      //Get the list of events within the data object
+      var list = data["events"] as List;
+
+      EventBank eventBank = EventBank(vault:list.map((json) => Event.fromJSON(json['event'])).toList(),
+          dates: Dates.fromJson(data["date"]),
+          page: Page.fromJson(data["page"])
+      );
+      return eventBank;
+    }catch(e){
+      print(e);
+    } finally{
+      client.close();
+    }
+
+  }
+
 
 
 

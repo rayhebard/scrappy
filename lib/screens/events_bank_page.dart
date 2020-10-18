@@ -54,6 +54,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
     setState(() {
       topEvent = leadEvent;
       vault = eventBankVault;
+      print(vault[0].departments);
       length = vault.length;
     });
   }

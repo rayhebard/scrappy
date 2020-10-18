@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+
 class Event {
 
     //TODO - Create Properties of Event Object
@@ -43,13 +46,13 @@ class Event {
     String description;
     bool featured;
     List<String> filters;
-    List<String> event_target_audience;
-    List<String> event_types;
+    List<EventTargetAudience> event_target_audience;
+    List<EventType> event_types;
     String localist_url;
     String localist_ics_url;
     String photo_url;
     String venue_url;
-    List<String> deparments;
+    List<Department> departments;
 
     Event( {
       this.id,
@@ -99,10 +102,29 @@ class Event {
       this.localist_ics_url,
       this.photo_url,
       this.venue_url,
-      this.deparments,
+      this.departments,
       });
 
     factory Event.fromJSON(Map<String, dynamic> data){
+
+      //Create list for nested list inside the event object
+
+      var keywords = data["keywords"] as List;
+      List<String> keywordList =  keywords != null && keywords.length > 0 ? new List<String>.from(keywords) : [];
+
+      var tags = data["tags"] as List;
+      List<String> tagList =  tags != null && tags.length > 0 ?  new List<String>.from(tags) : [];
+
+
+      // var eventTypes = filters["event_types"] as List;
+      // List<EventType> eventTypeList =  eventTypes.length > 0 ? eventTypes.map((item) => EventType.fromJson(item)).toList() : [];
+
+       // var eventTargets = filters["event_target_audience"] as List;
+      // List<EventTargetAudience> eventTargetList = eventTargets.length > 0 ? eventTargets.map(item) => EventTargetAudience.fromJson(item)).toList()  : [];
+      //
+      var eventDepartments = data["departments"] as List;
+      List<Department> departmentList = eventDepartments != null && eventDepartments.length > 0 ? eventDepartments.map((item) => Department.fromJson(item)).toList()  : [];
+
       return new Event( id: data["id"],
         title: data['title'],
         url: data['url'],
@@ -135,22 +157,21 @@ class Event {
         venue_id: data["venue_id"],
         ticket_url: data["ticket_url"],
         ticket_cost: data["ticket_cost"],
-        // keywords: data["keywords"].toList(),
-        // tags: data["tags"].toList(),
+        keywords: keywordList,
+        tags: tagList,
         description_text: data["description_text"],
         photo_id: data["photo_id"],
         detail_views: data["detail_views"],
         address: data["address"],
         description: data["description"],
         featured: data["featured"],
-        // filters: data["filters"],
-        // event_target_audience: data["filters"]["event_target_audience"],
-        // event_types: data["filters"]["event_types"],
+        // event_target_audience: eventTargetList,
+        // event_types: eventTypeList,
         localist_url: data["localist_url"],
         localist_ics_url: data["localist_ics_ur"],
         photo_url: data["photo_url"],
         venue_url: data["venue_url"],
-        // departments: data["department"].toList(),
+        departments: departmentList,
       );
     }
 
@@ -161,4 +182,71 @@ class Event {
       return 'Event: {id = $id, title = $title}';
     }
 
+}
+
+
+class Filter{
+  List<EventType> eventTypes;
+  List<EventTargetAudience> audiences;
+  Filter({this.eventTypes, this.audiences});
+
+  factory Filter.fromJson(Map<String, dynamic> data){
+
+      var audiences = data["event_target_audience"] as List;
+      var  types = data["event_target_audience"] as List;
+
+
+    return Filter(
+       eventTypes: types,
+       audiences: audiences,
+    );
+  }
+}
+
+class EventType{
+  int id;
+  String name;
+
+  EventType({this.id, this.name});
+
+  factory EventType.fromJson(Map<String, dynamic> data){
+    return EventType(
+      id: data["id"],
+      name: data["name"],
+    );
+  }
+}
+
+class EventTargetAudience{
+  int id;
+  String name;
+
+  EventTargetAudience({this.id, this.name});
+
+  factory EventTargetAudience.fromJson(Map<String, dynamic> data){
+    return EventTargetAudience(
+      id: data["id"],
+      name: data["name"],
+    );
+  }
+}
+
+class Department{
+  int id;
+  String name;
+
+  Department({this.id, this.name});
+
+  factory Department.fromJson(Map<String, dynamic> data){
+    return Department(
+      id: data["id"],
+      name: data["name"],
+    );
+  }
+
+  // Override toString to have a beautiful log of student object
+  @override
+  String toString() {
+    return 'Department: {id = $id, name = $name}';
+  }
 }
