@@ -22,6 +22,7 @@ import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/components/nav_bar.dart';
+import 'package:scrappy/screens/calendar_loader.dart';
 
 const CCSE_hori_Logo='images/KSU_on light backgrounds/KSU_SVG LOGO/BE_Horiz_2Clr_Computing and Software.svg';
 
@@ -65,143 +66,142 @@ class _EventsBankPageState extends State<EventsBankPage> {
     return Scaffold(
       bottomNavigationBar: Navbar(),
 
-      body:Scrollbar(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height:100.0,
-                color: Colors.amber.shade200,
+      body:SafeArea(
+        child: Scrollbar(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height:100.0,
+                  color: Colors.amber.shade200,
 
-                child: Row(
-                  children: [
-                    Expanded(child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0,),),
-                        Align(
-                            alignment: Alignment.center,
-                            child: Image(
-                              image:AssetImage('images/KSU_on light backgrounds/KSU_PNG LOGO/BE_Horiz_3Clr_Computing and Software.png'),
-
-                              width: 250.0 ,
-                            ),
-                        ),
-                        Padding(padding: EdgeInsets.only(left:16.0,)),
-                        Expanded(
-                          // alignment: Alignment.centerRight,
-                          child: RawMaterialButton(
-                            elevation: 2.0,
-                            fillColor: kCardColor,
-                            child: Icon(
-                              FontAwesomeIcons.calendarAlt,
-                              size: 35.0,
-                            ),
-                            padding: EdgeInsets.all(15.0),
-                            shape: CircleBorder(),
-                            // onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
-                            onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return EventsBankPage(
-                                    eventBankVault: vault,
-                                    leadEvent: topEvent,
-                                );
-                              }));
-                            },
-
-                          )
-                        ),
-                      ],
-                    )
-                    ),
-                  ],
-                )
-            ),
-            
-            Row(
-                children: [
-                  Expanded(
-                      child: RaisedButton.icon(
-                          color: kCardColor,
-                          icon: Icon(FontAwesomeIcons.filter),
-                          label: Text('Select Filters',
-                            style: TextStyle(fontSize: 20.0),)
-                          ,
-                          onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context){
-                                  return EventTagsPage();
-                                }
-                                )
-                            );
-                          })
-                  )
-                ],
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left:30.0,top:10.0),),
-                Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
-
-              ],
-            ),
-            Expanded(
-                child: ReusableCard(
-                  colour: kHootyHooGold,
-                  cardChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(FontAwesomeIcons.star),
-                      Text(topEvent.title, style: kLabelTextStyle),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
+                  child: Row(
+                    children: [
+                      Expanded(child: Row(
                         children: [
-                          Text(
-                            "From: " + Jiffy(topEvent.first_date).yMMMd,
-                            style: TextStyle(color: Colors.black87),
+                          Padding(
+                            padding: EdgeInsets.all(8.0,),),
+                          Align(
+                              alignment: Alignment.center,
+                              child: Image(
+                                image:AssetImage('images/KSU_on light backgrounds/KSU_PNG LOGO/BE_Horiz_3Clr_Computing and Software.png'),
+
+                                width: 250.0 ,
+                              ),
                           ),
-                          Text(
-                            " - To: " + Jiffy(topEvent.last_date).yMMMd,
-                            style: TextStyle(color: Colors.black87),
+                          Padding(padding: EdgeInsets.only(left:16.0,)),
+                          Expanded(
+                            // alignment: Alignment.centerRight,
+                            child: RawMaterialButton(
+                              elevation: 2.0,
+                              fillColor: kCardColor,
+                              child: Icon(
+                                FontAwesomeIcons.calendarAlt,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
+                              // onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
+                              onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                  return CalendarLoader();
+                                }));
+                              },
+
+                            )
                           ),
                         ],
+                      )
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Join us',
-                          )
-                        ],)
                     ],
-                  ),
-                )),
-            Expanded(
-                child: GridView.builder(
-                itemCount: length - 1,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0
-                ),
-                itemBuilder: (BuildContext content, int index){
-                  return ReusableCard(
-                      onPress: (){
-                        setState(() {
+                  )
+              ),
+              
+              Row(
+                  children: [
+                    Expanded(
+                        child: RaisedButton.icon(
+                            color: kCardColor,
+                            icon: Icon(FontAwesomeIcons.filter),
+                            label: Text('Select Filters',
+                              style: TextStyle(fontSize: 20.0),)
+                            ,
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context){
+                                    return EventTagsPage();
+                                  }
+                                  )
+                              );
+                            })
+                    )
+                  ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left:30.0,top:10.0),),
+                  Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
-                        });
-                      },
-                      cardChild: IconContent( icon: FontAwesomeIcons.star, label: vault[index].title,),
-                      colour: kCardColor);
-                },
-              )
-            ),
-          ],
+                ],
+              ),
+              Expanded(
+                  child: ReusableCard(
+                    colour: kHootyHooGold,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(FontAwesomeIcons.star),
+                        Text(topEvent.title, style: kLabelTextStyle),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              "From: " + Jiffy(topEvent.first_date).yMMMd,
+                              style: TextStyle(color: Colors.black87),
+                            ),
+                            Text(
+                              " - To: " + Jiffy(topEvent.last_date).yMMMd,
+                              style: TextStyle(color: Colors.black87),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Join us',
+                            )
+                          ],)
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  child: GridView.builder(
+                  itemCount: length - 1,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0
+                  ),
+                  itemBuilder: (BuildContext content, int index){
+                    return ReusableCard(
+                        onPress: (){
+                          setState(() {
+
+                          });
+                        },
+                        cardChild: IconContent( icon: FontAwesomeIcons.star, label: vault[index].title,),
+                        colour: kCardColor);
+                  },
+                )
+              ),
+            ],
+          ),
         ),
       ),
 

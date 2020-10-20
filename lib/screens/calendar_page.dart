@@ -17,9 +17,10 @@ final Map<DateTime, List> _holidays = {
 };
 class CalendarPage extends StatefulWidget {
   static const String id = '/calendar_page';
-  CalendarPage({Key key, this.title, List vault}) : super(key: key);
+  CalendarPage({Key key, this.title, this.calendarEvents}) : super(key: key);
 
   final String title;
+  final Map<DateTime, List> calendarEvents;
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -32,12 +33,19 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   AnimationController _animationController;
   CalendarController _calendarController;
 
+  updateUI( Map<DateTime, List> eventList){
+    setState(() {
+      _events = eventList;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    final _selectedDay = DateTime.now();
+    // final _selectedDay = DateTime.now();
+    final _selectedDay = DateTime.parse("2020-10-20");
     var testDay  = DateTime.parse("2020-10-20");
-
+    print(widget.calendarEvents);
     _events = {
       testDay:[{"name": 'Black Rock', "id":999}]
     ,
@@ -58,14 +66,15 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
       _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'],
     };
 
-    _selectedEvents = _events[_selectedDay] ?? [];
+     _selectedEvents = _events[_selectedDay] ?? [];
     _calendarController = CalendarController();
+
+    updateUI(widget.calendarEvents);
 
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-
     _animationController.forward();
   }
 

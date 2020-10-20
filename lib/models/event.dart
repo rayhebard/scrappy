@@ -120,12 +120,10 @@ class Event {
       List<String> tagList =  tags != null && tags.length > 0 ?  new List<String>.from(tags) : [];
 
 
-      // var eventTypes = filters["event_types"] as List;
-      // List<EventType> eventTypeList =  eventTypes.length > 0 ? eventTypes.map((item) => EventType.fromJson(item)).toList() : [];
 
-       // var eventTargets = filters["event_target_audience"] as List;
-      // List<EventTargetAudience> eventTargetList = eventTargets.length > 0 ? eventTargets.map(item) => EventTargetAudience.fromJson(item)).toList()  : [];
-      //
+      var startDate = DateTime.parse(data["first_date"]);
+      var endDate = DateTime.parse(data["last_date"]);
+
       var eventDepartments = data["departments"] as List;
       List<Department> departmentList = eventDepartments != null && eventDepartments.length > 0 ? eventDepartments.map((item) => Department.fromJson(item)).toList()  : [];
 
@@ -136,8 +134,8 @@ class Event {
         created_at: data["created_at"],
         first_date: data["first_date"],
         last_date: data["last_date"],
-        start: DateTime.parse(data["first-date"]),
-        end: DateTime.parse(data['last_date']),
+        start:startDate,
+        end:endDate,
         hashtag: data["hashtag"],
         urlname: data["urlname"],
         user_id: data[" user_id"],

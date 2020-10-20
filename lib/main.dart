@@ -11,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'screens/loading_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'screens/flutter_calendar.dart';
+
 
 void main(){
   initializeDateFormatting().then((_) => runApp(Scrappy()));

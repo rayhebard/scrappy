@@ -19,19 +19,31 @@ class CalendarLoader extends StatefulWidget {
 class _CalendarLoaderState extends State<CalendarLoader> {
 
   var eventService = EventService();
-  List<Event> vault;
+  Map<DateTime, List> calEvents = { DateTime.now(): []};
 
-  List organizeByDateTime(List list){
 
+  void organizedByDateTime(List<Event> list){
+    DateTime startTime = DateTime.now();
+     for(var i = 0; i < list.length; i++){
+       Event event = list[i];
+       startTime = event.start;
+       if(calEvents.containsKey(startTime)){
+         calEvents[startTime].add(event);
+       }else{
+         calEvents[startTime] = List();
+         calEvents[startTime].add(event);
+       }
+
+     }
   }
 
   void getCalendarData() async {
 
     List eventVault = await eventService.getCalendarEvents();
+    organizedByDateTime(eventVault);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return CalendarPage(
-      );
+      return CalendarPage(calendarEvents:calEvents);
     }));
   }
 

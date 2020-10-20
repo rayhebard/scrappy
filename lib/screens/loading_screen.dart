@@ -25,7 +25,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void getEventsData() async {
     eventBank = await eventService.getEvents();
-    leadEvent =eventBank.vault[0];
+    leadEvent = eventBank.vault[0];
     eventBankVault = eventBank.vault;
     eventBankVault.removeAt(0);
 
@@ -45,6 +45,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getEventsData();
     return Scaffold(
       body: Center(
         child: SpinKitDoubleBounce(
