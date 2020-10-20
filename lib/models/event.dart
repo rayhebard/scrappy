@@ -12,6 +12,8 @@ class Event {
     String created_at;
     String first_date;
     String last_date;
+    DateTime start;
+    DateTime end;
     String hashtag;
     String urlname;
     int user_id;
@@ -62,6 +64,8 @@ class Event {
       this.created_at,
       this.first_date,
       this.last_date,
+      this.start,
+      this.end,
       this.hashtag,
       this.urlname,
       this.user_id,
@@ -132,6 +136,8 @@ class Event {
         created_at: data["created_at"],
         first_date: data["first_date"],
         last_date: data["last_date"],
+        start: DateTime.parse(data["first-date"]),
+        end: DateTime.parse(data['last_date']),
         hashtag: data["hashtag"],
         urlname: data["urlname"],
         user_id: data[" user_id"],
@@ -249,4 +255,22 @@ class Department{
   String toString() {
     return 'Department: {id = $id, name = $name}';
   }
+}
+
+class CalendarEvent{
+  String title;
+  int eventId;
+  DateTime start;
+  DateTime end;
+
+  CalendarEvent({this.title, this.eventId, this.start, this.end});
+
+  factory CalendarEvent.fromJson(Map<String, dynamic> data){
+    return CalendarEvent(
+      eventId: data["id"],
+      title: data["title"],
+      start: DateTime.parse(data["start"]),
+      end: DateTime.parse(data["end"]),
+    );
+    }
 }

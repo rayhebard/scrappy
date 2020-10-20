@@ -100,7 +100,15 @@ class _EventsBankPageState extends State<EventsBankPage> {
                             ),
                             padding: EdgeInsets.all(15.0),
                             shape: CircleBorder(),
-                            onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
+                            // onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                return EventsBankPage(
+                                    eventBankVault: vault,
+                                    leadEvent: topEvent,
+                                );
+                              }));
+                            },
 
                           )
                         ),

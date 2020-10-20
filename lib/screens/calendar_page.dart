@@ -13,10 +13,11 @@ final Map<DateTime, List> _holidays = {
   DateTime(2019, 2, 14): ['Valentine\'s Day'],
   DateTime(2019, 4, 21): ['Easter Sunday'],
   DateTime(2019, 4, 22): ['Easter Monday'],
+
 };
 class CalendarPage extends StatefulWidget {
   static const String id = '/calendar_page';
-  CalendarPage({Key key, this.title}) : super(key: key);
+  CalendarPage({Key key, this.title, List vault}) : super(key: key);
 
   final String title;
 
