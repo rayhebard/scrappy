@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import'package:flutter_svg/flutter_svg.dart';
+import 'package:scrappy/screens/event_details_page.dart';
 
 
 
@@ -55,7 +56,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
     setState(() {
       topEvent = leadEvent;
       vault = eventBankVault;
-      print(vault[0].departments);
       length = vault.length;
     });
   }
@@ -150,6 +150,11 @@ class _EventsBankPageState extends State<EventsBankPage> {
               Expanded(
                   child: ReusableCard(
                     colour: kHootyHooGold,
+                    onPress: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return EventDetailsPage(event:topEvent);
+                      }));
+                    },
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -191,9 +196,9 @@ class _EventsBankPageState extends State<EventsBankPage> {
                   itemBuilder: (BuildContext content, int index){
                     return ReusableCard(
                         onPress: (){
-                          setState(() {
-
-                          });
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return EventDetailsPage(event:vault[index]);
+                          }));
                         },
                         cardChild: IconContent( icon: FontAwesomeIcons.star, label: vault[index].title,),
                         colour: kCardColor);

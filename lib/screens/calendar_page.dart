@@ -5,6 +5,7 @@ import 'package:scrappy/components/nav_bar.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:scrappy/screens/event_details_page.dart';
 
 // Example holidays
 final Map<DateTime, List> _holidays = {
@@ -45,7 +46,6 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
     // final _selectedDay = DateTime.now();
     final _selectedDay = DateTime.parse("2020-10-20");
     var testDay  = DateTime.parse("2020-10-20");
-    print(widget.calendarEvents);
     _events = {
       testDay:[{"name": 'Black Rock', "id":999}]
     ,
@@ -295,7 +295,13 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: ListTile(
           title: Text(event.toString()),
-          onTap: () => print('$event tapped!'),
+          onTap: () =>
+          {
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return EventDetailsPage(event:event);
+              })
+             )//Navigator
+          }
         ),
       ))
           .toList(),
