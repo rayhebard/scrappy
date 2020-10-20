@@ -9,10 +9,13 @@ import 'screens/map_page.dart';
 import 'screens/notification_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'screens/loading_screen.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'screens/flutter_calendar.dart';
 
-
-
-void main() => runApp(Scrappy());
+void main(){
+  initializeDateFormatting().then((_) => runApp(Scrappy()));
+}
 
 class Scrappy extends StatelessWidget {
 
@@ -20,6 +23,7 @@ class Scrappy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       theme: ThemeData.dark().copyWith(
         primaryColor: Color(0xFF0A0E21),
         scaffoldBackgroundColor: Colors.white,
@@ -34,7 +38,8 @@ class Scrappy extends StatelessWidget {
         EventTagsPage.id:(context)=>EventTagsPage(),
         MapPage.id:(context)=>MapPage(),
         NotificationPage.id:(context)=>NotificationPage(),
-        LoadingScreen.id:(context)=>LoadingScreen()
+        LoadingScreen.id:(context)=>LoadingScreen(),
+        CalendarPage.id:(context)=>CalendarPage()
       },
     );
   }
