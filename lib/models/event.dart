@@ -186,6 +186,10 @@ class Event {
       return 'Event: {id = $id, title = $title}';
     }
 
+    String toDisplay(){
+      return this.title;
+    }
+
 }
 
 

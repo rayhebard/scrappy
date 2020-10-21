@@ -1,5 +1,6 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:scrappy/constants.dart';
 import 'package:scrappy/components/nav_bar.dart';
 
@@ -14,8 +15,8 @@ final Map<DateTime, List> _holidays = {
   DateTime(2019, 2, 14): ['Valentine\'s Day'],
   DateTime(2019, 4, 21): ['Easter Sunday'],
   DateTime(2019, 4, 22): ['Easter Monday'],
-
 };
+
 class CalendarPage extends StatefulWidget {
   static const String id = '/calendar_page';
   CalendarPage({Key key, this.title, this.calendarEvents}) : super(key: key);
@@ -34,42 +35,28 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   AnimationController _animationController;
   CalendarController _calendarController;
 
-  updateUI( Map<DateTime, List> eventList){
+  updateUI( Map<DateTime, List> eventList, today){
     setState(() {
       _events = eventList;
+      if(_events.containsKey(today)){
+        _selectedEvents = _events[today];
+      }else{
+        _selectedEvents = [];
+      }
+
     });
   }
 
   @override
   void initState() {
     super.initState();
-    // final _selectedDay = DateTime.now();
     final _selectedDay = DateTime.parse("2020-10-20");
-    var testDay  = DateTime.parse("2020-10-20");
-    _events = {
-      testDay:[{"name": 'Black Rock', "id":999}]
-    ,
-      _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
-      _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
-      _selectedDay.subtract(Duration(days: 20)): ['Event A2', 'Event B2', 'Event C2', 'Event D2'],
-      _selectedDay.subtract(Duration(days: 16)): ['Event A3', 'Event B3'],
-      _selectedDay.subtract(Duration(days: 10)): ['Event A4', 'Event B4', 'Event C4'],
-      _selectedDay.subtract(Duration(days: 4)): ['Event A5', 'Event B5', 'Event C5'],
-      _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
-      _selectedDay: ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
-      _selectedDay.add(Duration(days: 1)): ['Event A8', 'Event B8', 'Event C8', 'Event D8'],
-      _selectedDay.add(Duration(days: 3)): Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      _selectedDay.add(Duration(days: 7)): ['Event A10', 'Event B10', 'Event C10'],
-      _selectedDay.add(Duration(days: 11)): ['Event A11', 'Event B11'],
-      _selectedDay.add(Duration(days: 17)): ['Event A12', 'Event B12', 'Event C12', 'Event D12'],
-      _selectedDay.add(Duration(days: 22)): ['Event A13', 'Event B13'],
-      _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'],
-    };
 
-     _selectedEvents = _events[_selectedDay] ?? [];
+    final today  = DateTime.parse(new DateFormat('y-M-d').format(new DateTime.now()));
+
     _calendarController = CalendarController();
 
-    updateUI(widget.calendarEvents);
+    updateUI(widget.calendarEvents, today);
 
     _animationController = AnimationController(
       vsync: this,
@@ -282,8 +269,6 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
     );
   }
 
-
-
   Widget _buildEventList() {
     return ListView(
       children: _selectedEvents
@@ -294,7 +279,7 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
         ),
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: ListTile(
-          title: Text(event.toString()),
+          title: Text(event.toDisplay()),
           onTap: () =>
           {
               Navigator.push(context, MaterialPageRoute(builder: (context){
