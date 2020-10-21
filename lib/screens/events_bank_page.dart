@@ -200,7 +200,11 @@ class _EventsBankPageState extends State<EventsBankPage> {
                             return EventDetailsPage(event:vault[index]);
                           }));
                         },
-                        cardChild: IconContent( icon: FontAwesomeIcons.star, label: vault[index].title,),
+                        cardChild: IconContent(
+                                          icon: FontAwesomeIcons.star,
+                                          label: vault[index].title,
+                                          start: Jiffy(vault[index].first_date).yMMMd,
+                                          end: Jiffy(vault[index].last_date).yMMMd),
                         colour: kCardColor);
                   },
                 )
