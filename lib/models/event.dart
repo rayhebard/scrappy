@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'dart:ffi';
+
 
 class Event {
 
@@ -119,7 +121,17 @@ class Event {
       var tags = data["tags"] as List;
       List<String> tagList =  tags != null && tags.length > 0 ?  new List<String>.from(tags) : [];
 
+      List  types;
+      if(data["filters"]["event_types"] != null && data["filters"]["event_types"].length > 0){
+         types = data["filters"]["event_types"].toList();
+      }
+      List<EventType> eventTypes = types != null && types.length > 0 ? types.map((item) => EventType.fromJson(item)).toList()  : [];
 
+      List targets;
+      if(data["filters"]["event_target_audience"] != null && data["filters"]["event_target_audience"].length > 0){
+        targets = data["filters"]["event_target_audience"].toList();
+      }
+      List<EventTargetAudience> eventTargets = targets != null && targets.length > 0 ? targets.map((item) => EventTargetAudience.fromJson(item)).toList()  : [];
 
       var startDate = DateTime.parse(data["first_date"]);
       var endDate = DateTime.parse(data["last_date"]);
@@ -169,8 +181,8 @@ class Event {
         address: data["address"],
         description: data["description"],
         featured: data["featured"],
-        // event_target_audience: eventTargetList,
-        // event_types: eventTypeList,
+        event_target_audience: eventTargets,
+        event_types: eventTypes,
         localist_url: data["localist_url"],
         localist_ics_url: data["localist_ics_ur"],
         photo_url: data["photo_url"],
@@ -194,19 +206,32 @@ class Event {
 
 
 class Filter{
-  List<EventType> eventTypes;
-  List<EventTargetAudience> audiences;
-  Filter({this.eventTypes, this.audiences});
+  List event_types = [];
+  List event_target_audience = [];
+  Filter({this.event_types, this.event_target_audience});
 
   factory Filter.fromJson(Map<String, dynamic> data){
 
-      var audiences = data["event_target_audience"] as List;
-      var  types = data["event_target_audience"] as List;
+      List <EventTargetAudience> audiences;
+      List <EventType> types;
 
+      var eventAudiences = data["event_target_audience"] as List;
+      if (eventAudiences != null && eventAudiences.length > 0) {
+        audiences = eventAudiences.map((item) => EventTargetAudience.fromJson(item)).toList();
+      } else {
+        audiences = [];
+      }
+
+      var  eventTypes = data["event_types"] as List;
+      if (eventTypes!= null && eventTypes.length > 0) {
+        types = eventTypes.map((item) => EventType.fromJson(item)).toList();
+      } else {
+        types = [];
+      }
 
     return Filter(
-       eventTypes: types,
-       audiences: audiences,
+       event_types: types,
+       event_target_audience: audiences,
     );
   }
 }
