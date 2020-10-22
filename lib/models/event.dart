@@ -205,12 +205,12 @@ class Event {
 }
 
 
-class Filter{
+class Filters{
   List event_types = [];
   List event_target_audience = [];
-  Filter({this.event_types, this.event_target_audience});
+  Filters({this.event_types, this.event_target_audience});
 
-  factory Filter.fromJson(Map<String, dynamic> data){
+  factory Filters.fromJson(Map<String, dynamic> data){
 
       List <EventTargetAudience> audiences;
       List <EventType> types;
@@ -229,7 +229,7 @@ class Filter{
         types = [];
       }
 
-    return Filter(
+    return Filters(
        event_types: types,
        event_target_audience: audiences,
     );
@@ -239,8 +239,9 @@ class Filter{
 class EventType{
   int id;
   String name;
+  bool isChecked;
 
-  EventType({this.id, this.name});
+  EventType({this.id, this.name, this.isChecked = false});
 
   factory EventType.fromJson(Map<String, dynamic> data){
     return EventType(
@@ -248,13 +249,19 @@ class EventType{
       name: data["name"],
     );
   }
+
+  @override
+  String toString() {
+    return 'Event Types: {id = $id, name = $name}';
+  }
 }
 
 class EventTargetAudience{
   int id;
   String name;
+  bool isChecked;
 
-  EventTargetAudience({this.id, this.name});
+  EventTargetAudience({this.id, this.name, this.isChecked = false});
 
   factory EventTargetAudience.fromJson(Map<String, dynamic> data){
     return EventTargetAudience(
@@ -262,6 +269,12 @@ class EventTargetAudience{
       name: data["name"],
     );
   }
+
+  @override
+  String toString() {
+    return 'Event Target Audience: {id = $id, name = $name}';
+  }
+
 }
 
 class Department{
@@ -284,6 +297,10 @@ class Department{
   }
 }
 
+/*Create the Calendar Event for the Calendar Display
+ Params: String, int: eventId, Datetime: start, Datetime: End
+ Returns: Calendar Event
+*/
 class CalendarEvent{
   String title;
   int eventId;

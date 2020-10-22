@@ -3,7 +3,7 @@ import 'screens/input_page.dart';
 import 'screens/calendar_page.dart';
 import 'screens/events_bank_page.dart';
 import 'screens/event_details_page.dart';
-import 'screens/event_tags_page.dart';
+import 'screens/filters_page.dart';
 import 'screens/favorites_page.dart';
 import 'screens/map_page.dart';
 import 'screens/notification_page.dart';
@@ -35,7 +35,7 @@ class Scrappy extends StatelessWidget {
         EventsBankPage.id:(context)=>EventsBankPage(),
         EventDetailsPage.id : (context)=>EventDetailsPage(),
         FavoritesPage.id:(context)=>FavoritesPage(),
-        EventTagsPage.id:(context)=>EventTagsPage(),
+        FiltersPage.id:(context)=>FiltersPage(),
         MapPage.id:(context)=>MapPage(),
         NotificationPage.id:(context)=>NotificationPage(),
         LoadingScreen.id:(context)=>LoadingScreen(),

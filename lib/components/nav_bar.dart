@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scrappy/screens/favorites_page.dart';
-import '../screens/event_tags_page.dart';
+import '../screens/filters_page.dart';
 import '../screens/calendar_page.dart';
 import '../screens/notification_page.dart';
 import '../screens/map_page.dart';

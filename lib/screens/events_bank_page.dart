@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import'package:flutter_svg/flutter_svg.dart';
 import 'package:scrappy/screens/event_details_page.dart';
@@ -15,10 +14,7 @@ import 'package:scrappy/screens/event_details_page.dart';
 import '../components/icon_content.dart';
 import '../components/reusable_card.dart';
 import '../constants.dart';
-import 'event_tags_page.dart';
-import 'calendar_page.dart';
-import 'notification_page.dart';
-import 'map_page.dart';
+import 'filters_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
@@ -131,7 +127,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context){
-                                    return EventTagsPage();
+                                    return FiltersPage();
                                   }
                                   )
                               );
