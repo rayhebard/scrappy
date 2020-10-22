@@ -14,6 +14,17 @@ const kNumberTextStyle = TextStyle(
     fontSize: 50.0,
     fontWeight: FontWeight.w900);
 
+const kTitleStyle = TextStyle(
+    fontSize: 50.0,
+    fontWeight: FontWeight.w800,
+
+    color:kLegacyBlack,
+);
+
+const kLabelTextStyleW = TextStyle(
+fontSize: 18.0, color: Colors.white
+);
+
 const kBottomContainerHeight = 80.0;
 const kCardColor = Color(0xFF1d1E33);
 const kInactiveCardColour = Color(0xFF111328);
