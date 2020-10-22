@@ -139,6 +139,7 @@ class Event {
       var eventDepartments = data["departments"] as List;
       List<Department> departmentList = eventDepartments != null && eventDepartments.length > 0 ? eventDepartments.map((item) => Department.fromJson(item)).toList()  : [];
 
+      print(data["experience"]);
       return new Event( id: data["id"],
         title: data['title'],
         url: data['url'],
@@ -156,7 +157,7 @@ class Event {
         location: data['location'],
         location_name: data['location_name'],
         status: data["status"],
-        experince: data["experince"],
+        experince: data["experience"],
         stream_url: data["stream_url"],
         stream_info: data["stream_info"],
         stream_embed_code: data["stream_embed_cod"],
@@ -239,40 +240,42 @@ class Filters{
 class EventType{
   int id;
   String name;
-  bool isChecked;
+  bool isChecked = false;
 
-  EventType({this.id, this.name, this.isChecked = false});
+  EventType({this.id, this.name, this.isChecked});
 
   factory EventType.fromJson(Map<String, dynamic> data){
     return EventType(
       id: data["id"],
       name: data["name"],
+      isChecked: false,
     );
   }
 
   @override
   String toString() {
-    return 'Event Types: {id = $id, name = $name}';
+    return 'Event Types: {id = $id, name = $name, isChecked=$isChecked }';
   }
 }
 
 class EventTargetAudience{
   int id;
   String name;
-  bool isChecked;
+  bool isChecked = false;
 
-  EventTargetAudience({this.id, this.name, this.isChecked = false});
+  EventTargetAudience({this.id, this.name, this.isChecked });
 
   factory EventTargetAudience.fromJson(Map<String, dynamic> data){
     return EventTargetAudience(
       id: data["id"],
       name: data["name"],
+      isChecked: false,
     );
   }
 
   @override
   String toString() {
-    return 'Event Target Audience: {id = $id, name = $name}';
+    return 'Event Target Audience: {id = $id, name = $name, isChecked=$isChecked }';
   }
 
 }

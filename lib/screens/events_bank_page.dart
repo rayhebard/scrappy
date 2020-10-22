@@ -28,7 +28,7 @@ class EventsBankPage extends StatefulWidget {
   static const String id = '/event_bank';
   final Event leadEvent;
   final List<Event> eventBankVault;
-  EventsBankPage({this.leadEvent, this.eventBankVault});
+  EventsBankPage({this.leadEvent, this.eventBankVault,});
 
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
@@ -145,7 +145,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
               ),
               Expanded(
                   child: ReusableCard(
-                    colour: kHootyHooGold,
+                    colour: Colors.amberAccent.shade200,
                     onPress: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
                         return EventDetailsPage(event:topEvent);

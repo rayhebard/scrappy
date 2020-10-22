@@ -116,7 +116,7 @@ class EventService {
 
 
 
-  Future applyFilterToEvents() async {
+  Future applyFilterToEvents(List filters) async {
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/search?search=computing&days=90&pp=100');

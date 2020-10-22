@@ -22,19 +22,21 @@ class FiltersPage extends StatefulWidget {
 class _FiltersPageState extends State<FiltersPage> {
   //bool _isChecked = true;
   EventService eventService = EventService();
-  List<EventTargetAudience> audience;
+  List<EventTargetAudience> audiences;
   List<EventType> types;
 
   void onChanged(bool value, item){
-          setState(() {
-          item.isChecked = true;
+    setState(() {
+          item.isChecked = !item.isChecked;
+          print(item);
     });
   }
 
   void getEventFilters() async{
-    Filters filters = await eventService.getEventsFilters();
-    types = filters.event_types;
-    audience = filters.event_target_audience;
+      Filters filters = await eventService.getEventsFilters();
+      types = filters.event_types;
+      audiences = filters.event_target_audience;
+      print(audiences);
   }
 
   @override
@@ -85,14 +87,14 @@ class _FiltersPageState extends State<FiltersPage> {
                     Expanded(
 
                         child: ListView.builder(
-                          itemCount: audience.length - 1,
+                          itemCount: audiences.length - 1,
                           itemBuilder: (BuildContext content, int index){
                             return new CheckboxListTile(
-                                title: new Text(audience[index].name, style: kLabelTextStyle),
+                                title: new Text(audiences[index].name, style: kLabelTextStyle),
                                 activeColor: Colors.amberAccent,
                                 secondary: const Icon(FontAwesomeIcons.checkCircle),
-                                value: audience[index].isChecked,
-                                onChanged: (bool value){onChanged(value, audience[index]);});
+                                value: audiences[index].isChecked,
+                                onChanged: (bool value){onChanged(value, audiences[index]);});
                           },
                         )),
                     RaisedButton.icon(
@@ -102,15 +104,22 @@ class _FiltersPageState extends State<FiltersPage> {
                           style: TextStyle(fontSize: 20.0),)
                         ,
                         onPressed: (){
-                            print(types);
-                            print(audience);
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(builder: (context){
-                          //       return LoadingScreen();
-                          //     }
-                          //     )
-                          // );
+                             List submitFilters  = List();
+                             types.forEach((type) =>
+                             {
+                               if(type.isChecked){submitFilters.add(type.id)}
+                             });
+                             audiences.forEach((audience) => {
+                                if(audience.isChecked){submitFilters.add(audience.id)}
+                            });
+                            print(submitFilters);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context){
+                                return LoadingScreen();
+                              }
+                              )
+                          );
                         })
                   ],
                 ),
