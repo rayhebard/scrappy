@@ -93,7 +93,6 @@ class EventService {
   Future<Filters> getEventsFilters() async {
     var client = Client();
     try{
-      print('calling API');
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/filters');
       print(response.statusCode);
       var data = json.decode(response.body);

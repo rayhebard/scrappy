@@ -102,14 +102,15 @@ class _FiltersPageState extends State<FiltersPage> {
                           style: TextStyle(fontSize: 20.0),)
                         ,
                         onPressed: (){
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context){
-                                return LoadingScreen();
-                              }
-                              )
-                          );
+                            print(types);
+                            print(audience);
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(builder: (context){
+                          //       return LoadingScreen();
+                          //     }
+                          //     )
+                          // );
                         })
                   ],
                 ),
