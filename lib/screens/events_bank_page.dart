@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jiffy/jiffy.dart';
-import'package:flutter_svg/flutter_svg.dart';
 import 'package:scrappy/screens/event_details_page.dart';
 
 
@@ -154,8 +153,8 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(FontAwesomeIcons.star),
                         Text(topEvent.title, style: kLabelTextStyle),
+                        Image.network(topEvent.photo_url, width:100,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.baseline,

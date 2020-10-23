@@ -6,6 +6,8 @@ import 'package:scrappy/components/nav_bar.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:share/share.dart';
+
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
 
@@ -14,13 +16,14 @@ class EventDetailsPage extends StatelessWidget {
   const EventDetailsPage({
     Key key,
     this.event
+
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
     print(this.event);
+    String text = event.localist_url;
+    String subject = event.title;
     return Scaffold(
       bottomNavigationBar: Navbar(),
       appBar:AppBar(
@@ -30,7 +33,10 @@ class EventDetailsPage extends StatelessWidget {
             padding: EdgeInsets.all(10),
           child: ListView(
           children: <Widget>[
-
+              Container(
+                padding: EdgeInsets.all(10),
+                child:Image.network(event.photo_url),
+                ),
               Container(
                 decoration:
                 BoxDecoration(
@@ -48,6 +54,7 @@ class EventDetailsPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(15),
               child: Text(event.title, style: kTitleStyle, textAlign: TextAlign.center),
+
               ),
 
             Container(
@@ -67,8 +74,10 @@ class EventDetailsPage extends StatelessWidget {
                 ),
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(5),
-                child:Text( 'Time: ', style: kLabelTextStyle3 ,textAlign: TextAlign.center)
+                child:Text( 'Event Type: '+ event.experince, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
             ),
+
+
             Container(
                 decoration:
                 BoxDecoration(
@@ -128,7 +137,14 @@ class EventDetailsPage extends StatelessWidget {
                     label: Text('Share',
                       style: TextStyle(fontSize: 20.0, ),),
                     onPressed: (){
-
+                      {
+                        final RenderBox box = context.findRenderObject();
+                        Share.share(text,
+                            subject: subject,
+                            sharePositionOrigin:
+                            box.localToGlobal(Offset.zero) &
+                            box.size);
+                      }
                     })
             ),
 
