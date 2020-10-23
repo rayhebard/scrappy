@@ -21,6 +21,7 @@ dependencies:
   flutter_spinkit: ^4.1.2
   intl: ^0.16.1
   jiffy: ^3.0.1
+  share: ^0.6.5
   flutter:
     sdk: flutter
 
