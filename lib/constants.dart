@@ -15,7 +15,7 @@ const kNumberTextStyle = TextStyle(
     fontWeight: FontWeight.w900);
 
 const kTitleStyle = TextStyle(
-    fontSize: 50.0,
+    fontSize: 35.0,
     fontWeight: FontWeight.w800,
 
     color:kLegacyBlack,
