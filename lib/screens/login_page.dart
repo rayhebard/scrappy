@@ -18,19 +18,18 @@ class _LoginPageState extends State<LoginPage>{
         appBar: AppBar(
           title: Text('Scrappy Log-In Page'),
         ),
-        body: Padding(
+        body:
+        Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
+               Center(
+                 child: new Image.asset(
+                   'images/owl_wink.jpg',
+                   fit: BoxFit.fill,
+                 ),
+               ),
 
-                Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(30),
-                    child: Image(
-                      image:AssetImage('images/KSU_on light backgrounds/KSU_PNG LOGO/BE_Horiz_3Clr_Computing and Software.png'),
-
-                      width: 250.0 ,
-                    ),),
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
@@ -113,10 +112,10 @@ class _LoginPageState extends State<LoginPage>{
                             );
                           },
                         )
-
-
                     )
               ],
-            )));
+            )
+        )
+    );
   }
 }
