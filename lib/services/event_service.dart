@@ -118,8 +118,11 @@ class EventService {
 
   Future applyFilterToEvents(List filters) async {
     var client = Client();
+    String queryString ="";
+    filters.forEach((type) => { queryString += "&type[]=" + type.toString() });
     try{
-      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/search?search=computing&days=90&pp=100');
+      print(queryString);
+      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events? + $queryString');
       print(response.statusCode);
       var data = json.decode(response.body);
       //Get the list of events within the data object

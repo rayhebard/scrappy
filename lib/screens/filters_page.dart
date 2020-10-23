@@ -28,7 +28,6 @@ class _FiltersPageState extends State<FiltersPage> {
   void onChanged(bool value, item){
     setState(() {
           item.isChecked = !item.isChecked;
-          print(item);
     });
   }
 
@@ -36,7 +35,6 @@ class _FiltersPageState extends State<FiltersPage> {
       Filters filters = await eventService.getEventsFilters();
       types = filters.event_types;
       audiences = filters.event_target_audience;
-      print(audiences);
   }
 
   @override
@@ -97,30 +95,36 @@ class _FiltersPageState extends State<FiltersPage> {
                                 onChanged: (bool value){onChanged(value, audiences[index]);});
                           },
                         )),
-                    RaisedButton.icon(
-                        color: kCardColor,
-                        icon: Icon(FontAwesomeIcons.filter),
-                        label: Text('Submit Filters',
-                          style: TextStyle(fontSize: 20.0),)
-                        ,
-                        onPressed: (){
-                             List submitFilters  = List();
-                             types.forEach((type) =>
-                             {
-                               if(type.isChecked){submitFilters.add(type.id)}
-                             });
-                             audiences.forEach((audience) => {
+                    Row(
+                      children: [
+                        Expanded(child:
+                          RaisedButton.icon(
+                            color: kCardColor,
+                            icon: Icon(FontAwesomeIcons.filter),
+                            label: Text('Submit Filters',
+                              style: TextStyle(fontSize: 20.0),)
+                            ,
+                            onPressed: (){
+                              List submitFilters  = List();
+                              types.forEach((type) =>
+                              {
+                                if(type.isChecked){submitFilters.add(type.id)}
+                              });
+                              audiences.forEach((audience) => {
                                 if(audience.isChecked){submitFilters.add(audience.id)}
-                            });
-                            print(submitFilters);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context){
-                                return LoadingScreen();
-                              }
-                              )
-                          );
-                        })
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context){
+                                    return LoadingScreen(filters: submitFilters,);
+                                  }
+                                  )
+                              );
+                            })
+                        )
+                      ],
+                    )
+
                   ],
                 ),
               );
