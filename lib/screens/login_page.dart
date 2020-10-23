@@ -15,7 +15,6 @@ class _LoginPageState extends State<LoginPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Colors.amberAccent.shade100,
         appBar: AppBar(
           title: Text('Scrappy Log-In Page'),
         ),
@@ -51,14 +50,8 @@ class _LoginPageState extends State<LoginPage>{
                     ),
                   ),
                   CircleAvatar(
-                    radius: 120.0,
+                    radius: 80.0,
                     backgroundImage: AssetImage('images/owl_wink.jpg') ,
-                  ),
-                  SizedBox(height: 20,
-                    width: 150.0,
-                    child: Divider(
-                      color: Colors.teal.shade100,
-                    ),
                   ),
                   Container(
                     padding: EdgeInsets.all(10),
@@ -66,7 +59,6 @@ class _LoginPageState extends State<LoginPage>{
                       controller: nameController,
                       style: TextStyle(color: kCardColor),
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
                         labelText: 'User Name',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -86,7 +78,6 @@ class _LoginPageState extends State<LoginPage>{
                       style: TextStyle(color: kCardColor),
                       controller: passwordController,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(),
                         labelText: 'Password',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
