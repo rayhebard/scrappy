@@ -15,13 +15,15 @@ import 'package:scrappy/screens/loading_screen.dart';
 
 class FiltersPage extends StatefulWidget {
   static const String id = '/filters';
+  final Filters filters;
+  FiltersPage({this.filters})
   @override
   _FiltersPageState createState() => _FiltersPageState();
 }
 
 class _FiltersPageState extends State<FiltersPage> {
   //bool _isChecked = true;
-  EventService eventService = EventService();
+  // EventService eventService = EventService();
   List<EventTargetAudience> audiences;
   List<EventType> types;
 
@@ -31,17 +33,23 @@ class _FiltersPageState extends State<FiltersPage> {
     });
   }
 
-  void getEventFilters() async{
-      Filters filters = await eventService.getEventsFilters();
-      types = filters.event_types;
-      audiences = filters.event_target_audience;
+  // void getEventFilters() async{
+  //     Filters filters = await eventService.getEventsFilters();
+  //     types = filters.event_types;
+  //     audiences = filters.event_target_audience;
+  // }
+  
+  void updateUi(Filters filters){
+        types = filters.event_types;
+        audiences = filters.event_target_audience;
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getEventFilters();
+    // getEventFilters();
+    updateUi(widget.filters)
   }
 
   @override

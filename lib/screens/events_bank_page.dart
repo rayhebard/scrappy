@@ -27,7 +27,8 @@ class EventsBankPage extends StatefulWidget {
   static const String id = '/event_bank';
   final Event leadEvent;
   final List<Event> eventBankVault;
-  EventsBankPage({this.leadEvent, this.eventBankVault,});
+  final Filters eventFilters;
+  EventsBankPage({this.leadEvent, this.eventBankVault, this.eventFilters});
 
   @override
   _EventsBankPageState createState() => _EventsBankPageState();
@@ -37,6 +38,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
   var eventService = EventService();
   EventBank eventBank;
   Event topEvent;
+  Filters filtersForEvents;
   List<Event> vault;
   int length;
 
@@ -44,14 +46,15 @@ class _EventsBankPageState extends State<EventsBankPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    updateUI(widget.leadEvent, widget.eventBankVault);
+    updateUI(widget.leadEvent, widget.eventBankVault, widget.eventFilters);
   }
 
-  void updateUI( Event leadEvent, List<Event> eventBankVault) {
+  void updateUI( Event leadEvent, List<Event> eventBankVault, Filters eventFilters) {
     setState(() {
       topEvent = leadEvent;
       vault = eventBankVault;
       length = vault.length;
+      filtersForEvents = eventFilters;
     });
   }
 
@@ -126,7 +129,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context){
-                                    return FiltersPage();
+                                    return FiltersPage(filters: filterForEvents );
                                   }
                                   )
                               );

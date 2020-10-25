@@ -28,11 +28,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   List<Event> eventBankVault;
   int length;
   List queryFilters;
+  Filters filters;
 
   void getEventsData(List queryFilters) async {
     print(queryFilters);
     if(queryFilters == null || queryFilters.length == 0){
       eventBank = await eventService.getEvents();
+      filters = await eventService.getEventsFilters();
       leadEvent = eventBank.vault[0];
       eventBankVault = eventBank.vault;
       eventBankVault.removeAt(0);
@@ -48,7 +50,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EventsBankPage(
           eventBankVault: eventBankVault,
-          leadEvent: leadEvent
+          leadEvent: leadEvent,
+          eventFilters:filters,
       );
     }));
   }
