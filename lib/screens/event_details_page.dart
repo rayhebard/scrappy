@@ -7,20 +7,23 @@ import 'package:jiffy/jiffy.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
+import 'package:scrappy/services/database_helper.dart';
 
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
 
   final Event event;
 
-  const EventDetailsPage({
+   EventDetailsPage({
     Key key,
     this.event
 
   }) : super(key: key);
-
+  final dbHelper = DatabaseHelper.instance;
   @override
+
   Widget build(BuildContext context) {
+
     print(this.event);
     String text = event.localist_url;
     String subject = event.title;
@@ -30,127 +33,137 @@ class EventDetailsPage extends StatelessWidget {
           title: Text('Event Details')
       ),
       body: Padding(
-            padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
           child: ListView(
-          children: <Widget>[
+            children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
                 child:Image.network(event.photo_url),
-                ),
+              ),
               Container(
                 decoration:
                 BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                         Colors.amber,
-                         Colors.yellow,
-                         Colors.amber,
-                        ],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Colors.amber,
+                      Colors.yellow,
+                      Colors.amber,
+                    ],
                   ),
                 ),
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(15),
-              child: Text(event.title, style: kTitleStyle, textAlign: TextAlign.center),
+                child: Text(event.title, style: kTitleStyle, textAlign: TextAlign.center),
 
               ),
 
-            Container(
-                decoration:
-                BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(5),
-                child: Text( 'Date: '+(event.first_date)+' to '+(event.last_date), style: kLabelTextStyle3 ,textAlign: TextAlign.center)
-            ),
-
-            Container(
-                decoration:
-                BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(5),
-                child:Text( 'Event Type: '+ event.experince, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
-            ),
-
-
-            Container(
-                decoration:
-                BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(5),
-                child:Text( 'Location: ' + event.location_name, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
-            ),
-
-           Container(
-               decoration:
-               BoxDecoration(
-                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                 gradient: LinearGradient(
-                   begin: Alignment.topRight,
-                   end: Alignment.bottomLeft,
-                   colors: [
-                     Color(0xFF1d1E33),
-                     Colors.black,
-                     Color(0xFF1d1E33)
-                   ],
-                 ),
-               ),
-               width: MediaQuery.of(context).size.width,
-               padding: EdgeInsets.all(15),
-             child: Text(event.description_text, style: kLabelTextStyleW,)
-           ),
-            Container(
-                decoration:
-            BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(5),
+                  child: Text( 'Date: '+(event.first_date)+' to '+(event.last_date), style: kLabelTextStyle3 ,textAlign: TextAlign.center)
               ),
-            padding: EdgeInsets.all(15),
-                child:
-                FlatButton.icon(
-                  height: 45,
-                color: Colors.grey,
-                icon: Icon(FontAwesomeIcons.star),
-                label: Text('Add to Favorite Events List',
-                  style: TextStyle(fontSize: 20.0),),
-                onPressed: (){
 
-                })
-            ),
-            Container(
-                decoration:
-                BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                padding: EdgeInsets.all(15),
-                child:
-                FlatButton.icon(
-                    height: 45,
-                    color: Colors.grey,
-                    icon: Icon(FontAwesomeIcons.shareAlt),
-                    label: Text('Share',
-                      style: TextStyle(fontSize: 20.0, ),),
-                    onPressed: (){
-                      {
-                        final RenderBox box = context.findRenderObject();
-                        Share.share(text,
-                            subject: subject,
-                            sharePositionOrigin:
-                            box.localToGlobal(Offset.zero) &
-                            box.size);
-                      }
-                    })
-            ),
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(5),
+                  child:Text( 'Event Type: '+ event.experince, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
+              ),
 
-          ],
-        )
+
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(5),
+                  child:Text( 'Location: ' + event.location_name, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
+              ),
+
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        Color(0xFF1d1E33),
+                        Colors.black,
+                        Color(0xFF1d1E33)
+                      ],
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(15),
+                  child: Text(event.description_text, style: kLabelTextStyleW,)
+              ),
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  padding: EdgeInsets.all(15),
+                  child:
+                  FlatButton.icon(
+                      height: 45,
+                      color: Colors.grey,
+                      icon: Icon(FontAwesomeIcons.star),
+                      label: Text('Add to Favorite Events List',
+                        style: TextStyle(fontSize: 20.0),),
+                      onPressed: (){
+                          _insert();
+                      })
+              ),
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  padding: EdgeInsets.all(15),
+                  child:
+                  FlatButton.icon(
+                      height: 45,
+                      color: Colors.grey,
+                      icon: Icon(FontAwesomeIcons.shareAlt),
+                      label: Text('Share',
+                        style: TextStyle(fontSize: 20.0, ),),
+                      onPressed: (){
+                        {
+                          final RenderBox box = context.findRenderObject();
+                          Share.share(text,
+                              subject: subject,
+                              sharePositionOrigin:
+                              box.localToGlobal(Offset.zero) &
+                              box.size);
+                        }
+                      })
+              ),
+
+            ],
+          )
       ),
     );
+  }
+  void _insert() async {
+    // row to insert
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: event.id,
+      DatabaseHelper.columnTitle: event.title,
+      DatabaseHelper.columnDate: event.first_date,
+    };
+    final id = await dbHelper.insert(row);
+    print('inserted row id: $id');
   }
 }
