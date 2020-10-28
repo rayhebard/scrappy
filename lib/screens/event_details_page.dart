@@ -11,7 +11,7 @@ import 'package:scrappy/services/database_helper.dart';
 
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
-
+  bool isFav = false;
   final Event event;
 
    EventDetailsPage({
@@ -126,6 +126,24 @@ class EventDetailsPage extends StatelessWidget {
                           _insert();
                       })
               ),
+
+              Container(
+                  decoration:
+                  BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  padding: EdgeInsets.all(15),
+                  child:
+                  FlatButton.icon(
+                      height: 45,
+                      color: Colors.grey,
+                      icon: Icon(FontAwesomeIcons.star),
+                      label: Text('query test button',
+                        style: TextStyle(fontSize: 20.0),),
+                      onPressed: (){
+                        _query();
+                      })
+              ),
               Container(
                   decoration:
                   BoxDecoration(
@@ -156,6 +174,17 @@ class EventDetailsPage extends StatelessWidget {
       ),
     );
   }
+  void _delete() async {
+    // Assuming that the number of rows is the id for the last row.
+    final id = await dbHelper.queryRowCount();
+    final rowsDeleted = await dbHelper.delete(id);
+    print('deleted $rowsDeleted row(s): row $id');
+  }
+  void _query() async {
+    final allRows = await dbHelper.queryAllRows();
+    print('query all rows:');
+    allRows.forEach((row) => print(row));
+  }
   void _insert() async {
     // row to insert
     Map<String, dynamic> row = {
@@ -165,5 +194,30 @@ class EventDetailsPage extends StatelessWidget {
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
+  }
+  void _checkFav(String checkId) async {
+    final rowsPresent = await dbHelper.queryForFav(checkId);
+    if (rowsPresent > 0) {
+      print('favorited');
+      isFav = true;
+    } else {
+      print('unfavorited');
+      isFav = false;
+      //_insert();
+    }
+    //rowsPresent.forEach((row) => print(row));
+  }
+
+  void _insertOrDelete(String id) async {
+    final rowsPresent = await dbHelper.queryForFav(id);
+    if (rowsPresent > 0) {
+      print('Its was favourited and now it will be removed');
+      _delete();
+      isFav = false;
+    } else {
+      print('Not found on favorites list; adding to favorites');
+      _insert();
+      isFav = true;
+    }
   }
 }
