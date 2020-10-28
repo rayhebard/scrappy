@@ -4,14 +4,15 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
+
 class DatabaseHelper {
 
-  static final _databaseName = "ScrappyDatabase.db";
+  static final _databaseName = "Favorites.db";
   static final _databaseVersion = 1;
 
   static final table = 'scrappy_table';
 
-  static final columnId = 'eventId';
+  static final columnId = 'id';
   static final columnTitle = 'title';
   static final columnDate = 'first_date';
 
@@ -85,5 +86,18 @@ class DatabaseHelper {
   Future<int> delete(int id) async {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+  }
+  //Raw query to check if it is in the favourites
+  Future<int> queryForFav(String checkId) async {
+    Database db = await instance.database;
+    int noOfRows = 0;
+    try {
+      noOfRows = Sqflite.firstIntValue(await db.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $columnId = ?',
+          ['$checkId']));
+    } catch (e) {
+      print(e);
+    }
+    return noOfRows;
   }
 }
