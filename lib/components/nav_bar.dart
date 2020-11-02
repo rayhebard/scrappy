@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scrappy/constants.dart';
 import 'package:scrappy/screens/favorites_page.dart';
 import '../screens/filters_page.dart';
 import '../screens/calendar_page.dart';
@@ -12,26 +13,26 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amberAccent.shade200,
+      color: Colors.amberAccent.shade100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
 
           Expanded(child:FlatButton(
     onPressed: () => Navigator.pushReplacementNamed(context, LoadingScreen.id),
-    child: Icon(FontAwesomeIcons.home, color: Colors.white)),
+    child: Icon(FontAwesomeIcons.home, color:  kCardColor)),
           ),
           Expanded(child: FlatButton(
     onPressed: () => Navigator.pushReplacementNamed(context, FavoritesPage.id),
-    child: Icon(FontAwesomeIcons.star, color: Colors.white)),
+    child: Icon(FontAwesomeIcons.star, color: kCardColor)),
           ),
           Expanded(child:FlatButton(
     onPressed: () => Navigator.pushReplacementNamed(context, NotificationPage.id),
-    child: Icon(FontAwesomeIcons.bell, color: Colors.white)), 
+    child: Icon(FontAwesomeIcons.bell, color:  kCardColor)),
           ),
           Expanded(child: FlatButton(
               onPressed: () => Navigator.pushReplacementNamed(context, MapPage.id),
-              child: Icon(FontAwesomeIcons.compass, color: Colors.white)),
+              child: Icon(FontAwesomeIcons.compass, color:  kCardColor)),
           ),
 
         ],

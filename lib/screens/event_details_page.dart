@@ -41,22 +41,9 @@ class EventDetailsPage extends StatelessWidget {
                 child:Image.network(event.photo_url),
               ),
               Container(
-                decoration:
-                BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Colors.amber,
-                      Colors.yellow,
-                      Colors.amber,
-                    ],
-                  ),
-                ),
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(15),
-                child: Text(event.title, style: kTitleStyle, textAlign: TextAlign.center),
+                padding: EdgeInsets.all(8),
+                child: Text(event.title, style: kLabelTextStyle4),
 
               ),
 
@@ -66,8 +53,14 @@ class EventDetailsPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(5),
-                  child: Text( 'Date: '+(event.first_date)+' to '+(event.last_date), style: kLabelTextStyle3 ,textAlign: TextAlign.center)
+                  padding: EdgeInsets.all(8),
+                  child: Row(
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87, fontSize: 16.0),),
+                      Text(" - To: " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87, fontSize: 16.0),),
+                    ],
+                  )
               ),
 
               Container(
@@ -76,8 +69,8 @@ class EventDetailsPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(5),
-                  child:Text( 'Event Type: '+ event.experince, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
+                  padding: EdgeInsets.all(8),
+                  child:Text( 'Event Type: '+ event.experince, style: kLabelTextStyle3)
               ),
 
 
@@ -87,86 +80,70 @@ class EventDetailsPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(5),
-                  child:Text( 'Location: ' + event.location_name, style: kLabelTextStyle3 ,textAlign: TextAlign.center)
+                  padding: EdgeInsets.all(8),
+                  child:Text( 'Description: ' + event.location_name, style: kLabelTextStyle3 )
               ),
 
               Container(
                   decoration:
                   BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color(0xFF1d1E33),
-                        Colors.black,
-                        Color(0xFF1d1E33)
-                      ],
-                    ),
+                    color: Colors.grey.shade100
                   ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(15),
-                  child: Text(event.description_text, style: kLabelTextStyleW,)
+                  child: Text(event.description_text, style: TextStyle(color: Colors.black87 , fontSize: 16.0))
               ),
               Container(
-                  decoration:
-                  BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(4),
                   child:
-                  FlatButton.icon(
-                      height: 45,
-                      color: Colors.grey,
-                      icon: Icon(FontAwesomeIcons.star),
-                      label: Text('Add to Favorite Events List',
-                        style: TextStyle(fontSize: 20.0),),
-                      onPressed: (){
-                          _insert();
-                      })
+                  OutlineButton.icon(
+                    textColor: kCardColor,
+                    borderSide: BorderSide(style:BorderStyle.solid),
+                    icon: Icon(FontAwesomeIcons.star),
+                    highlightedBorderColor: Colors.black.withOpacity(0.12),
+                    onPressed: () {
+                      _query();
+                    },
+                    label: Text('Add to Favorite Events List',
+                      style: TextStyle(fontSize: 20.0, color: Colors.black),),
+                  )
               ),
 
               Container(
-                  decoration:
-                  BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(4),
                   child:
-                  FlatButton.icon(
-                      height: 45,
-                      color: Colors.grey,
-                      icon: Icon(FontAwesomeIcons.star),
-                      label: Text('query test button',
-                        style: TextStyle(fontSize: 20.0),),
-                      onPressed: (){
-                        _query();
-                      })
+                  OutlineButton.icon(
+                    textColor: kCardColor,
+                    borderSide: BorderSide(style:BorderStyle.solid),
+                    icon: Icon(FontAwesomeIcons.laughWink),
+                    highlightedBorderColor: Colors.black.withOpacity(0.12),
+                    onPressed: () {
+                      _query();
+                    },
+                    label: Text('query test button',
+                      style: TextStyle(fontSize: 20.0),),
+                  )
               ),
               Container(
-                  decoration:
-                  BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(4),
                   child:
-                  FlatButton.icon(
-                      height: 45,
-                      color: Colors.grey,
+                  OutlineButton.icon(
+                      textColor: kCardColor,
+                      borderSide: BorderSide(style:BorderStyle.solid),
                       icon: Icon(FontAwesomeIcons.shareAlt),
-                      label: Text('Share',
-                        style: TextStyle(fontSize: 20.0, ),),
-                      onPressed: (){
-                        {
-                          final RenderBox box = context.findRenderObject();
-                          Share.share(text,
-                              subject: subject,
-                              sharePositionOrigin:
-                              box.localToGlobal(Offset.zero) &
-                              box.size);
-                        }
-                      })
+                      highlightedBorderColor: Colors.black.withOpacity(0.12),
+                onPressed: () {
+                  final RenderBox box = context.findRenderObject();
+                  Share.share(text,
+                      subject: subject,
+                      sharePositionOrigin:
+                      box.localToGlobal(Offset.zero) &
+                      box.size);
+                },
+                label: Text('Share',
+                  style: TextStyle(fontSize: 20.0, ),),
+              )
               ),
 
             ],
@@ -221,3 +198,5 @@ class EventDetailsPage extends StatelessWidget {
     }
   }
 }
+
+

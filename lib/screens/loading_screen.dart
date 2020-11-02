@@ -10,9 +10,10 @@ import 'package:scrappy/models/events_bank.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String id = '/loading_screen';
-  final List filters;
+  final Filters filters;
+  final List filtersForQuery;
 
-  LoadingScreen({this.filters});
+  LoadingScreen({this.filtersForQuery, this.filters});
 
   @override
   State<StatefulWidget> createState() {
@@ -31,7 +32,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Filters filters;
 
   void getEventsData(List queryFilters) async {
-    print(queryFilters);
     if(queryFilters == null || queryFilters.length == 0){
       eventBank = await eventService.getEvents();
       filters = await eventService.getEventsFilters();
@@ -40,6 +40,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       eventBankVault.removeAt(0);
     } else{
       var events = await eventService.applyFilterToEvents(queryFilters);
+      print(events);
       eventBankVault = events;
       leadEvent = eventBankVault[0];
       eventBankVault.removeAt(0);
@@ -59,8 +60,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.filters != null && widget.filters.length > 0){
-      queryFilters = widget.filters;
+    if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
+      queryFilters = widget.filtersForQuery;
+      filters = widget.filters;
     }
     getEventsData(queryFilters);
   }
@@ -68,9 +70,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
 
-    // if(eventBank == null){
-    //   getEventsData();
-    // }
+    if(eventBank == null){
+      getEventsData();
+    }
 
     return Scaffold(
       body: Center(

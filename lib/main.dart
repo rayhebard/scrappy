@@ -29,7 +29,16 @@ class Scrappy extends StatelessWidget {
         primaryColor: Color(0xFF0A0E21),
         scaffoldBackgroundColor: Colors.white,
         bottomAppBarColor: Colors.white,
-        accentColor: Colors.amberAccent
+        accentColor: Colors.amberAccent,
+        textTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: 'SourceSans-Pro',
+        ),
+        primaryTextTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: 'SourceSans-Pro',
+        ),
+        accentTextTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: 'SourceSans-Pro',
+        ),
       ),
       home: LoginPage(),
       routes: {

@@ -16,7 +16,8 @@ import 'package:scrappy/screens/loading_screen.dart';
 class FiltersPage extends StatefulWidget {
   static const String id = '/filters';
   final Filters filters;
-  FiltersPage({this.filters})
+  FiltersPage({this.filters});
+
   @override
   _FiltersPageState createState() => _FiltersPageState();
 }
@@ -49,98 +50,91 @@ class _FiltersPageState extends State<FiltersPage> {
     // TODO: implement initState
     super.initState();
     // getEventFilters();
-    updateUi(widget.filters)
+    // updateUi(widget.filters);
   }
 
   @override
   Widget build(BuildContext context){
+    updateUi(widget.filters);
+
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: Navbar(),
         appBar:AppBar(
             title: Text('Event Tags')
         ),
-        body: FutureBuilder<Filters>(
-          future: eventService.getEventsFilters(),
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return new Container(
+        body: Container(
 
-                child: Column(
+          child: Column(
 
-                  children:<Widget>[
+            children:<Widget>[
 
-                    Padding(
-                        padding: EdgeInsets.only(top: 10.0)),
+              Padding(
+                  padding: EdgeInsets.only(top: 10.0)),
 
-                    Text("Event Types", style: kLabelTextStyle2,),
+              Text("Event Types", style: kLabelTextStyle2,),
 
 
-                    Expanded(
+              Expanded(
 
-                        child: ListView.builder(
-                            itemCount: types.length - 1,
-                            itemBuilder: (BuildContext content, int index){
-                              return new CheckboxListTile(
-                                  title: new Text(types[index].name, style: kLabelTextStyle),
-                                  activeColor: Colors.amberAccent,
-                                  secondary: const Icon(FontAwesomeIcons.checkCircle),
-                                  value: types[index].isChecked,
-                                  onChanged: (bool value){onChanged(value, types[index]);});
-                            },
-                        )),
-                    Text("Event Target Audience", style: kLabelTextStyle2,),
-                    Expanded(
+                  child: ListView.builder(
+                    itemCount: types.length - 1,
+                    itemBuilder: (BuildContext content, int index){
+                      return new CheckboxListTile(
+                          contentPadding: EdgeInsets.all(4.0),
+                          title: new Text(types[index].name, style: kLabelTextStyle),
+                          activeColor: Colors.amberAccent,
+                          value: types[index].isChecked,
+                          onChanged: (bool value){onChanged(value, types[index]);});
+                    },
+                  )),
 
-                        child: ListView.builder(
-                          itemCount: audiences.length - 1,
-                          itemBuilder: (BuildContext content, int index){
-                            return new CheckboxListTile(
-                                title: new Text(audiences[index].name, style: kLabelTextStyle),
-                                activeColor: Colors.amberAccent,
-                                secondary: const Icon(FontAwesomeIcons.checkCircle),
-                                value: audiences[index].isChecked,
-                                onChanged: (bool value){onChanged(value, audiences[index]);});
-                          },
-                        )),
-                    Row(
-                      children: [
-                        Expanded(child:
-                          RaisedButton.icon(
-                            color: kCardColor,
-                            icon: Icon(FontAwesomeIcons.filter),
-                            label: Text('Submit Filters',
-                              style: TextStyle(fontSize: 20.0),)
-                            ,
-                            onPressed: (){
-                              List submitFilters  = List();
-                              types.forEach((type) =>
-                              {
-                                if(type.isChecked){submitFilters.add(type.id)}
-                              });
-                              audiences.forEach((audience) => {
-                                if(audience.isChecked){submitFilters.add(audience.id)}
-                              });
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context){
-                                    return LoadingScreen(filters: submitFilters,);
-                                  }
-                                  )
-                              );
-                            })
-                        )
-                      ],
-                    )
+              Text("Event Target Audience", style: kLabelTextStyle2,),
+              Expanded(
 
-                  ],
-                ),
-              );
-            }else{
-              return CircularProgressIndicator();
-            }
-          },
-        ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.all(0.0),
+                    itemCount: audiences.length - 1,
+                    itemBuilder: (BuildContext content, int index){
+                      return new CheckboxListTile(
+                          contentPadding: EdgeInsets.all(4.0),
+                          title: new Text(audiences[index].name, style: kLabelTextStyle),
+                          activeColor: Colors.amberAccent,
+                          value: audiences[index].isChecked,
+                          onChanged: (bool value){onChanged(value, audiences[index]);});
+                    },
+                  )),
+              Container(
+                 child: OutlineButton.icon(
+                    textColor: kCardColor,
+                    borderSide: BorderSide(style:BorderStyle.solid),
+                    icon: Icon(FontAwesomeIcons.filter),
+                    highlightedBorderColor: Colors.black.withOpacity(0.12),
+                    onPressed: () {
+                      List submitFilters  = List();
+                      types.forEach((type) =>
+                      {
+                        if(type.isChecked){submitFilters.add(type.id)}
+                      });
+                      audiences.forEach((audience) => {
+                        if(audience.isChecked){submitFilters.add(audience.id)}
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context){
+                            return LoadingScreen(filtersForQuery: submitFilters, filters: widget.filters);
+                          }
+                          )
+                      );
+                    },
+                    label: Text('Submit Filters',
+                      style: TextStyle(fontSize: 20.0),),
+                  )
+              ),
+            ],
+          ),
+        )
 
       ),
     );

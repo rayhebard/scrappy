@@ -121,25 +121,27 @@ class Event {
       var tags = data["tags"] as List;
       List<String> tagList =  tags != null && tags.length > 0 ?  new List<String>.from(tags) : [];
 
+      //Get nested event_types list of dicts. out of the filters attribute
       List  types;
       if(data["filters"]["event_types"] != null && data["filters"]["event_types"].length > 0){
          types = data["filters"]["event_types"].toList();
       }
       List<EventType> eventTypes = types != null && types.length > 0 ? types.map((item) => EventType.fromJson(item)).toList()  : [];
 
+      // /Get nested event_target_audience list of dicts. out of the filters attribute
       List targets;
       if(data["filters"]["event_target_audience"] != null && data["filters"]["event_target_audience"].length > 0){
         targets = data["filters"]["event_target_audience"].toList();
       }
       List<EventTargetAudience> eventTargets = targets != null && targets.length > 0 ? targets.map((item) => EventTargetAudience.fromJson(item)).toList()  : [];
 
+      //Create date time object for Calendar Page
       var startDate = DateTime.parse(data["first_date"]);
       var endDate = DateTime.parse(data["last_date"]);
 
       var eventDepartments = data["departments"] as List;
       List<Department> departmentList = eventDepartments != null && eventDepartments.length > 0 ? eventDepartments.map((item) => Department.fromJson(item)).toList()  : [];
 
-      print(data["experience"]);
       return new Event( id: data["id"],
         title: data['title'],
         url: data['url'],

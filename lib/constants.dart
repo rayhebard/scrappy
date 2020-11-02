@@ -7,8 +7,14 @@ const kLabelTextStyle = TextStyle(
 const kLabelTextStyle2 = TextStyle(
     fontSize: 22.0, color: Colors.black,decoration: TextDecoration.underline,
 );
+
+
 const kLabelTextStyle3 = TextStyle(
     fontSize: 20.0, color: Colors.black,
+);
+
+const kLabelTextStyle4 = TextStyle(
+    fontSize: 24.0, color: Colors.black, fontWeight: FontWeight.bold
 );
 const kNumberTextStyle = TextStyle(
     fontSize: 50.0,

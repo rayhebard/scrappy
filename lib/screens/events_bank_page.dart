@@ -129,7 +129,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context){
-                                    return FiltersPage(filters: filterForEvents );
+                                    return FiltersPage(filters: filtersForEvents );
                                   }
                                   )
                               );
@@ -141,48 +141,43 @@ class _EventsBankPageState extends State<EventsBankPage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left:30.0,top:10.0),),
-                  Text('Whats New Today', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
+                  Text('Current Happenings', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
                 ],
               ),
               Expanded(
-                  child: ReusableCard(
-                    colour: Colors.amberAccent.shade200,
-                    onPress: (){
+                  child: GestureDetector(
+                    onTap: () => {
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return EventDetailsPage(event:topEvent);
-                      }));
+                      return EventDetailsPage(event:topEvent);
+                      }))
                     },
-                    cardChild: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(topEvent.title, style: kLabelTextStyle),
-                        Image.network(topEvent.photo_url, width:100,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Text(
-                              "From: " + Jiffy(topEvent.first_date).yMMMd,
-                              style: TextStyle(color: Colors.black87),
-                            ),
-                            Text(
-                              " - To: " + Jiffy(topEvent.last_date).yMMMd,
-                              style: TextStyle(color: Colors.black87),
-                            ),
-                          ],
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.white70, width: 1),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Join us',
-                            )
-                          ],)
-                      ],
+                      color: Colors.white,
+                      child:Column(
+                        children: <Widget>[
+                                Row(
+                                  children:[
+                                    Expanded(
+                                      child: Image.network(topEvent.photo_url, width:100,),
+                                    ),
+                                  ]
+                                ),
+                                Row(
+                                  children: [
+                                    Text("From: " + Jiffy(topEvent.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
+                                    Text(" - To: " + Jiffy(topEvent.last_date).yMMMd, style: TextStyle(color: Colors.black87)),
+                                  ],
+                                )
+                ],
+                      )
                     ),
-                  )),
+                  ),
+              ),
               Expanded(
                   child: GridView.builder(
                   itemCount: length - 1,
