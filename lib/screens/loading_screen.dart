@@ -70,9 +70,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
 
-    if(eventBank == null){
-      getEventsData();
-    }
+    // if(eventBank == null){
+    //   getEventsData();
+    // }
 
     return Scaffold(
       body: Center(
