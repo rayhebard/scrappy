@@ -50,9 +50,10 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    final _selectedDay = DateTime.parse("2020-10-20");
+    print('begin init state');
 
-    final today  = DateTime.parse(new DateFormat('y-M-d').format(new DateTime.now()));
+    final today  = DateTime.parse(new DateFormat('y-M-dd').format(new DateTime.now()));
+    final _selectedDay = today;
 
     _calendarController = CalendarController();
 
