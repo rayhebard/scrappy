@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "551145806218",
+    "firebase_url": "https://scrappy-77aff.firebaseio.com",
+    "project_id": "scrappy-77aff",
+    "storage_bucket": "scrappy-77aff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551145806218:android:3f35d8d39c2c0d2dd79073",
+        "android_client_info": {
+          "package_name": "com.scrappy.scrappy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551145806218-70d1vqc7frdsdhvu2r9to5ra1r9hu8ll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC8jJgU0n331jHXCey8aNJruwm23Irxjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551145806218-70d1vqc7frdsdhvu2r9to5ra1r9hu8ll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
