@@ -103,9 +103,25 @@ class EventDetailsPage extends StatelessWidget {
                     icon: Icon(FontAwesomeIcons.star),
                     highlightedBorderColor: Colors.black.withOpacity(0.12),
                     onPressed: () {
-                      _query();
+                      _insert();
                     },
                     label: Text('Add to Favorite Events List',
+                      style: TextStyle(fontSize: 20.0, color: Colors.black),),
+                  )
+              ),
+
+              Container(
+                  padding: EdgeInsets.all(4),
+                  child:
+                  OutlineButton.icon(
+                    textColor: kCardColor,
+                    borderSide: BorderSide(style:BorderStyle.solid),
+                    icon: Icon(FontAwesomeIcons.star),
+                    highlightedBorderColor: Colors.black.withOpacity(0.12),
+                    onPressed: () {
+                      _delete();
+                    },
+                    label: Text('delete test button',
                       style: TextStyle(fontSize: 20.0, color: Colors.black),),
                   )
               ),
@@ -154,7 +170,7 @@ class EventDetailsPage extends StatelessWidget {
   void _delete() async {
     // Assuming that the number of rows is the id for the last row.
     final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(id);
+    final rowsDeleted = await dbHelper.delete(event.id);
     print('deleted $rowsDeleted row(s): row $id');
   }
   void _query() async {
