@@ -17,13 +17,7 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  final Event event;
 
-  _FavoritesPageState({
-    Key key,
-    this.event
-
-  });
   final dbHelper = DatabaseHelper.instance;
   List<Favorites> favList = new List();
   @override
@@ -43,6 +37,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       bottomNavigationBar: Navbar(),
       appBar:AppBar(
@@ -50,14 +45,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
       ),
       body: Container(
 
-        child: favList.isEmpty ? Center(child: Text('You have not favorited any events', style:kLabelTextStyle4 ,)) :
-        ListView.builder(itemBuilder: (ctx, index) {
+        child: favList.isEmpty ? Center(child: Text('You have not favorited any events', style:kLabelTextStyle4 ,textAlign: TextAlign.center,)) :
+        ListView.builder(
+            itemCount: favList.length,
+            itemBuilder: (ctx, index) {
+          var eventID = favList[index].id;
           if (index == favList.length) return null;
           return Dismissible(
             background: stackBehindDismiss(),
             key: ObjectKey(favList[index]),
             child: ListTile(
-
                 tileColor: Colors.amber,
                 title: Text(favList[index].title, textAlign: TextAlign.center, ),
                 leading: Icon(FontAwesomeIcons.solidStar,),
@@ -69,12 +66,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 }),
             onDismissed: (direction) {
               var item = favList.elementAt(index);
-              event.id = favList[index].id;
-
+              int eventID = favList[index].id;
               //To delete
               deleteItem(index);
-              _delete(index);
-
+              _delete(eventID);
             },
           );
         }),
@@ -102,11 +97,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
       favList.removeAt(index);
     });
   }
-  void _delete(index) async {
-    favList[index].id;
+  void _delete(eventID) async {
     // Assuming that the number of rows is the id for the last row.
     final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(event.id);
+    final rowsDeleted = await dbHelper.delete(eventID);
     print('deleted $rowsDeleted row(s): row $id');
   }
 }
