@@ -11,18 +11,19 @@ import 'package:scrappy/screens/event_details_page.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const String id = '/favorites';
-  final List<Event> FaveventBankVault;
-  final Event event;
-  FavoritesPage({ this.FaveventBankVault, this.event });
+
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  EventBank FaveventBank;
-  List<Event> vault;
-  int length;
+  final Event event;
 
+  _FavoritesPageState({
+    Key key,
+    this.event
+
+  });
   final dbHelper = DatabaseHelper.instance;
   List<Favorites> favList = new List();
   @override
@@ -63,14 +64,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 trailing: Icon(FontAwesomeIcons.trashAlt),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return EventDetailsPage(event: vault[index]);
+                    return EventDetailsPage();
                   }));
                 }),
             onDismissed: (direction) {
               var item = favList.elementAt(index);
+              event.id = favList[index].id;
+
               //To delete
               deleteItem(index);
-              _delete();
+              _delete(index);
 
             },
           );
@@ -99,10 +102,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
       favList.removeAt(index);
     });
   }
-  void _delete() async {
+  void _delete(index) async {
+    favList[index].id;
     // Assuming that the number of rows is the id for the last row.
     final id = await dbHelper.queryRowCount();
-    //final rowsDeleted = await dbHelper.delete(event.id);
-    //print('deleted $rowsDeleted row(s): row $id');
+    final rowsDeleted = await dbHelper.delete(event.id);
+    print('deleted $rowsDeleted row(s): row $id');
   }
 }
