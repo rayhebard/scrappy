@@ -136,6 +136,7 @@ class Event {
       List<EventTargetAudience> eventTargets = targets != null && targets.length > 0 ? targets.map((item) => EventTargetAudience.fromJson(item)).toList()  : [];
 
       //Create date time object for Calendar Page
+      print(data["first_date"] + data["title"]);
       var startDate = DateTime.parse(data["first_date"]);
       var endDate = DateTime.parse(data["last_date"]);
 

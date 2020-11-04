@@ -74,12 +74,12 @@ class EventService {
   Future getCalendarEvents() async {
     var client = Client();
     try{
+      print("Getting Calendar Events");
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/search?search=computing&days=90&pp=100');
-      print("Get Calendar Events" + response.statusCode.toString());
+      print(response.statusCode);
       var data = json.decode(response.body);
       //Get the list of events within the data object
       var list = data["events"] as List;
-
       List<Event> calendarEvents = list.map((json) => Event.fromJSON(json['event'])).toList();
       return calendarEvents;
     }catch(e){
