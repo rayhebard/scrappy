@@ -14,7 +14,8 @@ class DatabaseHelper {
 
   static final columnId = 'id';
   static final columnTitle = 'title';
-  static final columnDate = 'first_date';
+  static final columnFirstDate = 'first_date';
+  static final columnLastDate = 'last_date';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -44,7 +45,8 @@ class DatabaseHelper {
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
             $columnTitle TEXT NOT NULL,
-            $columnDate INTEGER NOT NULL
+            $columnFirstDate INTEGER NOT NULL
+            $columnLastDate INTEGER NOT NULL
           )
           ''');
   }
