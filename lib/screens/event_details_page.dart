@@ -63,8 +63,8 @@ class EventDetailsPage extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87, fontSize: 16.0),),
-                      Text(" - To: " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87, fontSize: 16.0),),
+                      Text(Jiffy(event.first_date).yMMMd + " - " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87, fontSize: 16.0),),
+
                     ],
                   )
               ),
@@ -94,7 +94,7 @@ class EventDetailsPage extends StatelessWidget {
                   decoration:
                   BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.grey.shade100
+                      color: Colors.grey.shade300
                   ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(15),
@@ -114,6 +114,7 @@ class EventDetailsPage extends StatelessWidget {
                       _insert();
                       isFav = true;
                       showAlertDialog(context);
+                      _insertOrDelete(id);
                     },
                     label: Text('Add to Favorite Events List',
                       style: TextStyle(fontSize: 20.0, color: Colors.black),),
@@ -163,7 +164,8 @@ class EventDetailsPage extends StatelessWidget {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: event.id,
       DatabaseHelper.columnTitle: event.title,
-      DatabaseHelper.columnDate: event.first_date,
+      DatabaseHelper.columnFirstDate: event.first_date,
+      DatabaseHelper.columnLastDate: event.last_date,
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
@@ -212,8 +214,9 @@ class EventDetailsPage extends StatelessWidget {
       title: Text("Added to Favorite Events"),
       content: Text("Would you like to see your Favorites?"),
       actions: [
-        continueButton,
         cancelButton,
+        continueButton,
+
       ],
     );
 
