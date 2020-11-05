@@ -1,5 +1,6 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:scrappy/constants.dart';
 import 'package:scrappy/components/nav_bar.dart';
@@ -7,6 +8,8 @@ import 'package:scrappy/components/nav_bar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:scrappy/screens/event_details_page.dart';
+import 'package:scrappy/services/event_service.dart';
+import 'package:scrappy/models/event.dart';
 
 // Example holidays
 final Map<DateTime, List> _holidays = {
@@ -19,6 +22,7 @@ final Map<DateTime, List> _holidays = {
 
 class CalendarPage extends StatefulWidget {
   static const String id = '/calendar_page';
+
   CalendarPage({Key key, this.title, this.calendarEvents}) : super(key: key);
 
   final String title;
@@ -28,41 +32,73 @@ class CalendarPage extends StatefulWidget {
   _CalendarPageState createState() => _CalendarPageState();
 }
 
-class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMixin {
+class _CalendarPageState extends State<CalendarPage>
+    with TickerProviderStateMixin {
 
+  Future future;
+
+  var eventService = EventService();
+  final today = DateTime.parse(
+      new DateFormat('y-M-dd').format(new DateTime.now()));
+
+  Map<DateTime, List> calEvents = { DateTime.now(): []};
   Map<DateTime, List> _events;
   List _selectedEvents;
+
   AnimationController _animationController;
   CalendarController _calendarController;
 
-  updateUI( Map<DateTime, List> eventList, today){
+  void organizedByDateTime(List<Event> list) {
+    DateTime startTime = DateTime.now();
+
+    for (var i = 0; i < list.length; i++) {
+      Event event = list[i];
+      startTime = event.start;
+      //If the start time does not exist add it as a key to the Map
+      // and event to the List for that key.
+      // If it does exist add it event to the key:list[]
+      if (calEvents.containsKey(startTime)) {
+        calEvents[startTime].add(event);
+      } else {
+        calEvents[startTime] = List();
+        calEvents[startTime].add(event);
+      }
+    }
+  }
+
+
+  Future getCalendarData(today) async {
+    List eventVault = await eventService.getCalendarEvents();
+    //Create the calEvents Map
+    organizedByDateTime(eventVault);
+    //Update the UI using the calEvents Map and today DateTime object
+    updateUI(calEvents, today);
+    return calEvents;
+  }
+
+  updateUI(Map<DateTime, List> eventList, today) {
     setState(() {
       _events = eventList;
-      if(_events.containsKey(today)){
+      if (_events.containsKey(today)) {
         _selectedEvents = _events[today];
-      }else{
+      } else {
         _selectedEvents = [];
       }
-
     });
   }
+
 
   @override
   void initState() {
     super.initState();
     print('begin init state');
 
-    final today  = DateTime.parse(new DateFormat('y-M-dd').format(new DateTime.now()));
     final _selectedDay = today;
+    future = getCalendarData(today);
 
     _calendarController = CalendarController();
-
-    updateUI(widget.calendarEvents, today);
-
     _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
+      vsync: this, duration: const Duration(milliseconds: 400),);
     _animationController.forward();
   }
 
@@ -80,29 +116,37 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
     });
   }
 
-  void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
+  void _onVisibleDaysChanged(DateTime first, DateTime last,
+      CalendarFormat format) {
     print('CALLBACK: _onVisibleDaysChanged');
   }
 
-  void _onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
+  void _onCalendarCreated(DateTime first, DateTime last,
+      CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
   }
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Theme(data: ThemeData.light().copyWith(
         primaryColor: Color(0xFF0A0E21),
         scaffoldBackgroundColor: Colors.white,
         bottomAppBarColor: Colors.white,
         accentColor: Colors.amberAccent
     ),
-        child: Builder(
-          builder:(context){
-            return Scaffold(
-              bottomNavigationBar: Navbar(),
-              appBar: AppBar(
-                title: Text('CCSE Event Calendar'),
-              ),
-              body: Column(
+      child: Scaffold(
+        bottomNavigationBar: Navbar(),
+        appBar: AppBar(
+          title: Text('CCSE Event Calendar'),
+        ),
+        body: FutureBuilder(
+          future: future,
+          builder: (BuildContext context, AsyncSnapshot snapshot){
+            if(snapshot.hasData){
+              return Column(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   // Switch out 2 lines below to play with TableCalendar's settings
@@ -113,10 +157,25 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
                   const SizedBox(height: 8.0),
                   Expanded(child: _buildEventList()),
                 ],
-              ),
-            );
-          }
+              );
+            }else{
+              return CircularProgressIndicator();
+            }
+          },
+          // child: Column(
+          //   mainAxisSize: MainAxisSize.max,
+          //   children: <Widget>[
+          //     // Switch out 2 lines below to play with TableCalendar's settings
+          //     //-----------------------
+          //     _buildTableCalendar(),
+          //     // _buildTableCalendarWithBuilders(),
+          //     const SizedBox(height: 8.0),
+          //     const SizedBox(height: 8.0),
+          //     Expanded(child: _buildEventList()),
+          //   ],
+          // ),
         ),
+      )
     );
 
   }
@@ -135,7 +194,8 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
         outsideDaysVisible: false,
       ),
       headerStyle: HeaderStyle(
-        formatButtonTextStyle: TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+        formatButtonTextStyle: TextStyle().copyWith(
+            color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
           color: Colors.amber[400],
           borderRadius: BorderRadius.circular(16.0),
@@ -246,7 +306,8 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
         shape: BoxShape.rectangle,
         color: _calendarController.isSelected(date)
             ? Colors.brown[500]
-            : _calendarController.isToday(date) ? Colors.brown[300] : Colors.grey[400],
+            : _calendarController.isToday(date) ? Colors.brown[300] : Colors
+            .grey[400],
       ),
       width: 16.0,
       height: 16.0,
@@ -273,23 +334,24 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   Widget _buildEventList() {
     return ListView(
       children: _selectedEvents
-          .map((event) => Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0.8),
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-        child: ListTile(
-          title: Text(event.toDisplay()),
-          onTap: () =>
-          {
-              Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return EventDetailsPage(event:event);
-              })
-             )//Navigator
-          }
-        ),
-      ))
+          .map((event) =>
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.8),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: ListTile(
+                title: Text(event.toDisplay()),
+                onTap: () =>
+                {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return EventDetailsPage(event: event);
+                  })
+                  ) //Navigator
+                }
+            ),
+          ))
           .toList(),
     );
   }
