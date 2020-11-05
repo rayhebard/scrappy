@@ -18,7 +18,7 @@ import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/components/nav_bar.dart';
-import 'package:scrappy/screens/calendar_loader.dart';
+import 'package:scrappy/screens/calendar_page.dart';
 
 const CCSE_hori_Logo='images/KSU_on light backgrounds/KSU_SVG LOGO/BE_Horiz_2Clr_Computing and Software.svg';
 
@@ -103,7 +103,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                               // onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
                               onPressed: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return CalendarLoader();
+                                  return CalendarPage();
                                 }));
                               },
 
@@ -152,29 +152,37 @@ class _EventsBankPageState extends State<EventsBankPage> {
                       return EventDetailsPage(event:topEvent);
                       }))
                     },
-                    child: Card(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.white70, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      color: Colors.white,
-                      child:Column(
-                        children: <Widget>[
-                                Row(
-                                  children:[
-                                    Expanded(
-                                      child: Image.network(topEvent.photo_url, width:100,),
-                                    ),
-                                  ]
-                                ),
-                                Row(
-                                  children: [
-                                    Text("From: " + Jiffy(topEvent.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
-                                    Text(" - To: " + Jiffy(topEvent.last_date).yMMMd, style: TextStyle(color: Colors.black87)),
-                                  ],
-                                )
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.white70, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            color: Colors.white,
+                            child:Column(
+                              children: <Widget>[
+                                      Row(
+                                        children:[
+                                          Expanded(
+                                            child: Image.network(topEvent.photo_url, width:100,),
+                                          ),
+                                        ]
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text("From: " + Jiffy(topEvent.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
+                                          Text(" - To: " + Jiffy(topEvent.last_date).yMMMd, style: TextStyle(color: Colors.black87)),
+                                        ],
+                                      )
                 ],
-                      )
+                            )
+                          ),
+                        ),
+                      ),
                     ),
                   ),
               ),
