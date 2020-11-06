@@ -30,7 +30,6 @@ class _MapPageState extends State<MapPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height:20.0),
               Container(
                 child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
