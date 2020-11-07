@@ -28,7 +28,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     DatabaseHelper.instance.queryAllRows().then((value) {
       setState(() {
         value.forEach((element) {
-          favList.add(Favorites(id: element['id'], title: element["title"],first_date: element["first_date"],last_date: element["last_date"], ));
+          favList.add(Favorites(id: element['id'], title: element["title"],first_date: element["first_date"], ));
         });
       });
     }).catchError((error) {
@@ -63,7 +63,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             child: ListTile(
                 tileColor: Colors.amberAccent.shade100,
                 title: Text(favList[index].title, textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
-                subtitle:Text(Jiffy(favList[index].first_date).yMMMd + " - " + Jiffy(favList[index].last_date).yMMMd?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
+                subtitle:Text(Jiffy(favList[index].first_date).yMMMd ?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
                 leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
                 trailing: Icon(FontAwesomeIcons.trashAlt,color:  kCardColor),
                 onTap: () {
