@@ -162,18 +162,6 @@ class _CalendarPageState extends State<CalendarPage>
               return CircularProgressIndicator();
             }
           },
-          // child: Column(
-          //   mainAxisSize: MainAxisSize.max,
-          //   children: <Widget>[
-          //     // Switch out 2 lines below to play with TableCalendar's settings
-          //     //-----------------------
-          //     _buildTableCalendar(),
-          //     // _buildTableCalendarWithBuilders(),
-          //     const SizedBox(height: 8.0),
-          //     const SizedBox(height: 8.0),
-          //     Expanded(child: _buildEventList()),
-          //   ],
-          // ),
         ),
       )
     );

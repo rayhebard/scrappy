@@ -71,7 +71,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
 
     // if(eventBank == null){
-    //   getEventsData();
+    //   getEventsData(widget.filtersForQuery);
     // }
 
     return Scaffold(

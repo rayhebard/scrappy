@@ -157,30 +157,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.white70, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            color: Colors.white,
-                            child:Column(
-                              children: <Widget>[
-                                      Row(
-                                        children:[
-                                          Expanded(
-                                            child: Image.network(topEvent.photo_url, width:100,),
-                                          ),
-                                        ]
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("From: " + Jiffy(topEvent.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
-                                          Text(" - To: " + Jiffy(topEvent.last_date).yMMMd, style: TextStyle(color: Colors.black87)),
-                                        ],
-                                      )
-                ],
-                            )
-                          ),
+                          child: ImageCard(event: topEvent),
                         ),
                       ),
                     ),
@@ -195,18 +172,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     mainAxisSpacing: 4.0
                   ),
                   itemBuilder: (BuildContext content, int index){
-                    return ReusableCard(
-                        onPress: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return EventDetailsPage(event:vault[index]);
-                          }));
-                        },
-                        cardChild: IconContent(
-                                          icon: FontAwesomeIcons.star,
-                                          label: vault[index].title,
-                                          start: Jiffy(vault[index].first_date).yMMMd,
-                                          end: Jiffy(vault[index].last_date).yMMMd),
-                        colour: kCardColor);
+                    return ImageCard(event: vault[index]);
                   },
                 )
               ),
@@ -215,6 +181,44 @@ class _EventsBankPageState extends State<EventsBankPage> {
         ),
       ),
 
+    );
+  }
+}
+
+class ImageCard extends StatelessWidget {
+  const ImageCard({
+    Key key,
+    @required this.event,
+  }) : super(key: key);
+
+  final Event event;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: Colors.white70, width: 1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      color: Colors.white,
+      child:Column(
+        children: <Widget>[
+                Row(
+                  children:[
+                    FittedBox(
+                      fit:BoxFit.contain,
+                      child: Image.network(event.photo_url),
+                    ),
+                  ]
+                ),
+                Row(
+                  children: [
+                    Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
+                    Text(" - To: " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87)),
+                  ],
+                )
+                ],
+      )
     );
   }
 }
