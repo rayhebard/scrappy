@@ -37,13 +37,14 @@ class EventService {
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/$eventId');
       var data = json.decode(response.body);
+      print("I am here");
+      print(data);
       event = Event.fromJSON(data["event"]);
+      return event;
     }catch(e){
       print(e);
     } finally{
       client.close();
-      // ignore: control_flow_in_finally
-      return event ;
     }
   }
 
@@ -112,8 +113,6 @@ class EventService {
     }
 
   }
-
-
 
 
   Future applyFilterToEvents(List filters) async {

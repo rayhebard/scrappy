@@ -9,6 +9,7 @@ import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/screens/event_details_page.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:scrappy/services/event_service.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const String id = '/favorites';
@@ -18,6 +19,8 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
+
+  var eventService = EventService();
 
   final dbHelper = DatabaseHelper.instance;
   List<Favorites> favList = new List();
@@ -66,9 +69,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 subtitle:Text(Jiffy(favList[index].first_date).yMMMd ?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
                 leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
                 trailing: Icon(FontAwesomeIcons.trashAlt,color:  kCardColor),
-                onTap: () {
+                onTap: () async{
+                  var selectedEvent = await eventService.getEventById(favList[index].id);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return EventDetailsPage();
+                    return EventDetailsPage(event: selectedEvent);
                   })
                   );
                 }),

@@ -203,13 +203,12 @@ class ImageCard extends StatelessWidget {
       color: Colors.white,
       child:Column(
         children: <Widget>[
-                Row(
-                  children:[
-                    FittedBox(
-                      fit:BoxFit.contain,
-                      child: Image.network(event.photo_url),
-                    ),
-                  ]
+                FittedBox(
+                  child: Row(
+                    children:[
+                       Image.network(event.photo_url),
+                    ]
+                  ),
                 ),
                 Row(
                   children: [
