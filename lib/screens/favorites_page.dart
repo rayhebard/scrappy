@@ -8,6 +8,7 @@ import 'package:scrappy/constants.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/screens/event_details_page.dart';
+import 'package:jiffy/jiffy.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const String id = '/favorites';
@@ -27,7 +28,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     DatabaseHelper.instance.queryAllRows().then((value) {
       setState(() {
         value.forEach((element) {
-          favList.add(Favorites(id: element['id'], title: element["title"]));
+          favList.add(Favorites(id: element['id'], title: element["title"],first_date: element["first_date"], ));
         });
       });
     }).catchError((error) {
@@ -41,28 +42,35 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Scaffold(
       bottomNavigationBar: Navbar(),
       appBar:AppBar(
-          title: Text('Scrappy')
+          title: Text('Favorite Events')
       ),
-      body: Container(
+      body:
+
+      Container(
 
         child: favList.isEmpty ? Center(child: Text('You have not favorited any events', style:kLabelTextStyle4 ,textAlign: TextAlign.center,)) :
-        ListView.builder(
+
+        ListView.separated(
+
             itemCount: favList.length,
             itemBuilder: (ctx, index) {
           var eventID = favList[index].id;
           if (index == favList.length) return null;
+
           return Dismissible(
             background: stackBehindDismiss(),
             key: ObjectKey(favList[index]),
             child: ListTile(
-                tileColor: Colors.amber,
-                title: Text(favList[index].title, textAlign: TextAlign.center, ),
-                leading: Icon(FontAwesomeIcons.solidStar,),
-                trailing: Icon(FontAwesomeIcons.trashAlt),
+                tileColor: Colors.amberAccent.shade100,
+                title: Text(favList[index].title, textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
+                subtitle:Text(Jiffy(favList[index].first_date).yMMMd ?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
+                leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
+                trailing: Icon(FontAwesomeIcons.trashAlt,color:  kCardColor),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return EventDetailsPage();
-                  }));
+                  })
+                  );
                 }),
             onDismissed: (direction) {
               var item = favList.elementAt(index);
@@ -72,10 +80,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
               _delete(eventID);
             },
           );
-        }),
+        },
+            separatorBuilder: (context, index) {
+          return Divider();
+        }
+        ),
       ),
     );
   }
+
+
   Widget stackBehindDismiss() {
     return Container(
       alignment: Alignment.centerRight,

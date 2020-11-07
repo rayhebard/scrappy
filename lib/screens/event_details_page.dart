@@ -8,13 +8,14 @@ import 'package:scrappy/models/event.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
 import 'package:scrappy/services/database_helper.dart';
+import 'package:scrappy/screens/favorites_page.dart';
 
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
   bool isFav = false;
   final Event event;
 
-   EventDetailsPage({
+  EventDetailsPage({
     Key key,
     this.event
 
@@ -41,9 +42,14 @@ class EventDetailsPage extends StatelessWidget {
                 child:Image.network(event.photo_url),
               ),
               Container(
+                decoration:
+                BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.amberAccent.shade100,
+                ),
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(8),
-                child: Text(event.title, style: kLabelTextStyle4),
+                child: Text(event.title, style: kLabelTextStyle4, textAlign: TextAlign.center,),
 
               ),
 
@@ -55,10 +61,10 @@ class EventDetailsPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(8),
                   child: Row(
-                   crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87, fontSize: 16.0),),
-                      Text(" - To: " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87, fontSize: 16.0),),
+                      Text(Jiffy(event.first_date).yMMMd + " - " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87, fontSize: 16.0),),
+
                     ],
                   )
               ),
@@ -87,44 +93,34 @@ class EventDetailsPage extends StatelessWidget {
               Container(
                   decoration:
                   BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.grey.shade100
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.grey.shade300
                   ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(15),
                   child: Text(event.description_text, style: TextStyle(color: Colors.black87 , fontSize: 16.0))
               ),
+
               Container(
                   padding: EdgeInsets.all(4),
                   child:
                   OutlineButton.icon(
+                    color:Colors.amberAccent.shade100 ,
                     textColor: kCardColor,
                     borderSide: BorderSide(style:BorderStyle.solid),
                     icon: Icon(FontAwesomeIcons.star),
                     highlightedBorderColor: Colors.black.withOpacity(0.12),
                     onPressed: () {
                       _insert();
+                      isFav = true;
+                      showAlertDialog(context);
+                      _insertOrDelete(id);
                     },
                     label: Text('Add to Favorite Events List',
                       style: TextStyle(fontSize: 20.0, color: Colors.black),),
                   )
               ),
 
-              Container(
-                  padding: EdgeInsets.all(4),
-                  child:
-                  OutlineButton.icon(
-                    textColor: kCardColor,
-                    borderSide: BorderSide(style:BorderStyle.solid),
-                    icon: Icon(FontAwesomeIcons.star),
-                    highlightedBorderColor: Colors.black.withOpacity(0.12),
-                    onPressed: () {
-                      _delete();
-                    },
-                    label: Text('delete test button',
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),),
-                  )
-              ),
 
               Container(
                   padding: EdgeInsets.all(4),
@@ -132,34 +128,19 @@ class EventDetailsPage extends StatelessWidget {
                   OutlineButton.icon(
                     textColor: kCardColor,
                     borderSide: BorderSide(style:BorderStyle.solid),
-                    icon: Icon(FontAwesomeIcons.laughWink),
+                    icon: Icon(FontAwesomeIcons.shareAlt),
                     highlightedBorderColor: Colors.black.withOpacity(0.12),
                     onPressed: () {
-                      _query();
+                      final RenderBox box = context.findRenderObject();
+                      Share.share(text,
+                          subject: subject,
+                          sharePositionOrigin:
+                          box.localToGlobal(Offset.zero) &
+                          box.size);
                     },
-                    label: Text('query test button',
-                      style: TextStyle(fontSize: 20.0),),
+                    label: Text('Share',
+                      style: TextStyle(fontSize: 20.0, ),),
                   )
-              ),
-              Container(
-                  padding: EdgeInsets.all(4),
-                  child:
-                  OutlineButton.icon(
-                      textColor: kCardColor,
-                      borderSide: BorderSide(style:BorderStyle.solid),
-                      icon: Icon(FontAwesomeIcons.shareAlt),
-                      highlightedBorderColor: Colors.black.withOpacity(0.12),
-                onPressed: () {
-                  final RenderBox box = context.findRenderObject();
-                  Share.share(text,
-                      subject: subject,
-                      sharePositionOrigin:
-                      box.localToGlobal(Offset.zero) &
-                      box.size);
-                },
-                label: Text('Share',
-                  style: TextStyle(fontSize: 20.0, ),),
-              )
               ),
 
             ],
@@ -183,7 +164,8 @@ class EventDetailsPage extends StatelessWidget {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: event.id,
       DatabaseHelper.columnTitle: event.title,
-      DatabaseHelper.columnDate: event.first_date,
+      DatabaseHelper.columnFirstDate: event.first_date,
+     // DatabaseHelper.columnLastDate: event.last_date,
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
@@ -213,6 +195,38 @@ class EventDetailsPage extends StatelessWidget {
       isFav = true;
     }
   }
-}
+  showAlertDialog(BuildContext context) {
 
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.of(context).pop(); // dismiss dialog
+     },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Continue to Favorite Events List"),
+      onPressed:  () => Navigator.pushReplacementNamed(context, FavoritesPage.id),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Added to Favorite Events"),
+      content: Text("Would you like to see your Favorites?"),
+      actions: [
+        cancelButton,
+        continueButton,
+
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+}
 
