@@ -165,7 +165,7 @@ class EventDetailsPage extends StatelessWidget {
       DatabaseHelper.columnId: event.id,
       DatabaseHelper.columnTitle: event.title,
       DatabaseHelper.columnFirstDate: event.first_date,
-      DatabaseHelper.columnLastDate: event.last_date,
+     // DatabaseHelper.columnLastDate: event.last_date,
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
