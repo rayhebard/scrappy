@@ -165,9 +165,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
             
               AnimatedOpacity(
                 duration: Duration(milliseconds: 200),
@@ -225,6 +222,7 @@ class ComputerScroller extends StatelessWidget {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
+
       child: Container(
         height: 200,
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -253,7 +251,8 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      child: Container(
         height: 150,
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
@@ -261,6 +260,7 @@ class ImageCard extends StatelessWidget {
         ]),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+
           child: Row(
             children: <Widget>[
               Image.network(
@@ -274,26 +274,39 @@ class ImageCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       event.title,
-                      style: TextStyle(color: Colors.black87),
+                      style: TextStyle(color: Colors.black87, fontSize: 20, fontWeight: FontWeight.bold,), textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
                     Text(
                       "From: " + Jiffy(event.first_date).yMMMd,
-                      style: TextStyle(color: Colors.black87),
+                      style: TextStyle(color: Colors.black87),textAlign: TextAlign.center,
                     ),
                     Text(
                       "To: " + Jiffy(event.last_date).yMMMd,
-                      style: TextStyle(color: Colors.black87),
+                      style: TextStyle(color: Colors.black87),textAlign: TextAlign.center,
                     ),
                     SizedBox(
                       height: 10,
                     ),
+
                   ],
                 ),
               ),
-
             ],
           ),
-        ));
+        )
+      ),
+      onTap: () {
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return EventDetailsPage(event: event);
+        }
+        )
+        );
+      },
+      );
   }
 }
 
@@ -308,7 +321,8 @@ class LeadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+     child: Container(
         height: 150,
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
@@ -345,7 +359,17 @@ class LeadCard extends StatelessWidget {
 
             ],
           ),
-        ));
+        )
+      ),
+      onTap: () {
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return EventDetailsPage(event: event);
+        }
+        )
+        );
+      },
+      );
   }
 }
 // Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
