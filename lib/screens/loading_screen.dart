@@ -25,8 +25,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   var eventService = EventService();
   EventBank eventBank;
-  Event leadEvent;
+  EventBank leadBank;
+
   List<Event> eventBankVault;
+  List<Event> leadBankVault;
   int length;
   List queryFilters;
   Filters filters;
@@ -35,23 +37,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if(queryFilters == null || queryFilters.length == 0){
       eventBank = await eventService.getEvents();
       filters = await eventService.getEventsFilters();
-      leadEvent = eventBank.vault[0];
+      leadBank = await eventService.getComputingEvents();
       eventBankVault = eventBank.vault;
-      eventBankVault.removeAt(0);
+      leadBankVault = leadBank.vault;
     } else{
       var events = await eventService.applyFilterToEvents(queryFilters);
-      print(events);
       eventBankVault = events;
-      leadEvent = eventBankVault[0];
       eventBankVault.removeAt(0);
     }
-
-
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EventsBankPage(
           eventBankVault: eventBankVault,
-          leadEvent: leadEvent,
+          leadEvents: leadBankVault,
           eventFilters:filters,
       );
     }));
@@ -60,19 +58,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
-      queryFilters = widget.filtersForQuery;
-      filters = widget.filters;
-    }
-    getEventsData(queryFilters);
   }
 
   @override
   Widget build(BuildContext context) {
 
-    // if(eventBank == null){
-    //   getEventsData(widget.filtersForQuery);
-    // }
+    if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
+      queryFilters = widget.filtersForQuery;
+      filters = widget.filters;
+    }
+    getEventsData(queryFilters);
 
     return Scaffold(
       body: Center(
