@@ -94,7 +94,7 @@ class EventDetailsPage extends StatelessWidget {
                   decoration:
                   BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.grey.shade300
+                      color: Colors.grey.shade100
                   ),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(15),

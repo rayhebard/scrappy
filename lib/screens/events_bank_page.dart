@@ -276,25 +276,29 @@ class ImageCard extends StatelessWidget {
                   height: double.infinity,
                 ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        event.title,
-                        style: TextStyle(color: Colors.black87),
-                      ),
-                      Text(
-                        "From: " + Jiffy(event.first_date).yMMMd,
-                        style: TextStyle(color: Colors.black87),
-                      ),
-                      Text(
-                        "To: " + Jiffy(event.last_date).yMMMd,
-                        style: TextStyle(color: Colors.black87),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          event.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.black87),
+                        ),
+                        Text(
+                          "From: " + Jiffy(event.first_date).yMMMd,
+                          style: TextStyle(color: Colors.black87),
+                        ),
+                        Text(
+                          "To: " + Jiffy(event.last_date).yMMMd,
+                          style: TextStyle(color: Colors.black87),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
@@ -341,6 +345,7 @@ class LeadCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       event.title,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: Colors.black87),
                     ),
                     Text(
