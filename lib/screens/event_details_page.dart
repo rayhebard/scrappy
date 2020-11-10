@@ -116,7 +116,7 @@ class EventDetailsPage extends StatelessWidget {
                       showAlertDialog(context);
                       _insertOrDelete(id);
                     },
-                    label: Text('Add to Favorite Events List',
+                    label: Text('Add to Favorites',
                       style: TextStyle(fontSize: 20.0, color: Colors.black),),
                   )
               ),
