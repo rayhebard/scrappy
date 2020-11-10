@@ -12,7 +12,7 @@ import 'package:scrappy/screens/favorites_page.dart';
 
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
-  bool isFav = false;
+  var isFav = false;
   final Event event;
 
   EventDetailsPage({

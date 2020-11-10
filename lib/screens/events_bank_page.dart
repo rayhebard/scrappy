@@ -19,6 +19,7 @@ import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/components/nav_bar.dart';
 import 'package:scrappy/screens/calendar_page.dart';
+import 'package:scrappy/screens/event_details_page.dart';
 
 const CCSE_hori_Logo='images/KSU_on light backgrounds/KSU_SVG LOGO/BE_Horiz_2Clr_Computing and Software.svg';
 
@@ -253,23 +254,89 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 150,
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
-          BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
-        ]),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: Row(
-            children: <Widget>[
-              Image.network(
-                event.photo_url,
-                width: 150,
-                height: double.infinity,
-              ),
-              Expanded(
-                child: Column(
+    return GestureDetector(
+      onTap: ()=>{
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return EventDetailsPage(event: event);
+        })
+        )},
+      child: Container(
+          height: 150,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
+            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
+          ]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            child: Row(
+              children: <Widget>[
+                Image.network(
+                  event.photo_url,
+                  width: 150,
+                  height: double.infinity,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        event.title,
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                      Text(
+                        "From: " + Jiffy(event.first_date).yMMMd,
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                      Text(
+                        "To: " + Jiffy(event.last_date).yMMMd,
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+          )),
+    );
+  }
+}
+
+
+class LeadCard extends StatelessWidget {
+  const LeadCard({
+    Key key,
+    @required this.event,
+  }) : super(key: key);
+
+  final Event event;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap:()=>{
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return EventDetailsPage(event: event);
+            }))
+        },
+      child: Container(
+          height: 150,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
+            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
+          ]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            child: Row(
+              children: <Widget>[
+                Image.network(
+                  event.photo_url,
+                  height: double.infinity,
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
@@ -289,63 +356,11 @@ class ImageCard extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
 
-            ],
-          ),
-        ));
-  }
-}
-
-
-class LeadCard extends StatelessWidget {
-  const LeadCard({
-    Key key,
-    @required this.event,
-  }) : super(key: key);
-
-  final Event event;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 150,
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
-          BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
-        ]),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: Row(
-            children: <Widget>[
-              Image.network(
-                event.photo_url,
-                height: double.infinity,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    event.title,
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                  Text(
-                    "From: " + Jiffy(event.first_date).yMMMd,
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                  Text(
-                    "To: " + Jiffy(event.last_date).yMMMd,
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
-
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 }
 // Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),

@@ -1,19 +1,41 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:scrappy/models/message.dart';
+import "dart:io";
 
 
-class NotificationService{
+class PushNotificationService{
   List<Message> messages;
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final FirebaseMessaging _fbm = FirebaseMessaging();
+
+  Future initialise() async{
+    if(Platform.isIOS){
+      _fbm.requestNotificationPermissions(IosNotificationSettings());
+    }
+
+    _fbm.configure(
+      onMessage: (Map<String, dynamic>message) async{
+        print('onMessage: $message');
+        setMessage(message);
+      },
+      onLaunch: (Map<String, dynamic>message) async{
+        print('onLaunch: $message');
+        setMessage(message);
+      },
+      onResume: (Map<String, dynamic>message) async{
+        print('onResume: $message');
+        setMessage(message);
+      },
+    );
+  }
 
   getToken(){
-    _firebaseMessaging.getToken().then((deviceToken){
+    _fbm.getToken().then((deviceToken){
       print("Device Token: $deviceToken");
     });
   }
 
   configureFirebaseListeners(){
-    _firebaseMessaging.configure(
+    _fbm.configure(
       onMessage: (Map<String, dynamic>message) async{
         print('onMessage: $message');
         setMessage(message);
