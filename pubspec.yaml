@@ -26,7 +26,7 @@ dependencies:
   firebase_messaging: ^7.0.3
   url_launcher: ^5.4.2
   flutter_plugin_pdf_viewer: ^1.0.7
-
+  add_2_calendar: ^1.4.0
   flutter:
     sdk: flutter
 
@@ -52,6 +52,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
