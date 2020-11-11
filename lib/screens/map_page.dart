@@ -35,22 +35,28 @@ class _MapPageState extends State<MapPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children:<Widget> [
-                    RaisedButton(
-                        color:Colors.amberAccent,
+                    Container(
+                      height:60,
+                    child: RaisedButton(
+                        color:Colors.amberAccent.shade100,
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>pdfviewermarietta()));
                         },
-                        child:Text('Marietta Campus Map', style: TextStyle(color:kCardColor))
+                        child:Text('Marietta Campus Map', style: TextStyle(color:kCardColor,fontSize: 20.0,))
+                    ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(15.0,),),
-                    RaisedButton(
-                        color:Colors.amberAccent,
+                      padding: EdgeInsets.all(20.0,),),
+                    Container(
+                        height:60,
+                    child: RaisedButton(
+                        color:Colors.amberAccent.shade100,
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>pdfviewerkennesaw()));
                         },
-                        child:Text('Kennesaw Campus Map', style: TextStyle(color:kCardColor))
+                        child:Text('Kennesaw Campus Map', style: TextStyle(color:kCardColor,fontSize: 20.0, ))
                     )
+                    ),
                   ],
                 ),
               ),

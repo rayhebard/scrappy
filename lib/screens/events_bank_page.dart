@@ -139,7 +139,10 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
             Row(
                 children: [
-                  Expanded(
+
+                    Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
                       child: RaisedButton.icon(
                           color: kCardColor,
                           icon: Icon(FontAwesomeIcons.filter),
@@ -158,18 +161,16 @@ class _EventsBankPageState extends State<EventsBankPage> {
                   )
                 ],
             ),
+            SizedBox(height:20),
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left:30.0,top:10.0),),
+                  padding: EdgeInsets.only(left:30.0,),),
                 Text('Current Happenings', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            
+
               AnimatedOpacity(
                 duration: Duration(milliseconds: 200),
                 opacity: closeTopContainer?0:1,
@@ -284,7 +285,10 @@ class ImageCard extends StatelessWidget {
                         Text(
                           event.title,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.black87),
+                          style: TextStyle(color: Colors.black87,fontSize: 20,  fontWeight: FontWeight.bold ),
+                        ),
+                        SizedBox(
+                          height:10,
                         ),
                         Text(
                           "From: " + Jiffy(event.first_date).yMMMd,
@@ -301,7 +305,6 @@ class ImageCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
           )),
@@ -346,7 +349,7 @@ class LeadCard extends StatelessWidget {
                     Text(
                       event.title,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.black87),
+                      style: TextStyle(color: Colors.black87, ) ,
                     ),
                     Text(
                       "From: " + Jiffy(event.first_date).yMMMd,

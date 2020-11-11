@@ -28,6 +28,8 @@ class _FiltersPageState extends State<FiltersPage> {
   List<EventTargetAudience> audiences;
   List<EventType> types;
 
+
+
   void onChanged(bool value, item){
     setState(() {
           item.isChecked = !item.isChecked;
@@ -86,6 +88,7 @@ class _FiltersPageState extends State<FiltersPage> {
                           activeColor: Colors.amberAccent,
                           value: types[index].isChecked,
                           onChanged: (bool value){onChanged(value, types[index]);});
+
                     },
                   )),
 
@@ -106,11 +109,11 @@ class _FiltersPageState extends State<FiltersPage> {
                     },
                   )),
               Container(
-                 child: OutlineButton.icon(
-                    textColor: kCardColor,
-                    borderSide: BorderSide(style:BorderStyle.solid),
+
+                 child: RaisedButton.icon(
+                   color: kCardColor,
+                    textColor:Colors.amberAccent.shade100,
                     icon: Icon(FontAwesomeIcons.filter),
-                    highlightedBorderColor: Colors.black.withOpacity(0.12),
                     onPressed: () {
                       List submitFilters  = List();
                       types.forEach((type) =>
