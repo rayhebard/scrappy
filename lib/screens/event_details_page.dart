@@ -10,25 +10,37 @@ import 'package:share/share.dart';
 import 'package:scrappy/services/database_helper.dart';
 import 'package:scrappy/screens/favorites_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:add_2_calendar/add_2_calendar.dart' as add;
 
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
   var isFav = false;
   final Event event;
-
   EventDetailsPage({
     Key key,
     this.event
-
   }) : super(key: key);
-  final dbHelper = DatabaseHelper.instance;
-  @override
 
+  final dbHelper = DatabaseHelper.instance;
+
+  @override
   Widget build(BuildContext context) {
 
     print(this.event);
     String text = event.localist_url;
     String subject = event.title;
+
+     DateTime first_date = DateTime.parse(event.first_date);
+     DateTime last_date = DateTime.parse(event.last_date);
+
+    final add.Event selected_event = add.Event(
+      title: event.title,
+      description: event.description,
+      location: event.location,
+      startDate: first_date,
+      endDate: last_date,
+    );
+
     return Scaffold(
       bottomNavigationBar: Navbar(),
       appBar:AppBar(
@@ -164,9 +176,8 @@ class EventDetailsPage extends StatelessWidget {
                     textColor: Colors.amberAccent.shade100 ,
                     icon: Icon(FontAwesomeIcons.plusCircle),
                     onPressed: () {
-                      isFav = true;
-                      showAlertDialog(context);
-                      _insertOrDelete(id);
+                      add.Add2Calendar.addEvent2Cal(selected_event);
+                      print('button pressed');
                     },
                     label: Text('Add to Personal Calendar',
                       style: TextStyle(fontSize: 20.0, ),),
