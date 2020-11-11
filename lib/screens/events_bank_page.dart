@@ -299,7 +299,7 @@ class ImageCard extends StatelessWidget {
                           height:10,
                         ),
                         Container(
-                          padding: EdgeInsets.all(15),
+                          padding: EdgeInsets.all(8),
                           decoration:
                           BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -355,21 +355,37 @@ class LeadCard extends StatelessWidget {
                   event.photo_url,
                   height: double.infinity,
                 ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      event.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.black87, ) ,
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration:
+                      BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.amberAccent.shade100,
+                      ),
+                      child: Text(
+                        event.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black87,fontSize: 20,  fontWeight: FontWeight.bold ),
+                      ),
                     ),
-                    Text(
-                      "From: " + Jiffy(event.first_date).yMMMd,
-                      style: TextStyle(color: Colors.black87),
+                    SizedBox(
+                      height:10,
                     ),
-                    Text(
-                      "To: " + Jiffy(event.last_date).yMMMd,
-                      style: TextStyle(color: Colors.black87),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration:
+                      BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey.shade200,
+                      ),
+                      child:Text(
+                        "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
+                        style: TextStyle(color: Colors.black87, fontSize: 20),
+                      ),
                     ),
                     SizedBox(
                       height: 10,
