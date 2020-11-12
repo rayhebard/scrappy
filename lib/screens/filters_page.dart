@@ -123,7 +123,7 @@ class _FiltersPageState extends State<FiltersPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context){
-                            return LoadingScreen(filtersForQuery: submitFilters, filters: widget.filters);
+                            return LoadingScreen(filtersForQuery: submitFilters);
                           }
                           )
                       );

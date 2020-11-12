@@ -10,10 +10,9 @@ import 'package:scrappy/models/events_bank.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String id = '/loading_screen';
-  final Filters filters;
   final List filtersForQuery;
 
-  LoadingScreen({this.filtersForQuery, this.filters});
+  LoadingScreen({this.filtersForQuery});
 
   @override
   State<StatefulWidget> createState() {
@@ -36,15 +35,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getEventsData(List queryFilters) async {
     if(queryFilters == null || queryFilters.length == 0){
       eventBank = await eventService.getEvents();
-      filters = await eventService.getEventsFilters();
-      leadBank = await eventService.getComputingEvents();
       eventBankVault = eventBank.vault;
-      leadBankVault = leadBank.vault;
     } else{
       var events = await eventService.applyFilterToEvents(queryFilters);
       eventBankVault = events;
-      eventBankVault.removeAt(0);
     }
+
+    filters = await eventService.getEventsFilters();
+    leadBank = await eventService.getComputingEvents();
+    leadBankVault = leadBank.vault;
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EventsBankPage(
@@ -65,7 +64,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
       queryFilters = widget.filtersForQuery;
-      filters = widget.filters;
     }
     getEventsData(queryFilters);
 

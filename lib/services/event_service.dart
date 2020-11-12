@@ -96,7 +96,7 @@ class EventService {
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/filters');
-      print("Get Events Filter" + response.statusCode.toString());
+      print("Get Filters" + response.statusCode.toString());
       var data = json.decode(response.body);
       //Get the list of events within the data object
       List targets = data["event_target_audience"] as List;
@@ -105,7 +105,6 @@ class EventService {
       List<EventTargetAudience> eventTargets = targets != null && targets.length > 0 ? targets.map((item) => EventTargetAudience.fromJson(item)).toList()  : [];
       List<EventType> eventTypes = types != null && types.length > 0 ? types.map((item) => EventType.fromJson(item)).toList()  : [];
       Filters filters = Filters(event_types: eventTypes, event_target_audience: eventTargets);
-
       return(filters);
     }catch(e){
       print(e);
@@ -122,7 +121,7 @@ class EventService {
     filters.forEach((type) => { queryString += "&type[]=" + type.toString() });
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events? + $queryString');
-      print("Apply Events Filter" + response.statusCode.toString());
+      print("Apply Events Filters" + response.statusCode.toString());
       var data = json.decode(response.body);
       //Get the list of events within the data object
       var list = data["events"] as List;
