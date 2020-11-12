@@ -22,6 +22,7 @@ class _MapPageState extends State<MapPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        bottomNavigationBar: Navbar(),
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
