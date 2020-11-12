@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scrappy/screens/login_page.dart';
-import 'screens/input_page.dart';
 import 'screens/calendar_page.dart';
 import 'screens/events_bank_page.dart';
 import 'screens/event_details_page.dart';
