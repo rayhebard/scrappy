@@ -6,19 +6,22 @@ class pdfviewerkennesaw extends StatefulWidget{
   _pdfviewerkennesawState createState() => _pdfviewerkennesawState();
 }
 class _pdfviewerkennesawState extends State<pdfviewerkennesaw>{
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loadkennesawfile();
 
-  }
   PDFDocument kennesaw;
-  loadkennesawfile() async{
+
+  loadKennesawFile() async{
     kennesaw= await PDFDocument.fromURL("https://www.kennesaw.edu/maps/docs/kennesaw-parking-map-fall-2020.pdf");
     setState(() {
       kennesaw = kennesaw;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadKennesawFile();
+
   }
 
   @override
