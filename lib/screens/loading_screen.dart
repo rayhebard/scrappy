@@ -62,6 +62,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
 
+    print("loading screen");
+
     if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
       queryFilters = widget.filtersForQuery;
     }

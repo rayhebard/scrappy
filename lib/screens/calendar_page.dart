@@ -109,7 +109,7 @@ class _CalendarPageState extends State<CalendarPage>
     super.dispose();
   }
 
-  void _onDaySelected(DateTime day, List events) {
+  void _onDaySelected(DateTime day, List events, List holidays) {
     print('CALLBACK: _onDaySelected');
     setState(() {
       _selectedEvents = events;
@@ -189,7 +189,7 @@ class _CalendarPageState extends State<CalendarPage>
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
-      // onDaySelected: _onDaySelected,
+      onDaySelected: _onDaySelected,
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onCalendarCreated: _onCalendarCreated,
     );
@@ -278,10 +278,10 @@ class _CalendarPageState extends State<CalendarPage>
           return children;
         },
       ),
-      // onDaySelected: (date, events) {
-      //   _onDaySelected(date, events);
-      //   _animationController.forward(from: 0.0);
-      // },
+      onDaySelected: (date, events, _holidays) {
+        _onDaySelected(date, events, _holidays);
+        _animationController.forward(from: 0.0);
+      },
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onCalendarCreated: _onCalendarCreated,
     );

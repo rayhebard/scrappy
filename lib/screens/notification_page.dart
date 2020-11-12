@@ -15,6 +15,10 @@ class _NotificationPageState extends State<NotificationPage> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   List<Message> _messages;
 
+  bool push = false;
+  bool email = false;
+  bool favorites = false;
+
   _getToken(){
     _firebaseMessaging.getToken().then((deviceToken){
       print("Device Token: $deviceToken");
@@ -74,33 +78,33 @@ class _NotificationPageState extends State<NotificationPage> {
             SwitchListTile(
               title: const Text('Push Notifications:',style:kLabelTextStyle3),
               activeColor: Colors.amber,
-              value: status,
+              value: push,
               onChanged: (value) {
                 print("VALUE : $value");
                 setState(() {
-                  status = value;
+                  push = value;
                 });
               },
             ),
             SwitchListTile(
               title: const Text('Email Notifications:',style:kLabelTextStyle3),
               activeColor: Colors.amber,
-              value: status,
+              value: email,
               onChanged: (value) {
                 print("VALUE : $value");
                 setState(() {
-                  status = value;
+                  email = value;
                 });
               },
             ),
             SwitchListTile(
               title: const Text('Favorite Events Notifications:',style:kLabelTextStyle3),
               activeColor: Colors.amber,
-              value: status,
+              value: favorites,
               onChanged: (value) {
                 print("VALUE : $value");
                 setState(() {
-                  status = value;
+                  favorites = value;
                 });
               },
             ),

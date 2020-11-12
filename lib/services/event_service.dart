@@ -77,7 +77,7 @@ class EventService {
     try{
       print("Getting Calendar Events");
       // Response response = await client.get('https://calendar.kennesaw.edu/api/2/events?pp=1000&page=1&days=90');
-      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/search?search=computing&days=90&pp=100');
+      Response response = await client.get('https://calendar.kennesaw.edu/api/2/events?pp=200&page=1&days=180');
       print(response.statusCode);
       var data = json.decode(response.body);
       //Get the list of events within the data object
