@@ -139,7 +139,10 @@ class _EventsBankPageState extends State<EventsBankPage> {
 
             Row(
                 children: [
-                  Expanded(
+
+                    Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
                       child: RaisedButton.icon(
                           color: kCardColor,
                           icon: Icon(FontAwesomeIcons.filter),
@@ -158,18 +161,16 @@ class _EventsBankPageState extends State<EventsBankPage> {
                   )
                 ],
             ),
+            SizedBox(height:20),
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left:30.0,top:10.0),),
+                  padding: EdgeInsets.only(left:30.0,),),
                 Text('Current Happenings', style:TextStyle(fontWeight:FontWeight.bold,fontSize: 20.0 ,color: kCardColor)),
 
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            
+
               AnimatedOpacity(
                 duration: Duration(milliseconds: 200),
                 opacity: closeTopContainer?0:1,
@@ -261,7 +262,7 @@ class ImageCard extends StatelessWidget {
         })
         )},
       child: Container(
-          height: 150,
+          height: 200,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
             BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
@@ -272,27 +273,42 @@ class ImageCard extends StatelessWidget {
               children: <Widget>[
                 Image.network(
                   event.photo_url,
-                  width: 150,
+                  width: 140,
                   height: double.infinity,
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          decoration:
+                          BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.amberAccent.shade100,
+                          ),
+                            child: Text(
                           event.title,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.black87),
+                          style: TextStyle(color: Colors.black87,fontSize: 20,  fontWeight: FontWeight.bold ),
+                            ),
                         ),
-                        Text(
-                          "From: " + Jiffy(event.first_date).yMMMd,
-                          style: TextStyle(color: Colors.black87),
+                        SizedBox(
+                          height:10,
                         ),
-                        Text(
-                          "To: " + Jiffy(event.last_date).yMMMd,
-                          style: TextStyle(color: Colors.black87),
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          decoration:
+                          BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.grey.shade200,
+                          ),
+                        child:Text(
+                          "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
+                          style: TextStyle(color: Colors.black87, fontSize: 20),
+                        ),
                         ),
                         SizedBox(
                           height: 10,
@@ -301,7 +317,6 @@ class ImageCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
           )),
@@ -340,21 +355,37 @@ class LeadCard extends StatelessWidget {
                   event.photo_url,
                   height: double.infinity,
                 ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      event.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.black87),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration:
+                      BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.amberAccent.shade100,
+                      ),
+                      child: Text(
+                        event.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black87,fontSize: 20,  fontWeight: FontWeight.bold ),
+                      ),
                     ),
-                    Text(
-                      "From: " + Jiffy(event.first_date).yMMMd,
-                      style: TextStyle(color: Colors.black87),
+                    SizedBox(
+                      height:10,
                     ),
-                    Text(
-                      "To: " + Jiffy(event.last_date).yMMMd,
-                      style: TextStyle(color: Colors.black87),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration:
+                      BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey.shade200,
+                      ),
+                      child:Text(
+                        "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
+                        style: TextStyle(color: Colors.black87, fontSize: 20),
+                      ),
                     ),
                     SizedBox(
                       height: 10,
