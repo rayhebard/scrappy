@@ -19,52 +19,26 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Navbar(),
-      appBar:AppBar(
-          title: Text('Campus Maps')
-      ),
-      body: Builder(builder:(context)=>
-      Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child:Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children:<Widget> [
-                    Container(
-                      height:60,
-                    child: RaisedButton(
-                        color:Colors.amberAccent.shade100,
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>pdfviewermarietta()));
-                        },
-                        child:Text('Marietta Campus Map', style: TextStyle(color:kCardColor,fontSize: 20.0,))
-                    ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(20.0,),),
-                    Container(
-                        height:60,
-                    child: RaisedButton(
-                        color:Colors.amberAccent.shade100,
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>pdfviewerkennesaw()));
-                        },
-                        child:Text('Kennesaw Campus Map', style: TextStyle(color:kCardColor,fontSize: 20.0, ))
-                    )
-                    ),
-                  ],
-                ),
-              ),
-
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Kennesaw'),
+              Tab(text:'Marietta'),
             ],
-          )
+          ),
+          title: Text('Campus Maps'),
+        ),
+        body: TabBarView(
+          children: [
+            pdfviewerkennesaw(),
+            pdfviewermarietta(),
+          ],
+        ),
       ),
-      )
     );
   }
 }
+

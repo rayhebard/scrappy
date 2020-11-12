@@ -300,14 +300,9 @@ class ImageCard extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.all(8),
-                          decoration:
-                          BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.grey.shade200,
-                          ),
                         child:Text(
                           "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
-                          style: TextStyle(color: Colors.black87, fontSize: 20),
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                         ),
                         SizedBox(
@@ -377,14 +372,9 @@ class LeadCard extends StatelessWidget {
                     ),
                     Container(
                       padding: EdgeInsets.all(8),
-                      decoration:
-                      BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.grey.shade200,
-                      ),
                       child:Text(
                         "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
-                        style: TextStyle(color: Colors.black87, fontSize: 20),
+                        style: TextStyle(color: Colors.black87, fontSize: 16),
                       ),
                     ),
                     SizedBox(
@@ -399,5 +389,3 @@ class LeadCard extends StatelessWidget {
     );
   }
 }
-// Text("From: " + Jiffy(event.first_date).yMMMd,  style: TextStyle(color: Colors.black87)),
-// Text(" - To: " + Jiffy(event.last_date).yMMMd, style: TextStyle(color: Colors.black87)),
