@@ -24,6 +24,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   final dbHelper = DatabaseHelper.instance;
   List<Favorites> favList = new List();
+  bool isOver = false;
   @override
   void initState() {
     super.initState();
@@ -31,15 +32,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
     DatabaseHelper.instance.queryAllRows().then((value) {
       setState(() {
         value.forEach((element) {
-          favList.add(Favorites(id: element['id'], title: element["title"],first_date: element["first_date"], ));
+          favList.add(Favorites(id: element['id'], title: element["title"],first_date: element["first_date"],last_date: element["last_date"], ));
         });
       });
     }).catchError((error) {
       print(error);
     });
   }
-  @override
 
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -66,14 +67,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
             child: ListTile(
                 tileColor: Colors.amberAccent.shade100,
                 title: Text(favList[index].title, textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
-                subtitle:Text(Jiffy(favList[index].first_date).yMMMd ?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
+                subtitle:Text(Jiffy(favList[index].first_date).yMMMd +' - '+ Jiffy(favList[index].last_date).yMMMd?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
                 leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
-                trailing: Icon(FontAwesomeIcons.trashAlt,color:  kCardColor),
+
                 onTap: () async{
                   var selectedEvent = await eventService.getEventById(favList[index].id);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return EventDetailsPage(event: selectedEvent);
-                  })
+                  }
+                  )
                   );
                 }),
             onDismissed: (direction) {
