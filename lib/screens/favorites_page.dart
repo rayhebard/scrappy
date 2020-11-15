@@ -61,15 +61,28 @@ class _FavoritesPageState extends State<FavoritesPage> {
           var eventID = favList[index].id;
           if (index == favList.length) return null;
 
+          var LastDate = DateTime.parse(favList[index].last_date);
+          DateTime TodayDate = new DateTime.now();
+          print(TodayDate.isBefore(LastDate));
+
           return Dismissible(
             background: stackBehindDismiss(),
             key: ObjectKey(favList[index]),
             child: ListTile(
                 tileColor: Colors.amberAccent.shade100,
-                title: Text(favList[index].title, textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
-                subtitle:Text(Jiffy(favList[index].first_date).yMMMd +' - '+ Jiffy(favList[index].last_date).yMMMd?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
-                leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
+                title: Text(favList[index].title, textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 22,)),
+                subtitle:
+              Column(
+                  children: <Widget>[
+                    Text(Jiffy(favList[index].first_date).yMMMd +' - '+ Jiffy(favList[index].last_date).yMMMd ?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
+                    if (TodayDate.isAfter(LastDate) == true)
+                      Text('\n' + "This Event is Over", style:TextStyle(color: Colors.redAccent, fontSize: 18,)),
+                  ],
+              ),
 
+
+
+                leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
                 onTap: () async{
                   var selectedEvent = await eventService.getEventById(favList[index].id);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -107,6 +120,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
       ),
     );
   }
+
   void deleteItem(index) {
     /*
     By implementing this method, it ensures that upon being dismissed from our widget tree,
