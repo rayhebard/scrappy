@@ -12,9 +12,11 @@ import 'package:scrappy/screens/favorites_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:add_2_calendar/add_2_calendar.dart' as add;
 
+
+
 class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
-  var isFav = false;
+
   final Event event;
   EventDetailsPage({
     Key key,
@@ -22,6 +24,18 @@ class EventDetailsPage extends StatelessWidget {
   }) : super(key: key);
 
   final dbHelper = DatabaseHelper.instance;
+  bool isFav = false;
+
+  Future<bool> _favQuery() async {
+    final rowsPresent = await dbHelper.queryForFav(event.id);
+    if (rowsPresent > 0) {
+      print('event is in database');
+      isFav = true;
+      return true;
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,36 +125,21 @@ class EventDetailsPage extends StatelessWidget {
                   padding: EdgeInsets.all(15),
                   child: Text(event.description_text, style: TextStyle(color: Colors.black87 , fontSize: 16.0))
               ),
-              SizedBox(height: 20,
+              SizedBox(height: 30,
               ),
-              Container(
-                height: 60.0,
-                  padding: EdgeInsets.all(4),
-                  child:
-                  RaisedButton.icon(
-                    color:kCardColor,
-                    textColor: Colors.amberAccent.shade100 ,
-                    icon: Icon(FontAwesomeIcons.star),
-                    onPressed: () {
-                      isFav = true;
-                      showAlertDialog(context);
-                      _insertOrDelete(id);
-                    },
-                    label: Text('Add to Favorites',
-                      style: TextStyle(fontSize: 20.0, ),),
-                  )
-              ),
+
 
               Container(
                   height: 60.0,
                   padding: EdgeInsets.all(4),
                   child:
                   RaisedButton.icon(
-                    textColor: Colors.amberAccent.shade100,
-                    color: kCardColor,
+                    textColor: kCardColor,
+                    color: Colors.amberAccent.shade100,
                     icon: Icon(FontAwesomeIcons.infoCircle),
                     onPressed: () {
-                      String url = event.url;
+                      String url;
+                      event.url == null ?  url = event.localist_url : url = event.url;
                       launchURL(url);
                     },
                     label: Text('Event Info Page',
@@ -152,8 +151,8 @@ class EventDetailsPage extends StatelessWidget {
                   padding: EdgeInsets.all(4),
                   child:
                   RaisedButton.icon(
-                    textColor: Colors.amberAccent.shade100,
-                   color: kCardColor,
+                    textColor: kCardColor,
+                   color: Colors.amberAccent.shade100,
                     icon: Icon(FontAwesomeIcons.shareAlt),
                     onPressed: () {
                       final RenderBox box = context.findRenderObject();
@@ -172,17 +171,35 @@ class EventDetailsPage extends StatelessWidget {
                   padding: EdgeInsets.all(4),
                   child:
                   RaisedButton.icon(
-                    color:kCardColor,
-                    textColor: Colors.amberAccent.shade100 ,
+                    color:Colors.amberAccent.shade100 ,
+                    textColor: kCardColor,
                     icon: Icon(FontAwesomeIcons.plusCircle),
                     onPressed: () {
                       add.Add2Calendar.addEvent2Cal(selected_event);
-                      print('button pressed');
                     },
                     label: Text('Add to Personal Calendar',
                       style: TextStyle(fontSize: 20.0, ),),
                   )
               ),
+
+              Container(
+                      height: 60.0,
+                      padding: EdgeInsets.all(4),
+                      child:
+                      RaisedButton.icon(
+                        color:kCardColor,
+                        textColor: Colors.white,
+                        icon: isFav == false ? Icon(FontAwesomeIcons.star):Icon(FontAwesomeIcons.solidStar),
+                        onPressed: () {
+                          _insertOrDelete(event.id);
+                          showAlertDialog(context);
+                          (context as Element).markNeedsBuild();
+                        },
+                        label: Text('Add to Favorites',
+                          style: TextStyle(fontSize: 20.0, ),),
+                      )
+                  ),
+
               Container(
                   padding: EdgeInsets.all(4),
                   child:
@@ -204,11 +221,28 @@ class EventDetailsPage extends StatelessWidget {
       ),
     );
   }
+
+
   launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  void _insertOrDelete(int id) async {
+    final rowsPresent = await dbHelper.queryForFav(id);
+    if (rowsPresent > 0) {
+      print('Its favourite and removing it');
+      _delete();
+        isFav = false;
+
+    } else {
+      print('Nothing found so inserting you dodo');
+      _insert();
+        isFav = true;
+
     }
   }
   void _delete() async {
@@ -228,36 +262,12 @@ class EventDetailsPage extends StatelessWidget {
       DatabaseHelper.columnId: event.id,
       DatabaseHelper.columnTitle: event.title,
       DatabaseHelper.columnFirstDate: event.first_date,
-      //DatabaseHelper.columnLastDate: event.last_date,
+      DatabaseHelper.columnLastDate: event.last_date,
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
   }
-  void _checkFav(String checkId) async {
-    final rowsPresent = await dbHelper.queryForFav(checkId);
-    if (rowsPresent > 0) {
-      print('favorited');
-      isFav = true;
-    } else {
-      print('unfavorited');
-      isFav = false;
-      //_insert();
-    }
-    //rowsPresent.forEach((row) => print(row));
-  }
 
-  void _insertOrDelete(String id) async {
-    final rowsPresent = await dbHelper.queryForFav(id);
-    if (rowsPresent > 0) {
-      print('Its was favourited and now it will be removed');
-      _delete();
-      isFav = false;
-    } else {
-      print('Not found on favorites list; adding to favorites');
-      _insert();
-      isFav = true;
-    }
-  }
   showAlertDialog(BuildContext context) {
 
     // set up the buttons

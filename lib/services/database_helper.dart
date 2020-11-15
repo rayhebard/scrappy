@@ -15,7 +15,7 @@ class DatabaseHelper {
   static final columnId = 'id';
   static final columnTitle = 'title';
   static final columnFirstDate = 'first_date';
-  //static final columnLastDate = 'last_date';
+  static final columnLastDate = 'last_date';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -45,10 +45,10 @@ class DatabaseHelper {
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
             $columnTitle TEXT NOT NULL,
-            $columnFirstDate INTEGER NOT NULL
-            
-          )
-          ''');
+            $columnFirstDate TEXT NOT NULL,
+            $columnLastDate TEXT NOT NULL
+          )''',
+    );
   }
 
   // Helper methods
@@ -90,13 +90,13 @@ class DatabaseHelper {
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
   //Raw query to check if it is in the favourites
-  Future<int> queryForFav(String checkId) async {
+  Future<int> queryForFav(int id) async {
     Database db = await instance.database;
     int noOfRows = 0;
     try {
       noOfRows = Sqflite.firstIntValue(await db.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $columnId = ?',
-          ['$checkId']));
+          ['$id']));
     } catch (e) {
       print(e);
     }
