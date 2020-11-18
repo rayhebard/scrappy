@@ -7,9 +7,7 @@ import 'screens/filters_page.dart';
 import 'screens/favorites_page.dart';
 import 'screens/map_page.dart';
 import 'screens/notification_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'screens/loading_screen.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 

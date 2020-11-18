@@ -9,7 +9,6 @@ import 'package:jiffy/jiffy.dart';
 //Internal files
 import '../constants.dart';
 import 'filters_page.dart';
-import 'package:scrappy/screens/event_details_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
