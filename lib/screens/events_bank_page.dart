@@ -189,14 +189,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       double scale = 1.0;
-                      // if (topContainer > 0.5) {
-                      //   scale = index + 0.5 - topContainer;
-                      //   if (scale < 0) {
-                      //     scale = 0;
-                      //   } else if (scale > 1) {
-                      //     scale = 1;
-                      //   }
-                      // }
                       return Opacity(
                         opacity: scale,
                         child: Transform(
@@ -302,7 +294,7 @@ class ImageCard extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                         child:Text(
                           "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
-                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                          style: TextStyle(color: Colors.black87, fontSize: 12),
                         ),
                         ),
                         SizedBox(
@@ -374,7 +366,7 @@ class LeadCard extends StatelessWidget {
                       padding: EdgeInsets.all(8),
                       child:Text(
                         "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
-                        style: TextStyle(color: Colors.black87, fontSize: 16),
+                        style: TextStyle(color: Colors.black87, fontSize: 12),
                       ),
                     ),
                     SizedBox(

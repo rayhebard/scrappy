@@ -80,7 +80,7 @@ class _NotificationPageState extends State<NotificationPage> {
               activeColor: Colors.amber,
               value: push,
               onChanged: (value) {
-                print("VALUE : $value");
+                print("push : $value");
                 setState(() {
                   push = value;
                 });
@@ -91,7 +91,7 @@ class _NotificationPageState extends State<NotificationPage> {
               activeColor: Colors.amber,
               value: email,
               onChanged: (value) {
-                print("VALUE : $value");
+                print("emails : $value");
                 setState(() {
                   email = value;
                 });
@@ -102,7 +102,7 @@ class _NotificationPageState extends State<NotificationPage> {
               activeColor: Colors.amber,
               value: favorites,
               onChanged: (value) {
-                print("VALUE : $value");
+                print("favorites : $value");
                 setState(() {
                   favorites = value;
                 });

@@ -3,7 +3,7 @@ import 'package:scrappy/models/message.dart';
 import "dart:io";
 
 
-class PushNotificationService{
+class NotificationService{
   List<Message> messages;
   final FirebaseMessaging _fbm = FirebaseMessaging();
 

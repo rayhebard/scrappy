@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import  "events_bank_page.dart";
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
+import 'package:scrappy/models/message.dart';
+import 'package:scrappy/services/notification_service.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const String id = '/loading_screen';
@@ -23,6 +27,8 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
 
   var eventService = EventService();
+  var notifyService= NotificationService();
+
   EventBank eventBank;
   EventBank leadBank;
 
@@ -33,6 +39,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Filters filters;
 
   void getEventsData(List queryFilters) async {
+    await notifyService.initialise();
     if(queryFilters == null || queryFilters.length == 0){
       eventBank = await eventService.getEvents();
       eventBankVault = eventBank.vault;
@@ -54,9 +61,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
     }));
   }
 
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  List<Message> _messages;
+
   @override
   void initState() {
     super.initState();
+
+    if (Platform.isIOS) {
+      _firebaseMessaging.requestNotificationPermissions(IosNotificationSettings());
+    }
+
+    notifyService.getToken();
+
   }
 
   @override

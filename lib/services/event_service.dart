@@ -96,7 +96,7 @@ class EventService {
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/filters');
-      print("Get Filters" + response.statusCode.toString());
+      print("Get Filters: " + response.statusCode.toString());
       var data = json.decode(response.body);
       //Get the list of events within the data object
       List targets = data["event_target_audience"] as List;
