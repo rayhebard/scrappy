@@ -41,8 +41,9 @@ class _EventsBankPageState extends State<EventsBankPage> {
   List<Event> vault;
   List<Event> leads;
   int length;
-  var computerScroller;
-  
+  var cScroller;
+
+   // / final ComputerScroller cScroller = ComputerScroller();
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
@@ -71,7 +72,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
       vault = eventBankVault;
       length = vault.length;
       filtersForEvents = eventFilters;
-      computerScroller = ComputerScroller(event:  leads[0]);
+      cScroller = ComputerScroller(event:  leads[0]);
     });
   }
 
@@ -176,7 +177,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     width: size.width,
                     alignment: Alignment.topCenter,
                     height: closeTopContainer?0:categoryHeight,
-                    child: computerScroller),
+                    child: cScroller),
               ),
             
             Expanded(
@@ -207,6 +208,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
 class ComputerScroller extends StatelessWidget {
 
   final Event event;
+
   const ComputerScroller({this.event});
 
   @override
@@ -232,7 +234,6 @@ class ComputerScroller extends StatelessWidget {
     );
   }
 }
-
 
 
 
