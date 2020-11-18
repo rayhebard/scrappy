@@ -68,24 +68,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-
-    if (Platform.isIOS) {
-      _firebaseMessaging.requestNotificationPermissions(IosNotificationSettings());
-    }
-
     notifyService.getToken();
-
+    if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
+      queryFilters = widget.filtersForQuery;
+    }
+    getEventsData(queryFilters);
   }
 
   @override
   Widget build(BuildContext context) {
 
     print("loading screen");
-
-    if(widget.filtersForQuery != null && widget.filtersForQuery.length > 0){
-      queryFilters = widget.filtersForQuery;
-    }
-    getEventsData(queryFilters);
 
     return Scaffold(
       body: Center(

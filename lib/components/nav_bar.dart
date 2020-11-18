@@ -27,8 +27,8 @@ class Navbar extends StatelessWidget {
     child: Icon(FontAwesomeIcons.star, color: kCardColor)),
           ),
           Expanded(child:FlatButton(
-    onPressed: () => Navigator.pushNamed(context, NotificationPage.id),
-    child: Icon(FontAwesomeIcons.bell, color:  kCardColor)),
+    onPressed: () => Navigator.pushNamed(context, CalendarPage.id),
+    child: Icon(FontAwesomeIcons.calendar, color:  kCardColor)),
           ),
           Expanded(child: FlatButton(
               onPressed: () => Navigator.pushNamed(context, MapPage.id),

@@ -2,13 +2,17 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:scrappy/models/message.dart';
 import "dart:io";
 
-
 class NotificationService{
   List<Message> messages;
   final FirebaseMessaging _fbm = FirebaseMessaging();
 
   Future initialise() async{
+    print("Initializing Firebase Configure");
     if(Platform.isIOS){
+      // iosSubscription = _fbm.onIosSettingsRegistered.listen((data) {
+      //   // save the token  OR subscribe to a topic here
+      // });
+
       _fbm.requestNotificationPermissions(IosNotificationSettings());
     }
 
@@ -63,3 +67,4 @@ class NotificationService{
 
 
 }
+

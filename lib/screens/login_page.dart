@@ -53,43 +53,51 @@ class _LoginPageState extends State<LoginPage>{
                     radius: 80.0,
                     backgroundImage: AssetImage('images/owl_wink.jpg') ,
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      controller: nameController,
-                      style: TextStyle(color: kCardColor),
-                      decoration: InputDecoration(
-                        labelText: 'User Name',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.grey, width: 3.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black, width: 3.0),
-                        ),
-                      ),
+                  Center(
+                    child: Text(
+                      'Welcome, Player 1 ',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black87),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: TextField(
-                      obscureText: true,
-                      style: TextStyle(color: kCardColor),
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.grey, width: 3.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black, width: 3.0),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   padding: EdgeInsets.all(10),
+                  //   child: TextField(
+                  //     controller: nameController,
+                  //     style: TextStyle(color: kCardColor),
+                  //     decoration: InputDecoration(
+                  //       labelText: 'User Name',
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             color: Colors.grey, width: 3.0),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             color: Colors.black, width: 3.0),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Container(
+                  //   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  //   child: TextField(
+                  //     obscureText: true,
+                  //     style: TextStyle(color: kCardColor),
+                  //     controller: passwordController,
+                  //     decoration: InputDecoration(
+                  //       labelText: 'Password',
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             color: Colors.grey, width: 3.0),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             color: Colors.black, width: 3.0),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
 
                       height: 70,
@@ -98,7 +106,7 @@ class _LoginPageState extends State<LoginPage>{
                         textColor: Colors.amberAccent.shade100,
                         color: kCardColor,
                         child: Text(
-                            'Login',
+                            'Play',
                             style: TextStyle(fontSize: 20),
                         ),
 
@@ -114,28 +122,28 @@ class _LoginPageState extends State<LoginPage>{
                           print(passwordController.text);
                         },
                       )),
-                  Container(
-                      height: 70,
-                      padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                      child:
-                          FlatButton(
-                            textColor: Colors.amber,
-                            color: Colors.grey,
-                            child: Text(
-                              'Continue as Guest ->',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context){
-                                    return LoadingScreen();
-                                  }
-                                  )
-                              );
-                            },
-                          )
-                      )
+                  // Container(
+                  //     height: 70,
+                  //     padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                  //     child:
+                  //         FlatButton(
+                  //           textColor: Colors.amber,
+                  //           color: Colors.grey,
+                  //           child: Text(
+                  //             'Continue as Guest ->',
+                  //             style: TextStyle(fontSize: 15),
+                  //           ),
+                  //           onPressed: () {
+                  //             Navigator.push(
+                  //                 context,
+                  //                 MaterialPageRoute(builder: (context){
+                  //                   return LoadingScreen();
+                  //                 }
+                  //                 )
+                  //             );
+                  //           },
+                  //         )
+                  //     )
                 ],
               )
           ),

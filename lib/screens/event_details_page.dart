@@ -1,4 +1,3 @@
-import 'package:scrappy/components/reusable_card.dart';
 import 'package:scrappy/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

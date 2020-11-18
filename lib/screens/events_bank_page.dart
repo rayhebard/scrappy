@@ -3,23 +3,21 @@ import 'package:scrappy/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:scrappy/screens/event_details_page.dart';
-
 
 
 //Internal files
-import '../components/icon_content.dart';
-import '../components/reusable_card.dart';
 import '../constants.dart';
 import 'filters_page.dart';
+import 'package:scrappy/screens/event_details_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/components/nav_bar.dart';
-import 'package:scrappy/screens/calendar_page.dart';
-import 'package:scrappy/screens/event_details_page.dart';
+import 'package:scrappy/screens/notification_page.dart';
+import 'package:scrappy/components/lead_card.dart';
+import 'package:scrappy/components/image_card.dart';
+
 
 const CCSE_hori_Logo='images/KSU_on light backgrounds/KSU_SVG LOGO/BE_Horiz_2Clr_Computing and Software.svg';
 
@@ -43,9 +41,8 @@ class _EventsBankPageState extends State<EventsBankPage> {
   List<Event> vault;
   List<Event> leads;
   int length;
-  var cScroller;
-
-   // / final ComputerScroller cScroller = ComputerScroller();
+  var computerScroller;
+  
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
@@ -74,7 +71,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
       vault = eventBankVault;
       length = vault.length;
       filtersForEvents = eventFilters;
-      cScroller = ComputerScroller(event:  leads[0]);
+      computerScroller = ComputerScroller(event:  leads[0]);
     });
   }
 
@@ -116,7 +113,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                             elevation: 2.0,
                             fillColor: kCardColor,
                             child: Icon(
-                              FontAwesomeIcons.calendarAlt,
+                              FontAwesomeIcons.bell,
                               size: 35.0,
                             ),
                             padding: EdgeInsets.all(15.0),
@@ -124,7 +121,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                             // onPressed: () => Navigator.pushReplacementNamed(context, CalendarPage.id),
                             onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return CalendarPage();
+                                return NotificationPage();
                               }));
                             },
 
@@ -179,7 +176,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                     width: size.width,
                     alignment: Alignment.topCenter,
                     height: closeTopContainer?0:categoryHeight,
-                    child: cScroller),
+                    child: computerScroller),
               ),
             
             Expanded(
@@ -210,7 +207,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
 class ComputerScroller extends StatelessWidget {
 
   final Event event;
-
   const ComputerScroller({this.event});
 
   @override
@@ -237,147 +233,6 @@ class ComputerScroller extends StatelessWidget {
   }
 }
 
-class ImageCard extends StatelessWidget {
-  const ImageCard({
-    Key key,
-    @required this.event,
-  }) : super(key: key);
-
-  final Event event;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: ()=>{
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return EventDetailsPage(event: event);
-        })
-        )},
-      child: Container(
-          height: 200,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
-          ]),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-            child: Row(
-              children: <Widget>[
-                Image.network(
-                  event.photo_url,
-                  width: 140,
-                  height: double.infinity,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(8),
-                          decoration:
-                          BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.amberAccent.shade100,
-                          ),
-                            child: Text(
-                          event.title,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.black87,fontSize: 20,  fontWeight: FontWeight.bold ),
-                            ),
-                        ),
-                        SizedBox(
-                          height:10,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(8),
-                        child:Text(
-                          "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
-                          style: TextStyle(color: Colors.black87, fontSize: 12),
-                        ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )),
-    );
-  }
-}
 
 
-class LeadCard extends StatelessWidget {
-  const LeadCard({
-    Key key,
-    @required this.event,
-  }) : super(key: key);
 
-  final Event event;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap:()=>{
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return EventDetailsPage(event: event);
-            }))
-        },
-      child: Container(
-          height: 150,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10.0)), color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 5.0),
-          ]),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-            child: Row(
-              children: <Widget>[
-                Image.network(
-                  event.photo_url,
-                  height: double.infinity,
-                ),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      decoration:
-                      BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.amberAccent.shade100,
-                      ),
-                      child: Text(
-                        event.title,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.black87,fontSize: 20,  fontWeight: FontWeight.bold ),
-                      ),
-                    ),
-                    SizedBox(
-                      height:10,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      child:Text(
-                        "From: " + Jiffy(event.first_date).yMMMd+'\n'+"To: " + Jiffy(event.last_date).yMMMd,
-                        style: TextStyle(color: Colors.black87, fontSize: 12),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-
-              ],
-            ),
-          )),
-    );
-  }
-}

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/components/nav_bar.dart';
-import 'package:scrappy/models/Favorites.dart';
+import 'package:scrappy/models/favorites.dart';
 import 'package:scrappy/services/database_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scrappy/constants.dart';

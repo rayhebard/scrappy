@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "299777666773-j1aed31qorc0l9mqgn93fm4m7cmqli08.apps.googleusercontent.com",
+              "client_id": "299777666773-dp5dbisoh965ak01lcvmpd9kh2dvpcrc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.randomninja.scrappy"
+                "bundle_id": "com.scrappy.scrappy"
               }
             }
           ]

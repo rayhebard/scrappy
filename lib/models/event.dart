@@ -194,7 +194,6 @@ class Event {
       );
     }
 
-
     // Override toString to have a beautiful log of student object
     @override
     String toString() {

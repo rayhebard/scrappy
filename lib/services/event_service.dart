@@ -92,7 +92,7 @@ class EventService {
 
   }
 
-  Future<Filters> getEventsFilters() async {
+  Future getEventsFilters() async {
     var client = Client();
     try{
       Response response = await client.get('https://calendar.kennesaw.edu/api/2/events/filters');
