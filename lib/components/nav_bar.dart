@@ -19,19 +19,19 @@ class Navbar extends StatelessWidget {
         children: <Widget>[
 
           Expanded(child:FlatButton(
-    onPressed: () => Navigator.pushReplacementNamed(context, LoadingScreen.id),
+    onPressed: () => Navigator.pushNamed(context, LoadingScreen.id),
     child: Icon(FontAwesomeIcons.home, color:  kCardColor)),
           ),
           Expanded(child: FlatButton(
-    onPressed: () => Navigator.pushReplacementNamed(context, FavoritesPage.id),
+    onPressed: () => Navigator.pushNamed(context, FavoritesPage.id),
     child: Icon(FontAwesomeIcons.star, color: kCardColor)),
           ),
           Expanded(child:FlatButton(
-    onPressed: () => Navigator.pushReplacementNamed(context, NotificationPage.id),
+    onPressed: () => Navigator.pushNamed(context, NotificationPage.id),
     child: Icon(FontAwesomeIcons.bell, color:  kCardColor)),
           ),
           Expanded(child: FlatButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, MapPage.id),
+              onPressed: () => Navigator.pushNamed(context, MapPage.id),
               child: Icon(FontAwesomeIcons.compass, color:  kCardColor)),
           ),
 
