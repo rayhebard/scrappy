@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scrappy/constants.dart';
 import 'package:scrappy/components/Nav_Bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationPage extends StatefulWidget {
   static const String id = '/notification_page';
@@ -12,58 +13,53 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  List<Message> _messages;
+  FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 
-  bool push = false;
-  bool email = false;
-  bool favorites = false;
+  bool all_events = false;
+  bool CCSE_events = false;
+  bool fav_events = false;
 
-  _getToken(){
-    _firebaseMessaging.getToken().then((deviceToken){
-      print("Device Token: $deviceToken");
-    });
+  bool status  = false;
+
+  getSwitchValues() async {
+    all_events = await getSwitchStateAll_Events();
+    CCSE_events = await getSwitchStateCCSE_Events();
+    fav_events = await getSwitchStateFavEvents();
+    setState(() {});
   }
 
-  _configureFirebaseListeners(){
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic>message) async{
-        print('onMessage: $message');
-        _setMessage(message);
-      },
-      onLaunch: (Map<String, dynamic>message) async{
-        print('onLaunch: $message');
-        _setMessage(message);
-      },
-      onResume: (Map<String, dynamic>message) async{
-        print('onResume: $message');
-        _setMessage(message);
-      },
-    );
+  Future<bool> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("switchState", value);
+    print('Switch Value saved $value');
+    return prefs.setBool("switchState", value);
+  }
+  Future<bool> getSwitchStateFavEvents() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool fav_events = prefs.getBool("switchState");
+    print(fav_events);
+    return fav_events;
+  }
+  Future<bool> getSwitchStateCCSE_Events() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool CCSE_events = prefs.getBool("switchState");
+    print(CCSE_events);
+    return CCSE_events;
   }
 
-  _setMessage(Map<String, dynamic>message){
-    final notification = message['notification'];
-    final data = message['data'];
-    final String title = notification['title'];
-    final String body = notification['body'];
-    final String mMessage = data['message'];
-    setState(() {
-      Message m = Message(title, body, mMessage);
-      _messages.add(m);
-    });
-
+  Future<bool> getSwitchStateAll_Events() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool all_events = prefs.getBool("switchState");
+    print(all_events);
+    return all_events;
   }
-
   @override
-  void initState(){
+  void initState() {
+    // TODO: implement initState
     super.initState();
-    _messages = List<Message>();
-    _getToken();
-    _configureFirebaseListeners();
+    getSwitchValues();
   }
 
-  bool status  = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,56 +71,59 @@ class _NotificationPageState extends State<NotificationPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SwitchListTile(
-              title: const Text('Push Notifications:',style:kLabelTextStyle3),
-              activeColor: Colors.amber,
-              value: push,
-              onChanged: (value) {
-                print("push : $value");
-                setState(() {
-                  push = value;
-                });
-              },
-            ),
-            SwitchListTile(
-              title: const Text('Email Notifications:',style:kLabelTextStyle3),
-              activeColor: Colors.amber,
-              value: email,
-              onChanged: (value) {
-                print("emails : $value");
-                setState(() {
-                  email = value;
-                });
-              },
-            ),
-            SwitchListTile(
-              title: const Text('Favorite Events Notifications:',style:kLabelTextStyle3),
-              activeColor: Colors.amber,
-              value: favorites,
-              onChanged: (value) {
-                print("favorites : $value");
-                setState(() {
-                  favorites = value;
-                });
-              },
-            ),
 
+            SwitchListTile(
+              title: const Text('Enable Push Notifications for all Events:',style:kLabelTextStyle3),
+              activeColor: Colors.amber,
+              value:all_events ,
+              onChanged: (value) {
+                print("all_events : $value");
+                setState(() {
+                  saveSwitchState(value);
+                  all_events = value;
+                  if(value == true ){
+                      firebaseMessaging.subscribeToTopic('all_events');
+                  }else{
+                    firebaseMessaging.unsubscribeFromTopic('all_events');
+                  }
+                });
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Enable Push Notifications for CCSE Events:',style:kLabelTextStyle3),
+              activeColor: Colors.amber,
+              value: CCSE_events,
+              onChanged: (value) {
+                print("CCSE_events : $value");
+                setState(() {
+                  CCSE_events = value;
+                  saveSwitchState(value);
+                  if(CCSE_events == false ){
+                      firebaseMessaging.subscribeToTopic('CCSE_events');
+                  }else{
+                    firebaseMessaging.unsubscribeFromTopic('CCSE_events');
+                  }
+                });
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Enable Push Notifications for Favorite Events:',style:kLabelTextStyle3),
+              activeColor: Colors.amber,
+              value: fav_events,
+              onChanged: (value) {
+                print("fav_events : $value");
+                setState(() {
+                  fav_events = value;
+                });
+              },
+            ),
           ],
         ),
       ),
     );
   }
 }
-class Message{
-  String title;
-  String body;
-  String message;
-  Message(title, body, message){
-    this.title = title;
-    this.body = body;
-    this.message = message;
 
-  }
-}
+
 
 
