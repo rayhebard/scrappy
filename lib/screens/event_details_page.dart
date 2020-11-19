@@ -138,7 +138,7 @@ class EventDetailsPage extends StatelessWidget {
                     icon: Icon(FontAwesomeIcons.infoCircle),
                     onPressed: () {
                       String url;
-                      event.url == null ?  url = event.localist_url : url = event.url;
+                      event.url == ""?  url = event.localist_url : url = event.url;
                       launchURL(url);
                     },
                     label: Text('Event Info Page',

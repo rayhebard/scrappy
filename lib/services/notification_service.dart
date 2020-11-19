@@ -4,7 +4,7 @@ import "dart:io";
 
 class NotificationService{
   List<Message> messages;
-  final FirebaseMessaging _fbm = FirebaseMessaging();
+  final FirebaseMessaging fbm = FirebaseMessaging();
 
   Future initialise() async{
     print("Initializing Firebase Configure");
@@ -13,10 +13,10 @@ class NotificationService{
       //   // save the token  OR subscribe to a topic here
       // });
 
-      _fbm.requestNotificationPermissions(IosNotificationSettings());
+      fbm.requestNotificationPermissions(IosNotificationSettings());
     }
 
-    _fbm.configure(
+    fbm.configure(
       onMessage: (Map<String, dynamic>message) async{
         print('onMessage: $message');
         setMessage(message);
@@ -33,13 +33,13 @@ class NotificationService{
   }
 
   getToken(){
-    _fbm.getToken().then((deviceToken){
+    fbm.getToken().then((deviceToken){
       print("Device Token: $deviceToken");
     });
   }
 
   configureFirebaseListeners(){
-    _fbm.configure(
+    fbm.configure(
       onMessage: (Map<String, dynamic>message) async{
         print('onMessage: $message');
         setMessage(message);
