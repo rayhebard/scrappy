@@ -58,15 +58,14 @@ class _MapPageState extends State<MapPage> {
             final TabController tabController = DefaultTabController.of(context);
             tabController.addListener(() {
               if (!tabController.indexIsChanging) {
-
                 setState(() {
                   _isLoading = true;
                 });
 
-                if(tabController.index == 0 && _isLoading == false){
+                if(tabController.index == 0 && _isLoading == true){
                   getKennesaw();
                 }
-                if(tabController.index == 1 && _isLoading == false){
+                if(tabController.index == 1 && _isLoading == true){
                   getMarrietta();
                 }
 
