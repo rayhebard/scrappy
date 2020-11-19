@@ -15,42 +15,42 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 
-  bool all_events = false;
-  bool CCSE_events = false;
-  bool fav_events = false;
-
-  bool status  = false;
+  bool all_events;
+  bool CCSE_events;
+  bool fav_events;
 
   getSwitchValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getKeys());
     all_events = await getSwitchStateAll_Events();
     CCSE_events = await getSwitchStateCCSE_Events();
     fav_events = await getSwitchStateFavEvents();
     setState(() {});
   }
 
-  Future<bool> saveSwitchState(bool value) async {
+  Future<bool> saveSwitchState(String key, bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("switchState", value);
+    prefs.setBool(key, value);
     print('Switch Value saved $value');
-    return prefs.setBool("switchState", value);
+    return prefs.setBool(key, value);
   }
   Future<bool> getSwitchStateFavEvents() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool fav_events = prefs.getBool("switchState");
-    print(fav_events);
+    bool fav_events = prefs.containsKey("favorite") && prefs.getBool("favorites")? prefs.getBool("favorites"): false;
+    print("Fave: " + fav_events.toString());
     return fav_events;
   }
   Future<bool> getSwitchStateCCSE_Events() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool CCSE_events = prefs.getBool("switchState");
-    print(CCSE_events);
+    bool CCSE_events = prefs.containsKey("ccse") && prefs.containsKey("ccse")? prefs.getBool("ccse"): false;
+    print("CCSE: " + CCSE_events.toString());
     return CCSE_events;
   }
 
   Future<bool> getSwitchStateAll_Events() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool all_events = prefs.getBool("switchState");
-    print(all_events);
+    bool all_events =  prefs.containsKey("all") && prefs.getBool("all")? prefs.getBool("all"): false;
+    print("All :"  + all_events.toString());
     return all_events;
   }
   @override
@@ -79,7 +79,7 @@ class _NotificationPageState extends State<NotificationPage> {
               onChanged: (value) {
                 print("all_events : $value");
                 setState(() {
-                  saveSwitchState(value);
+                  saveSwitchState("all", value);
                   all_events = value;
                   if(value == true ){
                       firebaseMessaging.subscribeToTopic('all_events');
@@ -97,8 +97,8 @@ class _NotificationPageState extends State<NotificationPage> {
                 print("CCSE_events : $value");
                 setState(() {
                   CCSE_events = value;
-                  saveSwitchState(value);
-                  if(CCSE_events == false ){
+                  saveSwitchState("ccse", value);
+                  if(CCSE_events == true ){
                       firebaseMessaging.subscribeToTopic('CCSE_events');
                   }else{
                     firebaseMessaging.unsubscribeFromTopic('CCSE_events');

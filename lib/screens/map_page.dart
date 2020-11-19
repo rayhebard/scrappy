@@ -69,8 +69,7 @@ class _MapPageState extends State<MapPage> {
                 if(tabController.index == 1 && _isLoading == false){
                   getMarrietta();
                 }
-                // Your code goes here.
-                // To get index of current tab use tabController.index
+
               }
             });
             return Scaffold(
