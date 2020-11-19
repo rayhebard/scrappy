@@ -187,7 +187,7 @@ class Event {
         event_target_audience: eventTargets,
         event_types: eventTypes,
         localist_url: data["localist_url"],
-        localist_ics_url: data["localist_ics_ur"],
+        localist_ics_url: data["localist_ics_url"],
         photo_url: data["photo_url"],
         venue_url: data["venue_url"],
         departments: departmentList,
