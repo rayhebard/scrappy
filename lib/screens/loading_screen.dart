@@ -12,6 +12,7 @@ import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/models/message.dart';
 import 'package:scrappy/services/notification_service.dart';
 
+
 class LoadingScreen extends StatefulWidget {
   static const String id = '/loading_screen';
   final List filtersForQuery;

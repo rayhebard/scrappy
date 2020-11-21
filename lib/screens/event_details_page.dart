@@ -24,15 +24,11 @@ class EventDetailsPage extends StatelessWidget {
     this.event
   }) : super(key: key);
 
-  FavoriteService favServe;
-
-  // final dbHelper = DatabaseHelper.instance;
-  bool isFav = false;
-
 
   @override
   Widget build(BuildContext context) {
 
+    FavoriteService favServe = FavoriteService(event: event, cancelText: "Cancel", affirmText: "Continue to Favorite Events List",);
     String text = event.localist_url;
     String subject = event.title;
 
@@ -181,9 +177,8 @@ class EventDetailsPage extends StatelessWidget {
                       RaisedButton.icon(
                         color:kCardColor,
                         textColor: Colors.white,
-                        icon: isFav == false ? Icon(FontAwesomeIcons.star):Icon(FontAwesomeIcons.solidStar),
+                        icon: favServe.isFav(event.id.toString(), favServe.allRows) == false ? Icon(FontAwesomeIcons.star):Icon(FontAwesomeIcons.solidStar),
                         onPressed: () {
-                           favServe = FavoriteService(event: event, cancelText: "Cancel", affirmText: "Continue to Favorite Events List",);
                            favServe.insertOrDelete(event.id.toString());
                            favServe.showAlertDialog(context);
                            (context as Element).markNeedsBuild();

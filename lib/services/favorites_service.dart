@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrappy/services/database_helper.dart';
 import 'package:scrappy/screens/favorites_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:scrappy/models/event.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:share/share.dart';
+
 
 
 class FavoriteService{
@@ -13,11 +11,15 @@ class FavoriteService{
   final String cancelText;
   final String affirmText;
   final dbHelper = DatabaseHelper.instance;
+  var allRows;
 
   FavoriteService({
-    @required this.event, this.cancelText, this.affirmText
+    this.event, this.cancelText, this.affirmText
   });
 
+  init() {
+    query();
+  }
   insertOrDelete(String id) async {
     final rowsPresent = await dbHelper.queryForFav(id);
     if (rowsPresent > 0) {
@@ -50,14 +52,14 @@ class FavoriteService{
   }
 
   void query() async {
-    final allRows = await dbHelper.queryAllRows();
+    allRows = await dbHelper.queryAllRows();
     print('query all rows:');
     allRows.forEach((row) => print(row));
+    return allRows;
   }
 
-  isFav(){
-
-  }
+  var isFav = (String id, List allRows) => (
+      (allRows == null || allRows != null && allRows.length  <= 0)? false : ((allRows.where((row)=>(row["id"].contains(id)))).length > 0)? true : false);
 
   showAlertDialog(BuildContext context) {
 
@@ -91,7 +93,5 @@ class FavoriteService{
       },
     );
   }
-
-
 }
 
