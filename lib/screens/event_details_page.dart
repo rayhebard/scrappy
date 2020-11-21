@@ -10,6 +10,7 @@ import 'package:scrappy/services/database_helper.dart';
 import 'package:scrappy/screens/favorites_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:add_2_calendar/add_2_calendar.dart' as add;
+import 'package:scrappy/services/favorites_service.dart';
 
 
 
@@ -17,34 +18,26 @@ class EventDetailsPage extends StatelessWidget {
   static const String id = '/event_details_page';
 
   final Event event;
+
   EventDetailsPage({
     Key key,
     this.event
   }) : super(key: key);
 
-  final dbHelper = DatabaseHelper.instance;
+  FavoriteService favServe;
+
+  // final dbHelper = DatabaseHelper.instance;
   bool isFav = false;
-
-  Future<bool> _favQuery() async {
-    final rowsPresent = await dbHelper.queryForFav(event.id);
-    if (rowsPresent > 0) {
-      print('event is in database');
-      isFav = true;
-      return true;
-    }
-  }
-
 
 
   @override
   Widget build(BuildContext context) {
 
-    print(this.event);
     String text = event.localist_url;
     String subject = event.title;
 
-     DateTime first_date = DateTime.parse(event.first_date);
-     DateTime last_date = DateTime.parse(event.last_date);
+     DateTime first_date = event.start;
+     DateTime last_date = event.end;
 
     final add.Event selected_event = add.Event(
       title: event.title,
@@ -190,9 +183,10 @@ class EventDetailsPage extends StatelessWidget {
                         textColor: Colors.white,
                         icon: isFav == false ? Icon(FontAwesomeIcons.star):Icon(FontAwesomeIcons.solidStar),
                         onPressed: () {
-                          _insertOrDelete(event.id);
-                          showAlertDialog(context);
-                          (context as Element).markNeedsBuild();
+                           favServe = FavoriteService(event: event, cancelText: "Cancel", affirmText: "Continue to Favorite Events List",);
+                           favServe.insertOrDelete(event.id.toString());
+                           favServe.showAlertDialog(context);
+                           (context as Element).markNeedsBuild();
                         },
                         label: Text('Add to Favorites',
                           style: TextStyle(fontSize: 20.0, ),),
@@ -209,7 +203,7 @@ class EventDetailsPage extends StatelessWidget {
                     icon: Icon(FontAwesomeIcons.star),
                     highlightedBorderColor: Colors.black.withOpacity(0.12),
                     onPressed: () {
-                      _query();
+                      // _query();
                     },
                     label: Text('Query',
                       style: TextStyle(fontSize: 20.0, color: Colors.black),),
@@ -221,7 +215,7 @@ class EventDetailsPage extends StatelessWidget {
     );
   }
 
-
+  //Code to Access the External WebPage
   launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -230,75 +224,5 @@ class EventDetailsPage extends StatelessWidget {
     }
   }
 
-  void _insertOrDelete(int id) async {
-    final rowsPresent = await dbHelper.queryForFav(id);
-    if (rowsPresent > 0) {
-      print('Its favourite and removing it');
-      _delete();
-        isFav = false;
-
-    } else {
-      print('Nothing found so inserting you dodo');
-      _insert();
-        isFav = true;
-
-    }
-  }
-  void _delete() async {
-    // Assuming that the number of rows is the id for the last row.
-    final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(event.id);
-    print('deleted $rowsDeleted row(s): row $id');
-  }
-  void _query() async {
-    final allRows = await dbHelper.queryAllRows();
-    print('query all rows:');
-    allRows.forEach((row) => print(row));
-  }
-  void _insert() async {
-    // row to insert
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: event.id,
-      DatabaseHelper.columnTitle: event.title,
-      DatabaseHelper.columnFirstDate: event.first_date,
-      DatabaseHelper.columnLastDate: event.last_date,
-    };
-    final id = await dbHelper.insert(row);
-    print('inserted row id: $id');
-  }
-
-  showAlertDialog(BuildContext context) {
-
-    // set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text("Cancel"),
-      onPressed:  () {
-        Navigator.of(context).pop(); // dismiss dialog
-     },
-    );
-    Widget continueButton = FlatButton(
-      child: Text("Continue to Favorite Events List"),
-      onPressed:  () => Navigator.pushReplacementNamed(context, FavoritesPage.id),
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Added to Favorite Events"),
-      content: Text("Would you like to see your Favorites?"),
-      actions: [
-        cancelButton,
-        continueButton,
-
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 }
 
