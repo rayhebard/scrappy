@@ -43,7 +43,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
-            $columnId TEXT PRIMARY KEY,
+            $columnId INTEGER PRIMARY KEY,
             $columnTitle TEXT NOT NULL,
             $columnFirstDate TEXT NOT NULL,
             $columnLastDate TEXT NOT NULL
@@ -90,7 +90,7 @@ class DatabaseHelper {
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
   //Raw query to check if it is in the favourites
-  Future<int> queryForFav(String id) async {
+  Future<int> queryForFav(int id) async {
     Database db = await instance.database;
     int noOfRows = 0;
     try {

@@ -340,7 +340,7 @@ class _CalendarPageState extends State<CalendarPage>
                     color:Colors.black87,
                   onPressed: () {
                     favServe = FavoriteService(event: event, cancelText: "Cancel", affirmText: "Continue to Favorite Events List",);
-                    favServe.insertOrDelete(event.id.toString());
+                    favServe.insertOrDelete(event.id);
                     favServe.showAlertDialog(context);
                     (context as Element).markNeedsBuild();
                   },

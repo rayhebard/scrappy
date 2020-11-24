@@ -19,7 +19,7 @@ class FavoriteService{
   init() {
     query();
   }
-  insertOrDelete(String id) async {
+  insertOrDelete(int id) async {
     final rowsPresent = await dbHelper.queryForFav(id);
     if (rowsPresent > 0) {
       print('Its favourite and removing it');
@@ -57,7 +57,7 @@ class FavoriteService{
     return allRows;
   }
 
-  var isFav = (String id, List allRows) => (
+  var isFav = (int id, List allRows) => (
       (allRows == null || allRows != null && allRows.length  <= 0)? false : ((allRows.where((row)=>(row["id"].contains(id)))).length > 0)? true : false);
 
   showAlertDialog(BuildContext context) {

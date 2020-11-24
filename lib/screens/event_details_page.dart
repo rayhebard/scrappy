@@ -177,9 +177,9 @@ class EventDetailsPage extends StatelessWidget {
                       RaisedButton.icon(
                         color:kCardColor,
                         textColor: Colors.white,
-                        icon: favServe.isFav(event.id.toString(), favServe.allRows) == false ? Icon(FontAwesomeIcons.star):Icon(FontAwesomeIcons.solidStar),
+                        icon: favServe.isFav(event.id, favServe.allRows) == false ? Icon(FontAwesomeIcons.star):Icon(FontAwesomeIcons.solidStar),
                         onPressed: () {
-                           favServe.insertOrDelete(event.id.toString());
+                           favServe.insertOrDelete(event.id);
                            favServe.showAlertDialog(context);
                            (context as Element).markNeedsBuild();
                         },

@@ -190,7 +190,7 @@ class _EventsBankPageState extends State<EventsBankPage> {
                         opacity: scale,
                         child: Transform(
                           transform:  Matrix4.identity()..scale(scale,scale),
-                          alignment: Alignment.bottomCenter,
+                          alignment: Alignment.topCenter,
                           child: ImageCard(event:vault[index]),
                         ),
                       );
