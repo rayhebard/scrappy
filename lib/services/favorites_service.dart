@@ -5,7 +5,6 @@ import 'package:scrappy/screens/favorites_page.dart';
 import 'package:scrappy/models/event.dart';
 
 
-
 class FavoriteService{
   final Event event;
   final String cancelText;
