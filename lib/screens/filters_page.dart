@@ -28,6 +28,7 @@ class _FiltersPageState extends State<FiltersPage> {
   List<EventTargetAudience> audiences;
   List<EventType> types;
 
+
   void onChanged(bool value, item){
     setState(() {
           item.isChecked = !item.isChecked;
@@ -43,6 +44,7 @@ class _FiltersPageState extends State<FiltersPage> {
   void updateUi(Filters filters){
         types = filters.event_types;
         audiences = filters.event_target_audience;
+
   }
 
   @override
@@ -84,7 +86,7 @@ class _FiltersPageState extends State<FiltersPage> {
                           contentPadding: EdgeInsets.all(4.0),
                           title: new Text(types[index].name, style: kLabelTextStyle),
                           activeColor: Colors.amberAccent,
-                          value: types[index].isChecked,
+                          value: types[index].isChecked  ,
                           onChanged: (bool value){onChanged(value, types[index]);});
                     },
                   )),

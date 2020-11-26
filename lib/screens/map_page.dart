@@ -12,15 +12,15 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-    var document;
-    var _isLoading= true;
+  var document;
+  var _isLoading= true;
 
   loadKennesaw() async{
-     document = await PDFDocument.fromAsset("images/kennesaw-parking-map-fall-2020.pdf");
-     print("Load Kennesaw");
-     setState(() {
-       _isLoading = false;
-     });
+    document = await PDFDocument.fromAsset("images/kennesaw-parking-map-fall-2020.pdf");
+    print("Load Kennesaw");
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   getKennesaw(){
@@ -40,7 +40,7 @@ class _MapPageState extends State<MapPage> {
   }
 
 
-   @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -74,17 +74,22 @@ class _MapPageState extends State<MapPage> {
             return Scaffold(
               appBar: AppBar(
                 bottom: TabBar(
-                  tabs: [
-                    Tab(text: "Kennesaw"),
-                    Tab(text:"Marrietta")
-                  ]
+                    tabs: [
+                      Tab(child: Text(
+                'Kennesaw',style: TextStyle(fontSize: 22.0, color: Colors.white),
+                )),
+
+                      Tab(child: Text(
+                        'Marietta',style: TextStyle(fontSize: 22.0, color: Colors.white),
+                      )),
+                    ]
                 ),
               ),
               body: TabBarView(
-                children: [
-                  _isLoading? CircularProgressIndicator(): PDFViewer(document: document),
-                  _isLoading? CircularProgressIndicator(): PDFViewer(document: document)
-                ]
+                  children: [
+                    _isLoading? CircularProgressIndicator(): PDFViewer(document: document),
+                    _isLoading? CircularProgressIndicator(): PDFViewer(document: document)
+                  ]
               ),
             );
           }
@@ -92,4 +97,3 @@ class _MapPageState extends State<MapPage> {
     );
   }
 }
-
