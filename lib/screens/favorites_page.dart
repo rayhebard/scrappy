@@ -23,8 +23,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   var eventService = EventService();
   var favService = FavoriteService();
-
-  final dbHelper = DatabaseHelper.instance;
+  
   List<Favorites> favList = new List();
   bool isOver = false;
   @override
@@ -135,9 +134,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
   }
   void _delete(event) async {
     // Assuming that the number of rows is the id for the last row.
-    // final id = await dbHelper.queryRowCount();
-    // final rowsDeleted = await dbHelper.delete(eventID);
     favService.delete(event);
-    // print('deleted $rowsDeleted row(s): row $id');
   }
 }
