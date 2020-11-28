@@ -1,20 +1,16 @@
-//import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:scrappy/constants.dart';
 import 'package:scrappy/components/nav_bar.dart';
 
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:scrappy/screens/event_details_page.dart';
 import 'package:scrappy/services/event_service.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/components/round_icon_button.dart';
-import 'package:scrappy/services/database_helper.dart';
-import 'package:scrappy/screens/favorites_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:scrappy/services/favorites_service.dart';
 
 
 // Example holidays
@@ -33,7 +29,6 @@ class CalendarPage extends StatefulWidget {
 
   final String title;
   final Map<DateTime, List> calendarEvents;
-
   @override
   _CalendarPageState createState() => _CalendarPageState();
 }
@@ -42,6 +37,7 @@ class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
 
   Future future;
+  FavoriteService favServe;
 
   var eventService = EventService();
   final today = DateTime.parse(
@@ -146,7 +142,7 @@ class _CalendarPageState extends State<CalendarPage>
       child: Scaffold(
         bottomNavigationBar: Navbar(),
         appBar: AppBar(
-          title: Text('CCSE Event Calendar'),
+          title: Text('KSU Event Calendar'),
         ),
         body: FutureBuilder(
           future: future,
@@ -191,7 +187,7 @@ class _CalendarPageState extends State<CalendarPage>
         formatButtonTextStyle: TextStyle().copyWith(
             color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
-          color: Colors.amber[400],
+          color: Colors.amberAccent[400],
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
@@ -340,19 +336,16 @@ class _CalendarPageState extends State<CalendarPage>
                   child: Text(event.toDisplay()),
                     onPressed: ()=>{Navigator.push(context, MaterialPageRoute(builder: (context) => EventDetailsPage(event: event)))},
                 ),
-                trailing: RoundIconButton(icon: FontAwesomeIcons.star, color:Colors.black87,  onPressed: ()=> {
+                trailing: RoundIconButton(icon: FontAwesomeIcons.star,
+                    color:Colors.black87,
 
-                  // _insertOrDelete(event.id);
-                  // showAlertDialog(context);
-                  // (context as Element).markNeedsBuild();
-                }),
-                // onTap: () =>
-                // {
-                //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                //     return EventDetailsPage(event: event);
-                //   })
-                //   ) //Navigator
-                // }
+                  onPressed: () {
+                    favServe = FavoriteService(event: event, cancelText: "Cancel", affirmText: "Continue to Favorite Events List",);
+                    favServe.insertOrDelete(event.id);
+                    favServe.showAlertDialog(context);
+                    (context as Element).markNeedsBuild();
+                  },
+                ),
             ),
           ))
           .toList(),

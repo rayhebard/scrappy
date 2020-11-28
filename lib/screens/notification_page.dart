@@ -65,7 +65,7 @@ class _NotificationPageState extends State<NotificationPage> {
     return Scaffold(
       bottomNavigationBar: Navbar(),
       appBar:AppBar(
-          title: Text('Scrappy')
+          title: Text('Notification Settings')
       ),
       body: Center(
         child: Column(
@@ -98,7 +98,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 setState(() {
                   CCSE_events = value;
                   saveSwitchState("ccse", value);
-                  if(value == true ){
+                  if(CCSE_events == true ){
                       firebaseMessaging.subscribeToTopic('CCSE_events');
                   }else{
                     firebaseMessaging.unsubscribeFromTopic('CCSE_events');
@@ -106,17 +106,17 @@ class _NotificationPageState extends State<NotificationPage> {
                 });
               },
             ),
-            SwitchListTile(
-              title: const Text('Enable Push Notifications for Favorite Events:',style:kLabelTextStyle3),
-              activeColor: Colors.amber,
-              value: fav_events,
-              onChanged: (value) {
-                print("fav_events : $value");
-                setState(() {
-                  fav_events = value;
-                });
-              },
-            ),
+            //SwitchListTile(
+              //title: const Text('Enable Push Notifications for Favorite Events:',style:kLabelTextStyle3),
+             // activeColor: Colors.amber,
+              //value: fav_events,
+              //onChanged: (value) {
+                //print("fav_events : $value");
+                //setState(() {
+                //  fav_events = value;
+                //});
+              //},
+            //),
           ],
         ),
       ),

@@ -8,8 +8,8 @@ import 'package:scrappy/constants.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/screens/event_details_page.dart';
-import 'package:scrappy/services/event_service.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:scrappy/services/event_service.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const String id = '/favorites';
@@ -46,7 +46,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Scaffold(
       bottomNavigationBar: Navbar(),
       appBar:AppBar(
-          title: Text('Favorite Events')
+          title: Text('Your Favorited Events')
       ),
       body:
 
@@ -63,6 +63,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
           var LastDate = DateTime.parse(favList[index].last_date);
           DateTime TodayDate = new DateTime.now();
+          var TomoDate = new DateTime(TodayDate.year, TodayDate.month, TodayDate.day+1);
           print(TodayDate.isBefore(LastDate));
 
           return Dismissible(
@@ -75,10 +76,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
               Column(
                   children: <Widget>[
                     Text(Jiffy(favList[index].first_date).yMMMd +' - '+ Jiffy(favList[index].last_date).yMMMd ?? '', textAlign: TextAlign.center, style:TextStyle(color: kCardColor, fontSize: 18,)),
-                    if (TodayDate.isAfter(LastDate) == true)
+                    if (TomoDate.isAfter(LastDate) == true)
                       Text('\n' + "This Event is Over", style:TextStyle(color: Colors.redAccent, fontSize: 18,)),
                   ],
               ),
+
+
 
                 leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
                 onTap: () async{
