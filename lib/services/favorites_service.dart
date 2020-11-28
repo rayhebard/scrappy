@@ -22,23 +22,23 @@ class FavoriteService{
   insertOrDelete(int id) async {
     final rowsPresent = await dbHelper.queryForFav(id);
     if (rowsPresent > 0) {
-      print('Its favourite and removing it');
-      _delete();
+      print('Already Favorite');
+      return;
 
     } else {
       print('Nothing found so inserting you dodo');
-      _insert();
+      insert();
     }
   }
 
-  void _delete() async {
+  void delete(event) async {
     // Assuming that the number of rows is the id for the last row.
     final id = await dbHelper.queryRowCount();
     final rowsDeleted = await dbHelper.delete(event.id);
     print('deleted $rowsDeleted row(s): row $id');
   }
 
-  void _insert() async {
+  void insert() async {
     // row to insert
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: event.id,
@@ -50,7 +50,7 @@ class FavoriteService{
     print('inserted row id: $id');
   }
 
-  void query() async {
+  Future<List> query() async {
     allRows = await dbHelper.queryAllRows();
     print('query all rows:');
     allRows.forEach((row) => print(row));
