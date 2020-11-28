@@ -10,6 +10,7 @@ import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/screens/event_details_page.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:scrappy/services/event_service.dart';
+import 'package:scrappy/services/favorites_service.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const String id = '/favorites';
@@ -21,6 +22,7 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
 
   var eventService = EventService();
+  var favService = FavoriteService();
 
   final dbHelper = DatabaseHelper.instance;
   List<Favorites> favList = new List();
@@ -29,7 +31,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   void initState() {
     super.initState();
 
-    DatabaseHelper.instance.queryAllRows().then((value) {
+    favService.query().then((value) {
       setState(() {
         value.forEach((element) {
           favList.add(Favorites(id: element['id'], title: element["title"],first_date: element["first_date"],last_date: element["last_date"], ));
@@ -93,10 +95,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 }),
             onDismissed: (direction) {
               var item = favList.elementAt(index);
-              int eventID = favList[index].id;
               //To delete
               deleteItem(index);
-              _delete(eventID);
+              _delete(item);
             },
           );
         },
@@ -131,10 +132,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
       favList.removeAt(index);
     });
   }
-  void _delete(eventID) async {
+  void _delete(event) async {
     // Assuming that the number of rows is the id for the last row.
-    final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(eventID);
-    print('deleted $rowsDeleted row(s): row $id');
+    // final id = await dbHelper.queryRowCount();
+    // final rowsDeleted = await dbHelper.delete(eventID);
+    favService.delete(event);
+    // print('deleted $rowsDeleted row(s): row $id');
   }
 }
