@@ -72,11 +72,18 @@ class _MapPageState extends State<MapPage> {
               }
             });
             return Scaffold(
+              bottomNavigationBar: Navbar(),
               appBar: AppBar(
+                    title: Text('Campus Maps'),
                 bottom: TabBar(
                   tabs: [
-                    Tab(text: "Kennesaw"),
-                    Tab(text:"Marrietta")
+                    Tab(child: Text(
+                      'Kennesaw',style: TextStyle(fontSize: 22.0, color: Colors.white),
+                    )),
+
+                    Tab(child: Text(
+                      'Marietta',style: TextStyle(fontSize: 22.0, color: Colors.white),
+                    )),
                   ]
                 ),
               ),

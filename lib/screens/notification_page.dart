@@ -98,7 +98,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 setState(() {
                   CCSE_events = value;
                   saveSwitchState("ccse", value);
-                  if(CCSE_events == true ){
+                  if(value == true ){
                       firebaseMessaging.subscribeToTopic('CCSE_events');
                   }else{
                     firebaseMessaging.unsubscribeFromTopic('CCSE_events');

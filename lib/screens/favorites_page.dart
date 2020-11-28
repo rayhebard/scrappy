@@ -8,8 +8,8 @@ import 'package:scrappy/constants.dart';
 import 'package:scrappy/models/event.dart';
 import 'package:scrappy/models/events_bank.dart';
 import 'package:scrappy/screens/event_details_page.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:scrappy/services/event_service.dart';
+import 'package:jiffy/jiffy.dart';
 
 class FavoritesPage extends StatefulWidget {
   static const String id = '/favorites';
@@ -79,8 +79,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       Text('\n' + "This Event is Over", style:TextStyle(color: Colors.redAccent, fontSize: 18,)),
                   ],
               ),
-
-
 
                 leading: Icon(FontAwesomeIcons.solidStar,color:  kCardColor),
                 onTap: () async{
