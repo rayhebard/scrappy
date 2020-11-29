@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scrappy/screens/login_page.dart';
 import 'screens/calendar_page.dart';
 import 'screens/events_bank_page.dart';
 import 'screens/event_details_page.dart';
@@ -36,7 +35,7 @@ class Scrappy extends StatelessWidget {
           fontFamily: 'SourceSans-Pro',
         ),
       ),
-      home: LoginPage(),
+      home: LoadingScreen(),
       routes: {
         EventsBankPage.id:(context)=>EventsBankPage(),
         EventDetailsPage.id : (context)=>EventDetailsPage(),

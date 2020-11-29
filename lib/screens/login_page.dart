@@ -27,12 +27,6 @@ class _LoginPageState extends State<LoginPage>{
               padding: EdgeInsets.all(10),
               child: ListView(
                 children: <Widget>[
-                 // Center(
-                 //   child: new Image.asset(
-                 //     'images/owl_wink.jpg',
-                 //     fit: BoxFit.fill,
-                 //   ),
-                 // ),
                   Center(
                     child: Text(
                       'Scrappy',
@@ -61,30 +55,6 @@ class _LoginPageState extends State<LoginPage>{
                           color: Colors.black87),
                     ),
                   ),
-                  Container(
-
-                      height: 70,
-                      padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                      child: RaisedButton(
-                        textColor: Colors.amberAccent.shade100,
-                        color: kCardColor,
-                        child: Text(
-                            'Play',
-                            style: TextStyle(fontSize: 20),
-                        ),
-
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context){
-                                return LoadingScreen();
-                              }
-                              )
-                          );
-                          print(nameController.text);
-                          print(passwordController.text);
-                        },
-                      )),
                 ],
               )
           ),

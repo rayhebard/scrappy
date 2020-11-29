@@ -23,7 +23,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   var eventService = EventService();
   var favService = FavoriteService();
-  
+
   List<Favorites> favList = new List();
   bool isOver = false;
   @override
