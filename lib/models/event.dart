@@ -46,6 +46,7 @@ class Event {
     String description_text;
     int photo_id;
     int detail_views;
+    List<EventInstance> event_instances;
     String address;
     String description;
     bool featured;
@@ -98,6 +99,7 @@ class Event {
       this.description_text,
       this.photo_id,
       this.detail_views,
+      this.event_instances,
       this.address,
       this.description,
       this.featured,
@@ -114,7 +116,6 @@ class Event {
     factory Event.fromJSON(Map<String, dynamic> data){
 
       //Create list for nested list inside the event object
-
       var keywords = data["keywords"] as List;
       List<String> keywordList =  keywords != null && keywords.length > 0 ? new List<String>.from(keywords) : [];
 
@@ -134,6 +135,10 @@ class Event {
         targets = data["filters"]["event_target_audience"].toList();
       }
       List<EventTargetAudience> eventTargets = targets != null && targets.length > 0 ? targets.map((item) => EventTargetAudience.fromJson(item)).toList()  : [];
+
+      var instances = data["event_instances"] as List;
+      List<EventInstance> eiList = instances != null && instances.length > 0 ? instances.map((item) => EventInstance.fromJson(item["event_instance"])).toList()  : [];
+
 
       //Create date time object for Calendar Page
       var startDate = DateTime.parse(data["first_date"]);
@@ -181,6 +186,7 @@ class Event {
         description_text: data["description_text"],
         photo_id: data["photo_id"],
         detail_views: data["detail_views"],
+        event_instances: eiList,
         address: data["address"],
         description: data["description"],
         featured: data["featured"],
@@ -321,4 +327,35 @@ class CalendarEvent{
       end: DateTime.parse(data["end"]),
     );
     }
+}
+
+class EventInstance{
+  int id;
+  int event_id;
+  String start;
+  String end;
+  double ranking;
+  bool all_day;
+  int num_attending;
+
+  EventInstance({this.id, this.event_id, this.start, this.end, this.ranking,
+      this.all_day, this.num_attending});
+
+  factory EventInstance.fromJson(Map<String, dynamic> data){
+    return EventInstance(
+      id: data["id"],
+      event_id: data["event_id"],
+      start: data["start"],
+      end: data["end"],
+      ranking: data["ranking"],
+      all_day: data["all_day"],
+      num_attending: data["num_attending"]
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Event Insance: {id = $id, event_id = $event_id, start = $start, end= $end, ranking=$ranking }';
+  }
+
 }
