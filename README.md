@@ -1,6 +1,4 @@
 
-
-
 #Scrappy Event and Engagement Application
 
 ## Our Goal
@@ -12,7 +10,6 @@ This project targets the CCSE department; this application aims to improve stude
 
 The final product of this project is a fully working mobile application. This application hosts information about all KSU events in a reliable & efficient manner. All the event information is relayed to the user in an intuitive format that allows for ease of exploration of the KSU community.​
 
-![Finished App]()
 
 Resources:
 
@@ -28,6 +25,6 @@ https://miro.com/​
 
 https://support.localist.com/localist-api/
 
->This is a companion project to The App Brewery's Complete Flutter Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
+>This is a Capstone project for Kennesaw State University Event Calendar [https://calendar.kennesaw.edu/calendar](https://calendar.kennesaw.edu/calendar/)
 
 ![End Banner](https://github.com/londonappbrewery/Images/blob/master/readme-end-banner.png)
