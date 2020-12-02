@@ -1,5 +1,5 @@
 
-#Scrappy Event and Engagement Application
+# Scrappy Event and Engagement Application
 
 ## Our Goal
 
