@@ -10,6 +10,7 @@ This project targets the CCSE department; this application aims to improve stude
 
 The final product of this project is a fully working mobile application. This application hosts information about all KSU events in a reliable & efficient manner. All the event information is relayed to the user in an intuitive format that allows for ease of exploration of the KSU community.​
 
+![events](scrappy_events.gif) ![calendar](scrappy_calendar.gif) ![maps](scrappy_maps.gif)
 
 Resources:
 
