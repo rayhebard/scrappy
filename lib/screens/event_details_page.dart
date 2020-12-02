@@ -188,22 +188,22 @@ class EventDetailsPage extends StatelessWidget {
                       )
                   ),
 
-              Container(
-                  padding: EdgeInsets.all(4),
-                  child:
-                  OutlineButton.icon(
-                    color:Colors.amberAccent.shade100 ,
-                    textColor: kCardColor,
-                    borderSide: BorderSide(style:BorderStyle.solid),
-                    icon: Icon(FontAwesomeIcons.star),
-                    highlightedBorderColor: Colors.black.withOpacity(0.12),
-                    onPressed: () {
-                      // _query();
-                    },
-                    label: Text('Query',
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),),
-                  )
-              ),
+              // Container(
+              //     padding: EdgeInsets.all(4),
+              //     child:
+              //     OutlineButton.icon(
+              //       color:Colors.amberAccent.shade100 ,
+              //       textColor: kCardColor,
+              //       borderSide: BorderSide(style:BorderStyle.solid),
+              //       icon: Icon(FontAwesomeIcons.star),
+              //       highlightedBorderColor: Colors.black.withOpacity(0.12),
+              //       onPressed: () {
+              //         // _query();
+              //       },
+              //       label: Text('Query',
+              //         style: TextStyle(fontSize: 20.0, color: Colors.black),),
+              //     )
+              // ),
             ],
           )
       ),
