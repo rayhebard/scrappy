@@ -28,4 +28,4 @@ https://support.localist.com/localist-api/
 
 >This is a Capstone project for Kennesaw State University Event Calendar [https://calendar.kennesaw.edu/calendar](https://calendar.kennesaw.edu/calendar/)
 
-![End Banner](https://github.com/londonappbrewery/Images/blob/master/readme-end-banner.png)
+![End Banner](project_icons.png)
