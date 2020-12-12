@@ -71,7 +71,10 @@ class _EventsBankPageState extends State<EventsBankPage> {
       vault = eventBankVault;
       length = vault.length;
       filtersForEvents = eventFilters;
-      cScroller = ComputerScroller(event:  leads[0]);
+      if (leads.isEmpty == true){cScroller = ComputerScroller(event: vault[0]);}
+      else
+        {cScroller = ComputerScroller(event:  leads[0]);}
+
     });
   }
 
@@ -203,7 +206,6 @@ class _EventsBankPageState extends State<EventsBankPage> {
   }
 }
 
-
 class ComputerScroller extends StatelessWidget {
 
   final Event event;
@@ -216,7 +218,8 @@ class ComputerScroller extends StatelessWidget {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
-      child: Container(
+      child:
+      Container(
         height: 200,
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: FittedBox(
@@ -225,7 +228,7 @@ class ComputerScroller extends StatelessWidget {
           child: Row(
             children: <Widget>[
               LeadCard(event: event),
-              LeadCard(event: event)
+              //LeadCard(event: event)
             ],
           ),
         ),
@@ -233,6 +236,7 @@ class ComputerScroller extends StatelessWidget {
     );
   }
 }
+
 
 
 
